@@ -1,0 +1,21 @@
+{
+  "name": "space-pirates",
+  "version": "0.0.0",
+  "description": "Deep Space Kraken or Bust",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Space-Pirates/spacePirates.git"
+  },
+  "author": "Jak Buttarazzi, Rob Bruhn, Mher Khanoyan, Nassir Zeinu",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Space-Pirates/spacePirates/issues"
+  },
+  "homepage": "https://github.com/Space-Pirates/spacePirates#readme"
+}
