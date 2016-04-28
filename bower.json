@@ -1,0 +1,20 @@
+{
+  "name": "space-pirates",
+  "description": "Deep Space Kraken or Bust",
+  "main": "server/index.js",
+  "authors": [
+    "Jak Buttarazzi",
+    "Rob Bruhn",
+    "Mher Khanoyan",
+    "Nassir Zeinu"
+  ],
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/JakRazzi/spacePirates",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
