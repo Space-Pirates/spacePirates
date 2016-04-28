@@ -3,6 +3,42 @@ var dragPosition;
 var dropZone;
 var boardTile;
 
+// var tiles = [
+//     {
+//         name: 'intersection',
+//         top: true,
+//         right: true,
+//         bottom: true,
+//         left: true,
+//         quantity: 5,
+//         src: '/assets/intersection.png'
+//     },
+//     {
+//         name: 'down',
+//         top: true,
+//         right: true,
+//         bottom: true,
+//         left: true,
+//         quantity: 4,
+//         src: '/assets/down.png'
+//     },
+//     {
+//         name: 'T',
+//         top: true,
+//         right: false,
+//         bottom: true,
+//         left: true,
+//         quantity: 5,
+//         src: '/assets/T.png',
+//         flip: function(){
+//             this.top = !this.top;
+//             this.right = !this.right;
+//             this.bottom = !this.bottom;
+//             this.left = !this.left;
+//         }
+//     }
+// ];
+
 function create() {
     dropZone = game.add.sprite(0, 0, 'zone');
     dropZone.height = 450;
