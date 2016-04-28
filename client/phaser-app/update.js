@@ -20,7 +20,11 @@ function onDragStop(sprite, pointer) {
 
     if (sprite.overlap(boardTile))
     {
-        game.add.tween(sprite).to( { x: dragPosition.x, y: dragPosition.y }, 500, "Back.easeOut", true);
+        if(boardTile.empty){
+          boardTile.empty = false;
+        }else{
+          game.add.tween(sprite).to( { x: dragPosition.x, y: dragPosition.y }, 500, "Back.easeOut", true);
+        }
     }
 
 }

@@ -2,6 +2,7 @@ var board;
 var dragPosition;
 var dropZone;
 var boardTile;
+var tile1, tile2;
 
 // var tiles = [
 //     {
@@ -67,23 +68,39 @@ var board = [
             boardTile = game.add.sprite(x*70, y*50, 'zone');
             boardTile.height = 45;
             boardTile.width = 65;
+            boardTile.empty = true;
         });
-    })
+    });
     
-    card = game.add.sprite(900, 45, 'zone');
-    card.height = 45;
-    card.width = 65;
-    card.tint = 0xffffff;
+    tile1 = game.add.sprite(900, 45, 'zone');
+    tile1.height = 45;
+    tile1.width = 65;
+    tile1.tint = 0xffffff;
     
-    card.inputEnabled = true;
-    card.input.enableDrag();
-    card.input.enableSnap(70, 50, false, true);
+    tile1.inputEnabled = true;
+    tile1.input.enableDrag();
+    tile1.input.enableSnap(70, 50, false, true);
 
-    card.events.onInputOver.add(onOver, this);
-    card.events.onInputOut.add(onOut, this);
-    card.events.onDragStart.add(onDragStart, this);
-    card.events.onDragStop.add(onDragStop, this);
+    tile1.events.onInputOver.add(onOver, this);
+    tile1.events.onInputOut.add(onOut, this);
+    tile1.events.onDragStart.add(onDragStart, this);
+    tile1.events.onDragStop.add(onDragStop, this);
 
-    dragPosition = new Phaser.Point(card.x, card.y);
+    tile2 = game.add.sprite(900, 95, 'zone');
+    tile2.height = 45;
+    tile2.width = 65;
+    tile2.tint = 0xffffff;
+    
+    tile2.inputEnabled = true;
+    tile2.input.enableDrag();
+    tile2.input.enableSnap(70, 50, false, true);
+
+    tile2.events.onInputOver.add(onOver, this);
+    tile2.events.onInputOut.add(onOut, this);
+    tile2.events.onDragStart.add(onDragStart, this);
+    tile2.events.onDragStop.add(onDragStop, this);
+
+    dragPosition = new Phaser.Point(tile1.x, tile1.y);
+    dragPosition2 = new Phaser.Point(tile2.x, tile2.y);
 
 }
