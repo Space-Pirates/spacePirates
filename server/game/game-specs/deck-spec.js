@@ -2,7 +2,7 @@ var chai = require('chai');
 var Deck = require('../deck');
 var tileDictionary = require('../tile-dictionary.json');
 var db = require('../../db/db');
-var expect = chai.expect();
+var expect = chai.expect;
 var collection, deck, doc;
 
 function makePlayer(cb, done) {
