@@ -8,7 +8,16 @@
     "express": "^4.13.4",
     "rethinkdb": "^2.3.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "git-guppy": "^1.2.1",
+    "gulp": "^3.9.1",
+    "gulp-cached": "^1.1.0",
+    "gulp-filter": "^4.0.0",
+    "gulp-jshint": "^2.0.0",
+    "guppy-pre-commit": "^0.3.0",
+    "jshint": "^2.9.2",
+    "jshint-stylish": "^2.1.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
