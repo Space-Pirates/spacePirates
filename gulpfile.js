@@ -4,7 +4,11 @@ var stylish = require('jshint-stylish');
 var cache = require('gulp-cached');
 var filter = require('gulp-filter');
 var guppy = require('git-guppy')(gulp);
+var mocha = require('gulp-mocha');
 
+var testPath = {
+  game: 'server/game/game-specs/game-spec-runner.js'
+};
 
 gulp.task('lint', function() {
   var jsFilter = filter(['**/*.js', '!node_modules/**', '!client/bower_components/**']);
@@ -27,6 +31,11 @@ gulp.task('pre-commit', function () {
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
     .pipe(jshint.reporter('fail'));
+});
+
+gulp.task('test-game', function() {
+  return gulp.src(testPath.game, {read: false})
+    .pipe(mocha({reporter: 'nyan'}));
 });
 
 gulp.task('default', ['lint', 'watch']);
