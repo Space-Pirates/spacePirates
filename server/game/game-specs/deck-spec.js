@@ -64,9 +64,47 @@ describe('Deck Class', function() {
   });
 
   describe('dealTile method', function () {
-    it('should exist');
-    it('should give a player a tile');
-    it('should not have the given tile in the deck');
+
+    beforeEach(function (done) {
+      deck.setTiles(['a', 'b', 'c'])
+      .then(function() {
+        done();
+      });
+    });
+
+    it('should exist', function() {
+      expect(deck.dealTile).to.be.a('function');
+    });
+    // TODO: This needs to be refactored for database interaction
+    it('should give a player a tile', function() {
+      var player = {
+        hand: []
+      };
+
+      deck.dealTile(player);
+      expect(player.hand).to.deep.equal(['c']);
+      deck.dealTile(player);
+      deck.dealTile(player);
+      expect(player.hand).to.deep.equal(['c', 'b', 'a']);
+    });
+    // TODO: This needs to be refactored for database interaction
+    it('should remove the given tile from the deck', function() {
+      var player = {
+        hand: []
+      };
+
+      deck.dealTile(player);
+      deck.getTiles()
+      .then(function(collection) {
+        expect(collection).to.deep.equal(['a', 'b']);
+      })
+      deck.dealTile(player);
+      deck.dealTile(player);
+      deck.getTiles()
+      .then(function(collection) {
+        expect(collection).to.have.length(0);
+      })
+    });
   });
 
   describe('initialize method', function () {
