@@ -4,7 +4,7 @@ var tileDictionary = require('../tile-dictionary.json');
 var expect = chai.expect();
 var collection, deck;
 
-describe('Deck Class', function() {
+module.exports = function() {
 
   beforeEach(function (){
     deck = new Deck();
@@ -145,4 +145,4 @@ describe('Deck Class', function() {
       expect(collection).to.have.length(54);
     });
   });
-});
+};
