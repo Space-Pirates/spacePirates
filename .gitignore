@@ -20,3 +20,6 @@ client/bower_components/
 
 # Misc
 .DS_Store
+
+# DB
+rethinkdb_data/
