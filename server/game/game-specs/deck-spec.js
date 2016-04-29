@@ -48,8 +48,19 @@ describe('Deck Class', function() {
   });
 
   describe('shuffle method', function () {
-    it('should exist');
-    it('should randomize the collection of tiles');
+    it('should exist', function() {
+      expect(deck.shuffle).to.be.a('function');
+    });
+    it('should randomize the collection of tiles', function() {
+      var collection = ['a', 'b', 'c'];
+      var shuffled = deck.shuffle(collection);
+
+      expect(shuffled).to.not.deep.equal(collection);
+      expect(shuffled).to.have.length(collection.length);
+      expect(shuffled).to.contain('a');
+      expect(shuffled).to.contain('b');
+      expect(shuffled).to.contain('c');
+    });
   });
 
   describe('dealTile method', function () {
