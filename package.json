@@ -5,7 +5,9 @@
   "main": "index.js",
   "dependencies": {
     "body-parser": "^1.15.0",
+    "chai": "^3.5.0",
     "express": "^4.13.4",
+    "mocha": "^2.4.5",
     "rethinkdb": "^2.3.1"
   },
   "devDependencies": {
