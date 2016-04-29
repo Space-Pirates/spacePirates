@@ -1,10 +1,26 @@
 var chai = require('chai');
-var should = chai.should();
+var Deck = require('../deck');
+var expect = chai.expect();
 
 describe('Deck Class', function() {
 
-  describe('setTiles', function () {
-    it('should exist');
+  beforeEach(function () {
+    var deck = new Deck();
+  });
+
+  it('should exist', function() {
+    expect(Deck).to.be.a('function');
+  });
+  it('should be a class with psuedoclassical instantiation', function() {
+    expect(deck).to.be.an("Object");
+  });
+  it('should have a gameID property', function() {
+    expect(deck.gameID).to.be.a("number");;
+  });
+
+  describe('setTiles method', function () {
+    it('should exist', function() {
+    });
     it('should set the collection of tiles in the database');
   });
 
