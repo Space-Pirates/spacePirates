@@ -27,8 +27,24 @@ describe('Deck Class', function() {
   });
 
   describe('getTiles method', function () {
-    it('should exist');
-    it('should return a collection of tile objects');
+    it('should exist', function() {
+      expect(deck.getTiles).to.be.a('function');
+    });
+    it('should return a collection of tile objects', function(done) {
+      var collection = [];
+
+      deck.setTiles(['a', 'b', 'c'])
+      .then(function() {
+        deck.getTiles()
+        .then(function(collection) {
+          collection = deck.getTiles();
+          done();
+        })
+      });
+
+      expect(collection).to.be.an("array");
+      expect(collection).to.deep.equal(['a', 'b', 'c']);
+    });
   });
 
   describe('shuffle method', function () {
