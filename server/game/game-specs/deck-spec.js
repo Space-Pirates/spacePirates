@@ -20,7 +20,9 @@ describe('Deck Class', function() {
 
   describe('setTiles method', function () {
     it('should exist', function() {
+      expect(deck.setTiles).to.be.a('function');
     });
+    // TODO: Hook tests up to database
     it('should set the collection of tiles in the database');
   });
 
