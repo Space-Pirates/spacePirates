@@ -9,7 +9,9 @@ Deck.prototype = {
 
   getTiles: function() {},
 
-  shuffle: function() {},
+  shuffle: function(collection) {
+    return _.shuffle(collection);
+  },
 
   dealTiles: function() {},
 
