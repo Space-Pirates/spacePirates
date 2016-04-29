@@ -1,0 +1,11 @@
+<div>
+  <div class="panel play" 
+    ng-repeat="room in rooms track by room.id"
+    ui-sref="game.play({id: room.id})">
+    <span ng-bind="room.players.length"></span> Players
+  </div>
+  <div class="panel create"
+    ui-sref="game.play({id: 2})">
+    <a>Create A Game</a>    
+  </div>
+</div>
