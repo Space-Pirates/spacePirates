@@ -3,7 +3,7 @@ var Deck = require('../deck');
 var tileDictionary = require('../tile-dictionary.json');
 var db = require('../../db/db');
 var expect = chai.expect();
-var collection, deck, doc;
+var collection, deck, doc, playerId;
 
 module.exports = function() {
 
@@ -16,7 +16,7 @@ module.exports = function() {
       tiles: []
     })
     .save()
-    .then(function(data) {
+    .then(function() {
       done();
     })
     .catch(function(err) {
@@ -26,7 +26,7 @@ module.exports = function() {
   });
 
   afterEach(function (done) {
-    db.Deck.filter('testGameId')
+    db.Deck.filter({gameId: 'testGameId'})
     .delete()
     .then(function() {
       done();
@@ -54,10 +54,10 @@ module.exports = function() {
     it('should set the collection of tiles in the database', function(done) {
       deck.setTiles(['a', 'b', 'c'])
       .then(function() {
-        db.Deck.filter('testGameId').run()
+        db.Deck.filter({gameId: 'testGameId'}).run()
         .then(function(data) {
           doc = data;
-          done()
+          done();
         })
         .catch(function(err) {
           console.error(err);
@@ -121,6 +121,37 @@ module.exports = function() {
     beforeEach(function (done) {
       deck.setTiles(['a', 'b', 'c'])
       .then(function() {
+        new db.Player({
+          gameId: 'testGameId',
+          role: 'pirate',
+          isTurn: false,
+          hand: [],
+          debuffs: []
+        })
+        .save()
+        .then(function(data) {
+          playerId = data.id;
+          done();
+        })
+        .catch(function(err) {
+          console.error(err);
+          done();
+        });
+      })
+      .catch(function(err) {
+        console.error(err);
+        done();
+      });
+    });
+
+    afterEach(function (done) {
+      db.Player.get(playerId)
+      .delete()
+      .then(function() {
+        done();
+      })
+      .catch(function(err) {
+        console.error(err);
         done();
       });
     });
@@ -128,36 +159,47 @@ module.exports = function() {
     it('should exist', function() {
       expect(deck.dealTile).to.be.a('function');
     });
-    // TODO: This needs to be refactored for database interaction
-    it('should give a player a tile', function() {
-      var player = {
-        hand: []
-      };
-
-      deck.dealTile(player);
+    it('should give a player a tile', function(done) {
+      var player;
+      deck.dealTile(playerId)
+      .then(function() {
+        db.Player.get(playerId).run()
+        .then(function(data) {
+          player = data;
+          done();
+        })
+        .catch(function(err) {
+          console.error(err);
+          done();
+        });
+      })
+      .catch(function(err) {
+        console.error(err);
+        done();
+      });
       expect(player.hand).to.deep.equal(['c']);
-      deck.dealTile(player);
-      deck.dealTile(player);
-      expect(player.hand).to.deep.equal(['c', 'b', 'a']);
     });
-    // TODO: This needs to be refactored for database interaction
-    it('should remove the given tile from the deck', function() {
-      var player = {
-        hand: []
-      };
+    it('should remove the given tile from the deck', function(done) {
+      var tiles;
+      deck.dealTile(playerId)
+      .then(function() {
+        deck.getTiles()
+        .then(function(data) {
+          tiles = data;
+          done();
+        })
+        .catch(function(err) {
+          console.error(err);
+          done();
+        });
+      })
+      .catch(function(err) {
+        console.error(err);
+        done();
+      });
+    });
 
-      deck.dealTile(player);
-      deck.getTiles()
-      .then(function(tiles) {
-        expect(tiles).to.deep.equal(['a', 'b']);
-      });
-      deck.dealTile(player);
-      deck.dealTile(player);
-      deck.getTiles()
-      .then(function(tiles) {
-        expect(tiles).to.have.length(0);
-      });
-    });
+    expect(tiles).to.deep.equal(['a', 'b']);
   });
 
   describe('initialize method', function () {
