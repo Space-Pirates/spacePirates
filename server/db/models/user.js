@@ -1,4 +1,5 @@
 var thinky = require('./../thinky');
+
 var type = thinky.type;
 
 var User = thinky.createModel('User', {
@@ -12,8 +13,8 @@ var User = thinky.createModel('User', {
 
 module.exports = User;
 
+// Must come after export
 var Game = require('./game');
 
-User.hasAndBelongsToMany(Game, 'id', 'id');
+User.hasAndBelongsToMany(Game, 'games', 'id', 'id');
 // User.hasMany(Game, 'ownedGames', 'id', 'ownerId');
-
