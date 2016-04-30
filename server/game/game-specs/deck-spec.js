@@ -105,14 +105,14 @@ module.exports = function() {
       expect(deck.shuffle).to.be.a('function');
     });
     it('should randomize the collection of tiles', function() {
-      collection = ['a', 'b', 'c'];
+      collection = ['g', 'h', 'i'];
       var shuffled = deck.shuffle(collection);
 
       expect(shuffled).to.not.deep.equal(collection);
       expect(shuffled).to.have.length(collection.length);
-      expect(shuffled).to.contain('a');
-      expect(shuffled).to.contain('b');
-      expect(shuffled).to.contain('c');
+      expect(shuffled).to.contain('g');
+      expect(shuffled).to.contain('h');
+      expect(shuffled).to.contain('i');
     });
   });
 
