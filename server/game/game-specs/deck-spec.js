@@ -84,6 +84,7 @@ module.exports = function() {
         })
         .catch(function(err) {
           console.error(err);
+          expect(doc.tiles).to.deep.equal(['a', 'b', 'c']);
           done();
         });
       })
@@ -92,7 +93,6 @@ module.exports = function() {
         done();
       });
 
-      expect(doc.tiles).to.deep.equal(['a', 'b', 'c']);
     });
   });
 

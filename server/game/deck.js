@@ -1,4 +1,5 @@
-var _ = require('underscore'); 
+var _ = require('underscore');
+var db = require('../db/db');
 
 var Deck = function(gameId) {
   this.gameId = gameId;
@@ -7,7 +8,16 @@ var Deck = function(gameId) {
 Deck.prototype = {
   constructor: Deck,
 
-  setTiles: function() {},
+  setTiles: function(tiles) {
+    return db.Deck.filter({gameId: this.gameId})
+    .update({tiles: tiles}).run()
+    .then(function(data) {
+      return data;
+    })
+    .catch(function(err) {
+      console.error(err);
+    })
+  },
 
   getTiles: function() {},
 
