@@ -3,7 +3,7 @@ var Deck = require('../deck');
 var tileDictionary = require('../tile-dictionary.json');
 var db = require('../../db/db');
 var expect = chai.expect();
-var collection, deck, dbDeckId;
+var collection, deck, doc;
 
 module.exports = function() {
 
@@ -16,8 +16,7 @@ module.exports = function() {
       tiles: []
     })
     .save()
-    .then(function(doc) {
-      dbDeckId = doc.id;
+    .then(function(data) {
       done();
     })
     .catch(function(err) {
@@ -27,7 +26,7 @@ module.exports = function() {
   });
 
   afterEach(function (done) {
-    db.Deck.get(dbDeckId)
+    db.Deck.filter('testGameId')
     .delete()
     .then(function() {
       done();
@@ -44,16 +43,33 @@ module.exports = function() {
   it('should be a class with psuedoclassical instantiation', function() {
     expect(deck).to.be.an('Object');
   });
-  it('should have a gameID property', function() {
-    expect(deck.gameID).to.be.a('string');
+  it('should have a gameId property', function() {
+    expect(deck.gameID).to.equal('testGameId');
   });
 
   describe('setTiles method', function () {
     it('should exist', function() {
       expect(deck.setTiles).to.be.a('function');
     });
-    // TODO: Hook tests up to database
-    it('should set the collection of tiles in the database');
+    it('should set the collection of tiles in the database', function(done) {
+      deck.setTiles(['a', 'b', 'c'])
+      .then(function() {
+        db.Deck.filter('testGameId').run()
+        .then(function(data) {
+          doc = data;
+          done()
+        })
+        .catch(function(err) {
+          console.error(err);
+          done();
+        });
+      })
+      .catch(function(err) {
+        console.error(err);
+      });
+
+      expect(doc.tiles).to.deep.equal(['a', 'b', 'c']);
+    });
   });
 
   describe('getTiles method', function () {
