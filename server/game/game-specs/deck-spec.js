@@ -7,10 +7,7 @@ var collection, deck;
 module.exports = function() {
 
   beforeEach(function (){
-    deck = new Deck();
-  });
-  afterEach(function() {
-    deck = undefined;
+    deck = new Deck('testGameId');
   });
 
   it('should exist', function() {
@@ -47,7 +44,6 @@ module.exports = function() {
 
       expect(collection).to.be.an('array');
       expect(collection).to.deep.equal(['a', 'b', 'c']);
-      collection = undefined;
     });
   });
 
@@ -64,7 +60,6 @@ module.exports = function() {
       expect(shuffled).to.contain('a');
       expect(shuffled).to.contain('b');
       expect(shuffled).to.contain('c');
-      collection = undefined;
     });
   });
 
@@ -123,10 +118,6 @@ module.exports = function() {
           done();
         });
       });
-    });
-
-    afterEach(function () {
-      collection = undefined;
     });
 
     it('should exist', function() {
