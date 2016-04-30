@@ -18,6 +18,8 @@
     "tests"
   ],
   "dependencies": {
-    "phaser": "^2.4.7"
+    "phaser": "^2.4.7",
+    "angular": "^1.5.5",
+    "angular-ui-router": "^0.2.18"
   }
 }

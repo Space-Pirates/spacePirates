@@ -3,20 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <title>Space Pirates</title>
-  <script src="bower_components/phaser/build/phaser.js"></script>
-  <script src="phaser-app/preload.js"></script>
-  <script src="phaser-app/create.js"></script>
-  <script src="phaser-app/update.js"></script>
-  <script src="phaser-app/render.js"></script>
-  <style type="text/css">
-        body {
-            margin: 0;
-        }
-    </style>
 </head>
-<body>
-  <script>
-    var game = new Phaser.Game(1280, 600, Phaser.CANVAS, 'Space Pirates', { preload: preload, create: create, update: update, render:render});
-  </script>
+<body ng-app="spacePirates">
+  <div class='content'>
+    <div ui-view></div>
+  </div>
+  <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+  <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+  <script type="text/javascript" src="bower_components/phaser/build/phaser.min.js"></script>  
+  <script type="text/javascript" src="main-app/app.js"></script>
+  <script type="text/javascript" src="main-app/menu/menu.js"></script>
+  <script type="text/javascript" src="main-app/game/game.js"></script>
+  <script type="text/javascript" src="phaser-app/main.js"></script>
 </body>
 </html>
