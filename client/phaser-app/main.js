@@ -6,7 +6,6 @@ window.createGame = function(ele, scope, players, mapId, injector) {
     game.load.baseURL = 'http://examples.phaser.io/assets/';
     game.load.crossOrigin = 'anonymous';
 
-    game.load.image('eye', 'pics/lance-overdose-loader_eye.png');
     game.load.image('zone', 'sprites/platform.png');
 
   }
@@ -76,4 +75,3 @@ window.createGame = function(ele, scope, players, mapId, injector) {
   }
 
 };
-
