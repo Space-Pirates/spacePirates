@@ -1,12 +1,12 @@
 var thinky = require('./../thinky');
-var Game = require('./game');
 
 var type = thinky.type;
 
 var Deck = thinky.createModel('Deck', {
   id: type.string(),
+  lastDiscard: type.string(),
+  tilesRemaining: type.number(),
+  tiles: type.array()
 });
-
-Deck.belongsTo(Game, 'game', 'deckId', 'id');
 
 module.exports = Deck;
