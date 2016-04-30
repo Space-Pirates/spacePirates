@@ -7,7 +7,8 @@ var guppy = require('git-guppy')(gulp);
 var mocha = require('gulp-mocha');
 
 var testPath = {
-  game: 'server/game/game-specs/game-spec-runner.js'
+  game: 'server/game/game-specs/game-spec-runner.js',
+  db: 'server/db/db-specs/main-spec.js'
 };
 
 gulp.task('lint', function() {
@@ -35,6 +36,11 @@ gulp.task('pre-commit', function () {
 
 gulp.task('test-game', function() {
   return gulp.src(testPath.game, {read: false})
+    .pipe(mocha({reporter: 'nyan'}));
+});
+
+gulp.task('test-db', function() {
+  return gulp.src(testPath.db, {read: false})
     .pipe(mocha({reporter: 'nyan'}));
 });
 
