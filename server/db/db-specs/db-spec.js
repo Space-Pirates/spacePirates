@@ -1,45 +1,46 @@
 var chai = require('chai');
-var r = require('rethinkdb');
+var db = require('./../db');
+var thinky = require('./../thinky');
+
 var expect = chai.expect;
-var db = require('./../main');
 
-db.setup();
+var TEST_USER = {
+  name: 'test',
+  age: 80,
+  email: 'test@example.com',
+  username: 'test',
+  password: 'test123'
+}
 
-describe('rethinkDB', function(done) {
+describe('User model', function(done) {
 
-  it('should have a database called "space_pirates"', function(done) {
-    db.connect(function(conn) {
-      r.dbList().run(conn, function(err, dbList) {
-        if (err) {
-          throw err;
-        }
-        expect(dbList).to.contain('space_pirates');
-        done();
-      });
+  beforeEach(function(done){
+    db.User.save(TEST_USER).then(() => done());
+  });
+
+  afterEach(function(done) {
+    db.User.filter(TEST_USER).delete().run().then(() => done());
+  });
+
+  it('should exist', function(done) {
+    expect(db.User).to.exist;
+    done();
+  });
+
+  it('should have created a table named "User"', function(done) {
+    expect(db.User.getTableName()).to.equal('User');
+    done();
+  });
+
+  it('should be able to save and retrieve a user', function(done) {
+    db.User.run().then(function (users) {
+      expect(users[0].name).to.be.equal('test');
+      expect(users[0].age).to.be.equal(80);
+      expect(users[0].email).to.be.equal('test@example.com');
+      expect(users[0].username).to.be.equal('test');
+      done();
     });
   });
 
-  it('should have a table called "users"', function(done) {
-    db.connect(function(conn) {
-      r.db('space_pirates').tableList().run(conn, function(err, tableList) {
-        if (err) {
-          throw err;
-        }
-        expect(tableList).to.contain('users');
-        done();
-      });
-    });
-  });
-
-  it('should have a table called "games"', function(done) {
-    db.connect(function(conn) {
-      r.db('space_pirates').tableList().run(conn, function(err, tableList) {
-        if (err) {
-          throw err;
-        }
-        expect(tableList).to.contain('games');
-        done();
-      });
-    });
-  });
 });
+
