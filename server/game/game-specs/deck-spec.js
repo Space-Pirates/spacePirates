@@ -3,7 +3,30 @@ var Deck = require('../deck');
 var tileDictionary = require('../tile-dictionary.json');
 var db = require('../../db/db');
 var expect = chai.expect();
-var collection, deck, doc, playerId;
+var collection, deck, doc;
+
+function makePlayer(cb, done) {
+  var playerId;
+
+  new db.Player({
+    gameId: 'testGameId',
+    role: 'pirate',
+    isTurn: false,
+    hand: [],
+    debuffs: []
+  })
+  .save()
+  .then(function(data) {
+    playerId = data;
+    done();
+  })
+  .catch(function(err) {
+    console.error(err);
+    done();
+  });
+
+  cb(playerId);
+}
 
 module.exports = function() {
 
@@ -117,26 +140,14 @@ module.exports = function() {
   });
 
   describe('dealTile method', function () {
+    var playerId;
 
     beforeEach(function (done) {
       deck.setTiles(['a', 'b', 'c'])
       .then(function() {
-        new db.Player({
-          gameId: 'testGameId',
-          role: 'pirate',
-          isTurn: false,
-          hand: [],
-          debuffs: []
-        })
-        .save()
-        .then(function(data) {
+        makePlayer(function(data) {
           playerId = data.id;
-          done();
-        })
-        .catch(function(err) {
-          console.error(err);
-          done();
-        });
+        }, done);
       })
       .catch(function(err) {
         console.error(err);
@@ -145,7 +156,7 @@ module.exports = function() {
     });
 
     afterEach(function (done) {
-      db.Player.get(playerId)
+      db.Player
       .delete()
       .then(function() {
         done();
@@ -197,9 +208,9 @@ module.exports = function() {
         console.error(err);
         done();
       });
-    });
 
-    expect(tiles).to.deep.equal(['a', 'b']);
+      expect(tiles).to.deep.equal(['a', 'b']);
+    });
   });
 
   describe('initialize method', function () {
@@ -226,7 +237,24 @@ module.exports = function() {
       expect(collection.slice(0, 9)).to.not.deep.equal(tileDictionary.slice(0, 9));
     });
     // TODO: Hook this up to database
-    it('should deal 3 tiles to each player');
+    it('should deal 3 tiles to each player', function(done) {
+      var players = [];
+      makePlayer(function(player) {
+        players.push(player);
+      }, function() {
+        makePlayer(function(player) {
+          players.push(player);
+        }, function() {
+          makePlayer(function(player) {
+            players.push(player);
+          }, done);
+        });
+      });
+
+      expect(players[0].hand.length).to.equal(3);
+      expect(players[1].hand.length).to.equal(3);
+      expect(players[2].hand.length).to.equal(3);
+    });
     it('should have 54 tiles remaining in the collection', function() {
       expect(collection).to.have.length(54);
     });
