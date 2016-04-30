@@ -5,6 +5,7 @@ var type = thinky.type;
 var Player = thinky.createModel('Player', {
   id: type.string(),
   gameId: type.string(),
+  socketId: type.string(),
   role: type.string(),
   isTurn: type.boolean(),
   hand: type.array(),
