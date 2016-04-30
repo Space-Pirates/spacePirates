@@ -1,6 +1,8 @@
 var _ = require('underscore'); 
 
-var Deck = function() {};
+var Deck = function(gameId) {
+  this.gameId = gameId;
+};
 
 Deck.prototype = {
   constructor: Deck,

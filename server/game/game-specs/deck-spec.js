@@ -67,7 +67,7 @@ module.exports = function() {
     expect(deck).to.be.an('Object');
   });
   it('should have a gameId property', function() {
-    expect(deck.gameID).to.equal('testGameId');
+    expect(deck.gameId).to.equal('testGameId');
   });
 
   describe('setTiles method', function () {
