@@ -1,5 +1,4 @@
 var thinky = require('./../thinky');
-var User = require('./user');
 var Board = require('./board');
 var Deck = require('./deck');
 var Player = require('./player');
@@ -17,6 +16,9 @@ Game.hasOne(Board, 'board', 'boardId', 'id');
 Game.hasOne(Deck, 'deck', 'deckId', 'id')
 Game.hasMany(Player, 'players', 'id', 'gameId');
 
-Game.hasAndBelongsToMany(User, 'users' 'id', 'id');
-
 module.exports = Game;
+
+// Must come after export
+var User = require('./user');
+
+Game.hasAndBelongsToMany(User, 'users', 'id', 'id');
