@@ -17,6 +17,6 @@ Game.hasOne(Board, 'board', 'boardId', 'id');
 Game.hasOne(Deck, 'deck', 'deckId', 'id')
 Game.hasMany(Player, 'players', 'id', 'gameId');
 
-Game.hasAndBelongsToMany(User, 'id', 'id');
+Game.hasAndBelongsToMany(User, 'users' 'id', 'id');
 
 module.exports = Game;
