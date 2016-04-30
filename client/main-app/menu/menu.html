@@ -1,11 +1,11 @@
-<div>
-  <div class="panel play" 
-    ng-repeat="room in rooms track by room.id"
-    ui-sref="game.play({id: room.id})">
+<div layout="row" layout-padding="" layout-wrap="" layout-fill="" style="padding-bottom: 32px;" ng-cloak="">
+  
+  <md-whiteframe layout="column" class="md-whiteframe-2dp panel play" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout="" layout-align="center center" ng-repeat="room in rooms track by room.id" ui-sref="game.play({id: room.id})">
     <span ng-bind="room.players.length"></span> Players
-  </div>
-  <div class="panel create"
-    ui-sref="game.play({id: 2})">
-    <a>Create A Game</a>    
-  </div>
+  </md-whiteframe>
+
+  <md-whiteframe layout="column" class="md-whiteframe-2dp panel play" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout="" layout-align="center center" ui-sref="game.play({id: createGame()})">
+    <a>Create A Game</a>
+  </md-whiteframe>   
+
 </div>
