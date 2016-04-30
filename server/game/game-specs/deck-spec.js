@@ -66,6 +66,7 @@ module.exports = function() {
       })
       .catch(function(err) {
         console.error(err);
+        done();
       });
 
       expect(doc.tiles).to.deep.equal(['a', 'b', 'c']);
@@ -77,17 +78,25 @@ module.exports = function() {
       expect(deck.getTiles).to.be.a('function');
     });
     it('should return a collection of tile objects', function(done) {
-      deck.setTiles(['a', 'b', 'c'])
+      deck.setTiles(['d', 'e', 'f'])
       .then(function() {
         deck.getTiles()
-        .then(function(collection) {
-          collection = deck.getTiles();
+        .then(function(data) {
+          collection = data;
+          done();
+        })
+        .catch(function(err) {
+          console.error(err);
           done();
         });
+      })
+      .catch(function(err) {
+        console.error(err);
+        done();
       });
 
       expect(collection).to.be.an('array');
-      expect(collection).to.deep.equal(['a', 'b', 'c']);
+      expect(collection).to.deep.equal(['d', 'e', 'f']);
     });
   });
 
