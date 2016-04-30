@@ -8,12 +8,10 @@ var type = thinky.type;
 var Game = thinky.createModel('Game', {
   id: type.string(),
   // ownerId: type.string(),
-  boardId: type.string(),
-  deckId: type.string()
 });
 
-Game.hasOne(Board, 'board', 'boardId', 'id');
-Game.hasOne(Deck, 'deck', 'deckId', 'id')
+Game.hasOne(Board, 'board', 'id', 'gameId');
+Game.hasOne(Deck, 'deck', 'id', 'gameId');
 Game.hasMany(Player, 'players', 'id', 'gameId');
 
 module.exports = Game;
