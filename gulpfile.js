@@ -5,10 +5,11 @@ var cache = require('gulp-cached');
 var filter = require('gulp-filter');
 var guppy = require('git-guppy')(gulp);
 var mocha = require('gulp-mocha');
+var exit = require('gulp-exit');
 
 var testPath = {
   game: 'server/game/game-specs/game-spec-runner.js',
-  db: 'server/db/db-specs/main-spec.js'
+  db: 'server/db/db-specs/db-spec.js'
 };
 
 gulp.task('lint', function() {
@@ -36,12 +37,14 @@ gulp.task('pre-commit', function () {
 
 gulp.task('test-game', function() {
   return gulp.src(testPath.game, {read: false})
-    .pipe(mocha({reporter: 'nyan'}));
+    .pipe(mocha({reporter: 'nyan'}))
+    .pipe(exit());
 });
 
 gulp.task('test-db', function() {
   return gulp.src(testPath.db, {read: false})
-    .pipe(mocha({reporter: 'nyan'}));
+    .pipe(mocha({reporter: 'nyan'}))
+    .pipe(exit());
 });
 
 gulp.task('default', ['lint', 'watch']);
