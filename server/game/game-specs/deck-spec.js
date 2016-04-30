@@ -1,13 +1,41 @@
 var chai = require('chai');
 var Deck = require('../deck');
 var tileDictionary = require('../tile-dictionary.json');
+var db = require('../../db/db');
 var expect = chai.expect();
-var collection, deck;
+var collection, deck, dbDeckId;
 
 module.exports = function() {
 
-  beforeEach(function (){
+  beforeEach(function (done){
     deck = new Deck('testGameId');
+    new db.Deck({
+      gameId: 'testGameId',
+      lastDiscard: '',
+      tilesRemaining: 54,
+      tiles: []
+    })
+    .save()
+    .then(function(doc) {
+      dbDeckId = doc.id;
+      done();
+    })
+    .catch(function(err) {
+      console.error(err);
+      done();
+    });
+  });
+
+  afterEach(function (done) {
+    db.Deck.get(dbDeckId)
+    .delete()
+    .then(function() {
+      done();
+    })
+    .catch(function(err) {
+      console.error(err);
+      done();
+    });
   });
 
   it('should exist', function() {
@@ -17,7 +45,7 @@ module.exports = function() {
     expect(deck).to.be.an('Object');
   });
   it('should have a gameID property', function() {
-    expect(deck.gameID).to.be.a('number');
+    expect(deck.gameID).to.be.a('string');
   });
 
   describe('setTiles method', function () {
