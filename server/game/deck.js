@@ -16,16 +16,25 @@ Deck.prototype = {
     })
     .catch(function(err) {
       console.error(err);
-    })
+    });
   },
 
-  getTiles: function() {},
+  getTiles: function() {
+    return db.Deck.filter({gameId: this.gameId})
+    .run()
+    .then(function(data) {
+      return data[0].tiles;
+    })
+    .catch(function(err) {
+      console.error(err);
+    });
+  },
 
   shuffle: function(collection) {
     return _.shuffle(collection);
   },
 
-  dealTiles: function() {},
+  dealTile: function() {},
 
   initialize: function() {}
 };

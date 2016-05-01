@@ -101,25 +101,26 @@ module.exports = function() {
       expect(deck.getTiles).to.be.a('function');
     });
     it('should return a collection of tile objects', function(done) {
+      var tiles;
+
       deck.setTiles(['d', 'e', 'f'])
       .then(function() {
         deck.getTiles()
         .then(function(data) {
-          collection = data;
+          tiles = data;
+          expect(tiles).to.be.an('array');
+          expect(tiles).to.deep.equal(['d', 'e', 'f']);
           done();
         })
         .catch(function(err) {
           console.error(err);
-          done();
+          done(err);
         });
       })
       .catch(function(err) {
         console.error(err);
-        done();
+        done(err);
       });
-
-      expect(collection).to.be.an('array');
-      expect(collection).to.deep.equal(['d', 'e', 'f']);
     });
   });
 
