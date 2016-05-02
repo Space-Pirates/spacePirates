@@ -7,6 +7,9 @@ var gameState = {
   },
 
   create: function() {
+    //listener for moves
+    //listener for initial gameData
+    //listener for deal
     dropZone = game.add.sprite(0, 50, 'nebula');
     dropZone.height = 450;
     dropZone.width = 840;
@@ -37,9 +40,24 @@ var gameState = {
     };
     CreateTile(tileData);
     //build board sprites, start and planet sprites 
-
+    // socket.on('yourTurn', function(data){
+    //   //change game status to playing making hand draggable
+    // })
+    // socket.on('otherPlay', function(newTile){
+    //   createStaticTile(newTile);
+    //   //add to board
+    //   addToBoard(newTile);
+    // });
+    // socket.on('deal', function(newTile){
+    //   createTile(newTile);
+    // });
   }
 };
+function CreateStaticTile(tileData){
+  var tile = game.add.sprite(tileData.x*70, tileData.y*50, tileData.name);
+  tile.height = 45;
+  tile.width = 65;
+}
 
 function CreateTile(tileData){
   var tile = game.add.sprite(tileData.x*70, tileData.y*50, tileData.name);
@@ -74,6 +92,7 @@ function  onDragStop(sprite, pointer) {
     x = sprite.position.x/70;
     y = sprite.position.y/50;
     console.log(x,y);
+    //checkPosition(sprite);
     //emit sprite type and coordinates through socket
     //window.socket.emit('drop', {token: window.storage.getItem('com.spacepirates'), x:x, y:y, type: sprite.type });
   }else{
