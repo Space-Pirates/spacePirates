@@ -7,5 +7,5 @@ window.createGame = function(ele, scope, players, mapId, injector) {
   var x, y;
   game.state.add('load', loadState);
   game.state.add('game', gameState);
-  game.state.start('game');
+  game.state.start('load');
 };
