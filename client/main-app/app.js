@@ -14,15 +14,15 @@ angular.module('spacePirates', [
 
     $stateProvider
       .state('login', {
-        url: '/login', 
-        templateUrl: '/main-app/auth/auth.html', 
-        controller: 'AuthController' 
+        url: '/login',
+        templateUrl: '/main-app/auth/auth.html',
+        controller: 'AuthController'
       })
-      .state('root', { 
-        url: '/', 
-        templateUrl: '/main-app/menu/menu.html', 
-        controller: 'MenuController', 
-        data: { requiresLogin: true } 
+      .state('root', {
+        url: '/',
+        templateUrl: '/main-app/menu/menu.html',
+        controller: 'MenuController',
+        data: { requiresLogin: true }
       });
   })
 
