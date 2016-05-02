@@ -1,5 +1,3 @@
-
-
 window.createGame = function(ele, scope, players, mapId, injector) {
   window.game = new Phaser.Game(840, 550, Phaser.AUTO, 'gameCanvas');
    window.dragPosition = new Phaser.Point(0,0);
