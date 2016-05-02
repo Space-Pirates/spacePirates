@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Space Pirates</title>
   <link rel="stylesheet" type="text/css" href="bower_components/angular-material/angular-material.css">
 </head>
@@ -9,19 +10,30 @@
   <div class='content'>
     <div ui-view></div>
   </div>
-  <script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+  
+  <!-- Libraries -->
+  <script type="text/javascript" src="bower_components/angular/angular.js"></script>
   <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
   <script type="text/javascript" src="bower_components/phaser/build/phaser.min.js"></script>
-  <script src="bower_components/angular-animate/angular-animate.js"></script>
-  <script src="bower_components/angular-aria/angular-aria.js"></script>
-  <script src="bower_components/angular-messages/angular-messages.js"></script>
-  <script src="bower_components/angular-material/angular-material.js"></script>
+  <script type="text/javascript" src="bower_components/angular-animate/angular-animate.js"></script>
+  <script type="text/javascript" src="bower_components/angular-aria/angular-aria.js"></script>
+  <script type="text/javascript" src="bower_components/angular-messages/angular-messages.js"></script>
+  <script type="text/javascript" src="bower_components/angular-material/angular-material.js"></script>
+  <script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.js"></script>
+  <script type="text/javascript" src="bower_components/auth0-lock/build/auth0-lock.js"></script>
+  <script type="text/javascript" src="bower_components/a0-angular-storage/dist/angular-storage.js"></script>
+  <script type="text/javascript" src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
+  <script type="text/javascript" src="bower_components/auth0-angular/build/auth0-angular.js"></script>
   <script type="text/javascript" src="bower_components/socket.io-client/socket.io.js"></script>
+
+
+  <!-- Our files -->
   <script type="text/javascript" src="main-app/app.js"></script>
   <script type="text/javascript" src="main-app/menu/menu.js"></script>
   <script type="text/javascript" src="main-app/game/game.js"></script>
   <script type="text/javascript" src="phaser-app/load.js"></script>
   <script type="text/javascript" src="phaser-app/game.js"></script>
+  <script type="text/javascript" src="main-app/auth/auth.js"></script>
   <script type="text/javascript" src="phaser-app/main.js"></script>
 </body>
 </html>

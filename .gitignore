@@ -23,10 +23,10 @@ client/bower_components/
 
 # DB
 rethinkdb_data/
-.elasticbeanstalk/
-.gitignore
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+
