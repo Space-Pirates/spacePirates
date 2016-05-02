@@ -1,5 +1,6 @@
 var _ = require('underscore');
 var db = require('../db/db');
+var tileDictionary = require('./tile-dictionary.json');
 
 var Deck = function(gameId) {
   this.gameId = gameId;
@@ -63,7 +64,41 @@ Deck.prototype = {
     })
   },
 
-  initialize: function() {}
+  setHand: function(playerId, hand) {
+    return db.Player.get(playerId)
+      .update({hand: hand})
+      .run()
+      .catch(function(err) {
+        console.error(err);
+      });
+  },
+
+  initialize: function(player1, player2, player3, player4) {
+    var deck = this;
+
+    return this.setTiles(deck.shuffle(tileDictionary))
+    .then(function() {
+      deck.dealAll(player1, player2, player3, player4)
+      .then(function() {
+        deck.dealAll(player1, player2, player3, player4)
+        .then(function() {
+          deck.dealAll(player1, player2, player3, player4)
+          .then(function() {
+            return;
+          })
+          .catch(function(err) {
+            console.error(err);
+          });
+        })
+        .catch(function(err) {
+          console.error(err);
+        });
+      })
+      .catch(function(err) {
+        console.error(err);
+      });
+    });
+  }
 };
 
 module.exports = Deck;
