@@ -10,7 +10,8 @@ Deck.prototype = {
 
   setTiles: function(tiles) {
     return db.Deck.filter({gameId: this.gameId})
-    .update({tiles: tiles}).run()
+    .update({tiles: tiles})
+    .run()
     .then(function(data) {
       return data;
     })
@@ -34,7 +35,33 @@ Deck.prototype = {
     return _.shuffle(collection);
   },
 
-  dealTile: function() {},
+  dealTile: function(playerId) {
+    var context = this;
+
+    return this.getTiles()
+    .then(function(tiles) {
+      var tile = tiles.pop();
+
+      context.setTiles(tiles)
+      .catch(function(err) {
+        console.error(err);
+      });
+
+      return db.Player.get(playerId)
+      .run()
+      .then(function(player) {
+        return db.Player.get(playerId)
+        .update({hand: player.hand.concat([tile])})
+        .run()
+      })
+      .catch(function(err) {
+        console.error(err);
+      });
+    })
+    .catch(function(err) {
+      console.error(err);
+    })
+  },
 
   initialize: function() {}
 };

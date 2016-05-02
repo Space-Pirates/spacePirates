@@ -5,10 +5,8 @@ var db = require('../../db/db');
 var expect = chai.expect;
 var collection, deck, doc;
 
-function makePlayer(cb, done) {
-  var playerId;
-
-  new db.Player({
+function makePlayer() {
+  return new db.Player({
     gameId: 'testGameId',
     role: 'pirate',
     isTurn: false,
@@ -17,15 +15,11 @@ function makePlayer(cb, done) {
   })
   .save()
   .then(function(data) {
-    playerId = data;
-    done();
+    return data;
   })
   .catch(function(err) {
-    console.error(err);
-    done();
+    return err;
   });
-
-  cb(playerId);
 }
 
 module.exports = function() {
@@ -43,8 +37,7 @@ module.exports = function() {
       done();
     })
     .catch(function(err) {
-      console.error(err);
-      done();
+      done(err);
     });
   });
 
@@ -55,8 +48,7 @@ module.exports = function() {
       done();
     })
     .catch(function(err) {
-      console.error(err);
-      done();
+      done(err);
     });
   });
 
@@ -83,14 +75,12 @@ module.exports = function() {
           done();
         })
         .catch(function(err) {
-          console.error(err);
           expect(doc.tiles).to.deep.equal(['a', 'b', 'c']);
-          done();
+          done(err);
         });
       })
       .catch(function(err) {
-        console.error(err);
-        done();
+        done(err);
       });
 
     });
@@ -113,12 +103,10 @@ module.exports = function() {
           done();
         })
         .catch(function(err) {
-          console.error(err);
           done(err);
         });
       })
       .catch(function(err) {
-        console.error(err);
         done(err);
       });
     });
@@ -146,13 +134,17 @@ module.exports = function() {
     beforeEach(function (done) {
       deck.setTiles(['a', 'b', 'c'])
       .then(function() {
-        makePlayer(function(data) {
+        makePlayer()
+        .then(function(data) {
           playerId = data.id;
-        }, done);
+          done();
+        })
+        .catch(function(err) {
+          done(err);
+        });
       })
       .catch(function(err) {
-        console.error(err);
-        done();
+        done(err);
       });
     });
 
@@ -163,8 +155,7 @@ module.exports = function() {
         done();
       })
       .catch(function(err) {
-        console.error(err);
-        done();
+        done(err);
       });
     });
 
@@ -172,24 +163,20 @@ module.exports = function() {
       expect(deck.dealTile).to.be.a('function');
     });
     it('should give a player a tile', function(done) {
-      var player;
       deck.dealTile(playerId)
       .then(function() {
         db.Player.get(playerId).run()
-        .then(function(data) {
-          player = data;
+        .then(function(player) {
+          expect(player.hand).to.deep.equal(['c']);
           done();
         })
         .catch(function(err) {
-          console.error(err);
-          done();
+          done(err);
         });
       })
       .catch(function(err) {
-        console.error(err);
-        done();
+        done(err);
       });
-      expect(player.hand).to.deep.equal(['c']);
     });
     it('should remove the given tile from the deck', function(done) {
       var tiles;
@@ -198,19 +185,17 @@ module.exports = function() {
         deck.getTiles()
         .then(function(data) {
           tiles = data;
+          expect(tiles).to.deep.equal(['a', 'b']);
           done();
         })
         .catch(function(err) {
-          console.error(err);
-          done();
+          done(err);
         });
       })
       .catch(function(err) {
-        console.error(err);
-        done();
+        done(err);
       });
 
-      expect(tiles).to.deep.equal(['a', 'b']);
     });
   });
 
