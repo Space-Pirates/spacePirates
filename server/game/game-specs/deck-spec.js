@@ -249,15 +249,15 @@ module.exports = function() {
   describe('initialize method', function () {
 
     beforeEach(function (done) {
-      makePlayer('1')
+      makePlayer('test1')
       .then(function() {
-        makePlayer('2')
+        makePlayer('test2')
         .then(function() {
-          makePlayer('3')
+          makePlayer('test3')
           .then(function() {
-            makePlayer('4')
+            makePlayer('test4')
             .then(function() {
-              deck.initialize('1', '2', '3', '4')
+              deck.initialize('test1', 'test2', 'test3', 'test4')
               .then(function() {
                 deck.getTiles()
                 .then(function(tiles) {
@@ -265,6 +265,26 @@ module.exports = function() {
                   done();
                 });
               });
+            });
+          });
+        });
+      });
+    });
+
+    afterEach(function (done) {
+      db.Player.get('test1')
+      .delete()
+      .then(function() {
+        db.Player.get('test2')
+        .delete()
+        .then(function() {
+          db.Player.get('test3')
+          .delete()
+          .then(function() {
+            db.Player.get('test4')
+            .delete()
+            .then(function() {
+              done();
             });
           });
         });
@@ -280,43 +300,36 @@ module.exports = function() {
       expect(collection[0]).to.be.an('object');
     });
     
-    it('should have shuffled the new collection of tiles', function(done) {
-      deck.initialize()
-      .then(function() {
-        deck.getTiles()
-        .then(function(collection) {
-          expect(collection.slice(0, 9)).to.not.deep.equal(tileDictionary.slice(0, 9));
-          done();
-        });
-      });
+    it('should have shuffled the new collection of tiles', function() {
+      expect(collection.slice(0, 9)).to.not.deep.equal(tileDictionary.slice(0, 9));
     });
-
 
     it('should deal 3 tiles to each player', function(done) {
       var players = [];
-      db.Player.get('1')
+
+      db.Player.get('test1')
       .run()
       .then(function(player) {
         players.push(player);
-        db.Player.get('2')
+        db.Player.get('test2')
         .run()
         .then(function(player) {
           players.push(player);
-          db.Player.get('3')
+          db.Player.get('test3')
           .run()
           .then(function(player) {
             players.push(player);
-            db.Player.get('4')
+            db.Player.get('test4')
             .run()
             .then(function(player) {
               players.push(player);
               
-              expect(players[0].hand.length).to.equal(3);
-              expect(players[0].hand).to.be.an('object');
-              expect(players[1].hand.length).to.equal(3);
-              expect(players[2].hand.length).to.equal(3);
-              expect(players[3].hand.length).to.equal(3);
-              done()
+              expect(players[0].hand).to.have.length(3);
+              expect(players[0].hand[0]).to.be.an('object');
+              expect(players[1].hand).to.have.length(3);
+              expect(players[2].hand).to.have.length(3);
+              expect(players[3].hand).to.have.length(3);
+              done();
             })
             .catch(function(err) {
               done(err);

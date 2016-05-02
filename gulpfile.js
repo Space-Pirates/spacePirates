@@ -37,7 +37,7 @@ gulp.task('pre-commit', function () {
 
 gulp.task('test-game', function() {
   return gulp.src(testPath.game, {read: false})
-    .pipe(mocha({reporter: 'spec'}))
+    .pipe(mocha({reporter: 'nyan'}))
     .pipe(exit());
 });
 

@@ -75,28 +75,41 @@ Deck.prototype = {
 
   initialize: function(player1, player2, player3, player4) {
     var deck = this;
+    var tiles = this.shuffle(tileDictionary);
+    var hand = {
+      0: [],
+      1: [],
+      2: [],
+      3: []
+    };
 
-    return this.setTiles(deck.shuffle(tileDictionary))
+    for (var i = 0; i < 4; i++) {
+      for (var j = 0; j < 3; j++) {
+        hand[i].push(tiles.pop());
+      }
+    }
+
+    return this.setTiles(tiles)
     .then(function() {
-      deck.dealAll(player1, player2, player3, player4)
-      .then(function() {
-        deck.dealAll(player1, player2, player3, player4)
-        .then(function() {
-          deck.dealAll(player1, player2, player3, player4)
-          .then(function() {
-            return;
-          })
-          .catch(function(err) {
-            console.error(err);
-          });
-        })
-        .catch(function(err) {
-          console.error(err);
-        });
-      })
+      deck.setHand(player1, hand[0])
       .catch(function(err) {
         console.error(err);
       });
+      deck.setHand(player2, hand[1])
+      .catch(function(err) {
+        console.error(err);
+      });
+      deck.setHand(player3, hand[2])
+      .catch(function(err) {
+        console.error(err);
+      });
+      deck.setHand(player4, hand[3])
+      .catch(function(err) {
+        console.error(err);
+      });
+    })
+    .catch(function(err) {
+      console.error(err);
     });
   }
 };
