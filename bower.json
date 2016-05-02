@@ -25,6 +25,11 @@
     "angular-animate": "^1.5.5",
     "angular-messages": "^1.5.5",
     "angular-aria": "^1.5.5",
-    "socket.io-client": "^1.4.5"
+    "socket.io-client": "^1.4.5",
+    "auth0-lock": "^9.1.2",
+    "angular-cookies": "^1.5.5",
+    "angular-storage": "^0.5.0",
+    "angular-jwt": "^0.0.9",
+    "a0-angular-storage": "^0.0.15"
   }
 }
