@@ -1,4 +1,6 @@
-function Board(gameId) {
+var db = require('../db/db');
+
+var Board = function(gameId) {
   this.gameId = gameId;
 };
 
@@ -12,7 +14,17 @@ Board.prototype = {
     this.right = right;
   },
 
-  setMatrix: function() {},
+  setMatrix: function(matrix) {
+    return db.Board.filter({gameId: this.gameId})
+    .update({matrix: matrix})
+    .run()
+    .then(function(data) {
+      return data;
+    })
+    .catch(function(err) {
+      console.error(err);
+    });
+  },
 
   getMatrix: function() {},
 
