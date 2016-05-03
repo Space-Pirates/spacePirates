@@ -3,15 +3,20 @@ var Board = require('../board');
 var expect = chai.expect;
 var board;
 
-beforeEach(function () {
-  board = new Board();
+it('should exist', function() {
+  expect(Board).to.be.a('function');
 });
 
-it('should exist');
-it('should be a class with psuedoclassical instantiation');
+board = new Board('testGameId');
+
+it('should be a class with psuedoclassical instantiation', function() {
+  expect(board).to.be.an('object');
+});
 
 describe('properties', function () {
-  it('should have a gameId property');
+  it('should have a gameId property', function() {
+    expect(board.gameId).to.equal('testGameId');
+  });
   // it('should have a lastDiscard property');  TODO: Move this to Deck Speck
   // it('should have a tilesRemaining property');  TODO: Move this to Deck Speck
 });
