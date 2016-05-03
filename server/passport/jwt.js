@@ -1,7 +1,7 @@
 var JwtStrategy = require('passport-jwt').Strategy;
-var ExtractJwt = require('passport-jwt').ExtractJwt;
 var User = require('./../db/db').User;
 var config = require('./config');
+
 module.exports = function(passport) {
   var opts = {};
   opts.jwtFromRequest = function (req) {
@@ -15,7 +15,7 @@ module.exports = function(passport) {
       })
       .catch(function (err) {
         return done(err, null);
-      })
+      });
   }));
 
 };
