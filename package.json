@@ -10,9 +10,11 @@
     "express": "^4.13.4",
     "gulp-exit": "0.0.2",
     "mocha": "^2.4.5",
+    "morgan": "^1.7.0",
     "rethinkdb": "^2.3.1",
     "thinky": "^2.3.1",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "socket.io": "^1.4.5"
   },
   "devDependencies": {
     "git-guppy": "^1.2.1",
