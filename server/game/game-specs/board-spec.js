@@ -24,9 +24,17 @@ describe('properties', function () {
 describe('methods', function() {
 
   describe('Tile', function() {
-    it('should exist');
-    it('should be a psuedoclassical constructor');
-    it('should set the properties for a tile instance');
+    it('should exist', function() {
+      expect(board.tile).to.be.a('function');
+    });
+    it('should be a psuedoclassical constructor', function() {
+      var tile = new board.Tile();
+      expect(tile).to.be.an('object');
+    });
+    it('should set the properties for a tile instance', function() {
+      var tile = new board.Tile(0, 1, 0, 0);
+      expect(tile).to.deep.equal({top: 0, left: 1, bottom: 0, right: 0});
+    });
   })
 
   describe('setMatrix', function() {
