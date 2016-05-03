@@ -41,7 +41,7 @@ module.exports = function() {
 
     describe('Tile', function() {
       it('should exist', function() {
-        expect(board.tile).to.be.a('function');
+        expect(board.Tile).to.be.a('function');
       });
       it('should be a psuedoclassical constructor', function() {
         var tile = new board.Tile();
