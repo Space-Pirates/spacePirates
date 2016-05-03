@@ -1,15 +1,13 @@
 var express = require('express');
-var middleware = require('./utils/middleware');
 
 var app = express();
-middleware(app, express);
 
-module.exports = app;
+//set up middleware
+require('./utils/middleware')(app, express);
 
-var bodyParser = require('body-parser');
+// set up routes
+require('./utils/routes')(app);
 
-var app = express();
-app.use(bodyParser.json());
-app.use(express.static(__dirname + '/../client'));
+
 module.exports = app;
 
