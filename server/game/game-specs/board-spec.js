@@ -44,12 +44,12 @@ module.exports = function() {
         expect(board.Tile).to.be.a('function');
       });
       it('should be a psuedoclassical constructor', function() {
-        var tile = new board.Tile();
+        var tile = new board.Tile(4, 2, testMatrix);
 
         expect(tile).to.be.an('object');
       });
       it('should set the properties for a tile instance', function() {
-        var tile = new board.Tile(0, 1, 0, 0);
+        var tile = new board.Tile(4, 2, testMatrix);
 
         expect(tile).to.deep.equal(testTile);
       });

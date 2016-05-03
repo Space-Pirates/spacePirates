@@ -7,11 +7,11 @@ var Board = function(gameId) {
 Board.prototype = {
   constructor: Board,
 
-  Tile: function(top, left, bottom, right) {
-    this.top = top;
-    this.left = left;
-    this.bottom = bottom;
-    this.right = right;
+  Tile: function(row, col, matrix) {
+    this.top = matrix[row - 1][col].bottom || 0;
+    this.left = matrix[row][col - 1].right || 0;
+    this.bottom = matrix[row + 1][col].top || 0;
+    this.right = matrix[row][col + 1].left || 0;
   },
 
   setMatrix: function(matrix) {
