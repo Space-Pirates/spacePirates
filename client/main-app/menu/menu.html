@@ -1,11 +1,19 @@
-<div layout="row" layout-padding="" layout-wrap="" layout-fill="" style="padding-bottom: 32px;" ng-cloak="">
-  
-  <md-whiteframe layout="column" class="md-whiteframe-2dp panel play" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout="" layout-align="center center" ng-repeat="room in rooms track by room.id" ui-sref="game.play({id: room.id})">
-    <span ng-bind="room.players.length"></span> Players
-  </md-whiteframe>
-
-  <md-whiteframe layout="column" class="md-whiteframe-2dp panel play" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout="" layout-align="center center" ui-sref="game.play({id: createGame()})">
-    <a>Create A Game</a>
-  </md-whiteframe>   
-
+<div layout="row">
+  <div layout="column" flex="75" class="menu">
+      <div ui-view></div>
+  </div>
+  <div layout="column" flex="25">
+    <md-toolbar class="md-theme-indigo">
+      <h1 class="md-toolbar-tools">Menu</h1>
+    </md-toolbar>
+    <md-button ui-sref="menu.lobby">
+      <a>Lobby</a>
+    </md-button>
+    <md-button ui-sref="menu.instructions">
+      <a>How To Play</a>
+    </md-button>
+    <md-button ui-sref="logout">
+      <a>Logout</a>
+    </md-button>
+  </div>
 </div>
