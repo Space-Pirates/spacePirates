@@ -26,7 +26,16 @@ Board.prototype = {
     });
   },
 
-  getMatrix: function() {},
+  getMatrix: function() {
+    return db.Board.filter({gameId: this.gameId})
+    .run()
+    .then(function(data) {
+      return data[0].matrix;
+    })
+    .catch(function(err) {
+      console.error(err);
+    });
+  },
 
   update: function() {},
 
