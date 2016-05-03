@@ -2,7 +2,14 @@ var chai = require('chai');
 var Board = require('../board');
 var db = require('../../db/db');
 var expect = chai.expect;
-var board;
+var testMatrix = require('../board-matrix.js');
+var testTile = {
+  top: 0,
+  left: 1,
+  bottom: 0,
+  right: 0
+};
+var board, matrix;
 
 it('should exist', function() {
   expect(Board).to.be.a('function');
@@ -36,7 +43,7 @@ describe('methods', function() {
     it('should set the properties for a tile instance', function() {
       var tile = new board.Tile(0, 1, 0, 0);
 
-      expect(tile).to.deep.equal({top: 0, left: 1, bottom: 0, right: 0});
+      expect(tile).to.deep.equal(testTile);
     });
   });
 
@@ -63,19 +70,13 @@ describe('methods', function() {
       expect(board.setMatrix).to.be.a('function');
     });
     it('should set the board matrix in the database for the current game', function(done) {
-      var matrix = [
-        [1, 2, 3], 
-        [4, 5, 6], 
-        [7, 8, 9]
-      ];
-
-      board.setMatrix(matrix)
+      board.setMatrix(testMatrix)
       .then(function() {
         db.Board.filter({gameId: 'testGameId'})
         .run()
         .then(function(data) {
           expect(data[0]).to.be.an('object');
-          expect(data[0].matrix).to.deep.equal(matrix);
+          expect(data[0].testMatrix).to.deep.equal(testMatrix);
           done();
         })
         .catch(function(err) {
@@ -93,18 +94,12 @@ describe('methods', function() {
       expect(board.getMatrix).to.be.a('function');
     });
     it('should get the board matrix from the database for the current game', function(done) {
-      var matrix = [
-        [1, 2, 3], 
-        [4, 5, 6], 
-        [7, 8, 9]
-      ];
-
-      board.setMatrix(matrix)
+      board.setMatrix(testMatrix)
       .then(function() {
         board.getMatrix()
         .then(function(data) {
           expect(data).to.be.an('array');
-          expect(data).to.deep.equal(matrix);
+          expect(data).to.deep.equal(testMatrix);
           done();
         })
         .catch(function(err) {
@@ -118,10 +113,48 @@ describe('methods', function() {
   });
 
   describe('update', function() {
-    it('should exist');
-    it('should place tile in correct location in database matrix');
-    it('should update the surrounding tiles in database matrix');
-    it('should follow game rules for updating surrounding tiles');
+
+    beforeEach(function (done) {
+      board.setMatrix(testMatrix)
+      .then(function() {
+        board.update(3, 1, testTile)
+        .then(function() {
+          board.getMatrix()
+          .then(function(data) {
+            matrix = data;
+            done()
+          })
+          .catch(function(err) {
+            done(err);
+          });
+        })
+        .catch(function(err) {
+          done(err);
+        });
+      })
+      .catch(function(err) {
+        done(err);
+      });
+    });
+
+    it('should exist', function() {
+      expect(board.getMatrix).to.be.a('function');
+    });
+    it('should place tile in correct location in database matrix', function() {
+      expect(matrix[3][1]).to.deep.equal(testTile);
+    });
+    it('should update the surrounding tiles in database matrix', function() {
+      expect(matrix[2][1]).to.have.all.keys(['top', 'left', 'bottom', 'right']);
+      expect(matrix[3][0]).to.have.all.keys(['top', 'left', 'bottom', 'right']);
+      expect(matrix[4][1]).to.have.all.keys(['top', 'left', 'bottom', 'right']);
+      expect(matrix[3][2]).to.have.all.keys(['top', 'left', 'bottom', 'right']);
+    });
+    it('should follow game rules for updating surrounding tiles', function() {
+      expect(matrix[2][1]).to.have.all.keys({top: 0, left: 0, bottom: 1, right: 0});
+      expect(matrix[3][0]).to.have.all.keys({top: 0, left: 0, bottom: 0, right: 1});
+      expect(matrix[4][1]).to.have.all.keys({top: 1, left: 0, bottom: 0, right: 0});
+      expect(matrix[3][2]).to.have.all.keys({top: 0, left: 1, bottom: 0, right: 0});
+    });
   });
 
   describe('initialize', function() {
