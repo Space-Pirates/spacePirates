@@ -12,5 +12,5 @@ module.exports = function(app, express) {
   require('./../passport/signin')(passport);
   app.use(bodyParser.urlencoded({extended: true}));
   app.use(express.static(__dirname + '/../../client'));
-  require('./utils/routes')(app, passport);
+  require('./routes')(app, passport);
 };
