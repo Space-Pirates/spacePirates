@@ -35,4 +35,4 @@ module.exports = function() {
     it('should remove the given tile from the player\'s hand'); // TODO: hook up to database
     it('should be dealt a new card from the deck'); // TODO: hook up to database
   });
-}
+};
