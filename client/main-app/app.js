@@ -4,6 +4,7 @@ angular.module('spacePirates', [
     'ui.router',
     'app.auth',
     'app.menu',
+    'app.lobby',
     'app.game',
     'auth0',
     'angular-storage',
@@ -18,12 +19,39 @@ angular.module('spacePirates', [
         templateUrl: '/main-app/auth/auth.html',
         controller: 'AuthController'
       })
-      .state('root', {
-        url: '/',
-        templateUrl: '/main-app/menu/menu.html',
-        controller: 'MenuController',
-        data: { requiresLogin: true }
-      });
+      .state('menu', { 
+        url: '/menu',
+        templateUrl: '/main-app/menu/menu.html', 
+        controller: 'MenuController', 
+        data: { requiresLogin: true } 
+      })
+      .state('menu.lobby', {
+        url: '/lobby',
+        templateUrl: 'main-app/lobby/lobby.html',
+        controller: 'LobbyController',
+      })
+      .state('menu.instructions', {
+        url: '/instructions',
+        template: '<md-toolbar class="md-theme-indigo">\
+                    <h1 class="md-toolbar-tools">How To Play</h1>\
+                  </md-toolbar>\
+                  <md-card>\
+                    <md-card-title>Follow all the Rules!!!</md-card-title>\
+                  </md-card>',
+      })
+      .state('logout', {
+        url: '/login'
+      })
+      .state('game', {
+      url: '/game',
+      abstract: true,
+      templateUrl: 'main-app/game/game.html'
+    })
+    .state('game.play', {
+      url: '/:id',
+      template: '<game-canvas></game-canvas>',
+      controller: 'GameController'
+    });;
   })
 
   .config(function(authProvider) {
@@ -38,7 +66,7 @@ angular.module('spacePirates', [
         store.set('profile', profile);
         store.set('token', idToken);
       });
-      $location.path('/');
+      $location.path('/menu/lobby');
     });
 
     authProvider.on('loginFailure', function() {
