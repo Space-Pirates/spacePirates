@@ -2,13 +2,12 @@ var chai = require('chai');
 var Deck = require('../deck');
 var tileDictionary = require('../tile-dictionary.json');
 var db = require('../../db/db');
-var expect = chai.expect();
+var expect = chai.expect;
 var collection, deck, doc;
 
-function makePlayer(cb, done) {
-  var playerId;
-
-  new db.Player({
+function makePlayer(id) {
+  return new db.Player({
+    id: id || 'asdf',
     gameId: 'testGameId',
     role: 'pirate',
     isTurn: false,
@@ -17,15 +16,11 @@ function makePlayer(cb, done) {
   })
   .save()
   .then(function(data) {
-    playerId = data;
-    done();
+    return data;
   })
   .catch(function(err) {
-    console.error(err);
-    done();
+    return err;
   });
-
-  cb(playerId);
 }
 
 module.exports = function() {
@@ -43,8 +38,7 @@ module.exports = function() {
       done();
     })
     .catch(function(err) {
-      console.error(err);
-      done();
+      done(err);
     });
   });
 
@@ -55,8 +49,7 @@ module.exports = function() {
       done();
     })
     .catch(function(err) {
-      console.error(err);
-      done();
+      done(err);
     });
   });
 
@@ -67,10 +60,10 @@ module.exports = function() {
     expect(deck).to.be.an('Object');
   });
   it('should have a gameId property', function() {
-    expect(deck.gameID).to.equal('testGameId');
+    expect(deck.gameId).to.equal('testGameId');
   });
 
-  describe('setTiles method', function () {
+  describe('setTiles method', function() {
     it('should exist', function() {
       expect(deck.setTiles).to.be.a('function');
     });
@@ -83,47 +76,44 @@ module.exports = function() {
           done();
         })
         .catch(function(err) {
-          console.error(err);
-          done();
+          expect(doc.tiles).to.deep.equal(['a', 'b', 'c']);
+          done(err);
         });
       })
       .catch(function(err) {
-        console.error(err);
-        done();
+        done(err);
       });
 
-      expect(doc.tiles).to.deep.equal(['a', 'b', 'c']);
     });
   });
 
-  describe('getTiles method', function () {
+  describe('getTiles method', function() {
     it('should exist', function() {
       expect(deck.getTiles).to.be.a('function');
     });
     it('should return a collection of tile objects', function(done) {
+      var tiles;
+
       deck.setTiles(['d', 'e', 'f'])
       .then(function() {
         deck.getTiles()
         .then(function(data) {
-          collection = data;
+          tiles = data;
+          expect(tiles).to.be.an('array');
+          expect(tiles).to.deep.equal(['d', 'e', 'f']);
           done();
         })
         .catch(function(err) {
-          console.error(err);
-          done();
+          done(err);
         });
       })
       .catch(function(err) {
-        console.error(err);
-        done();
+        done(err);
       });
-
-      expect(collection).to.be.an('array');
-      expect(collection).to.deep.equal(['d', 'e', 'f']);
     });
   });
 
-  describe('shuffle method', function () {
+  describe('shuffle method', function() {
     it('should exist', function() {
       expect(deck.shuffle).to.be.a('function');
     });
@@ -139,19 +129,23 @@ module.exports = function() {
     });
   });
 
-  describe('dealTile method', function () {
+  describe('dealTile method', function() {
     var playerId;
 
     beforeEach(function (done) {
       deck.setTiles(['a', 'b', 'c'])
       .then(function() {
-        makePlayer(function(data) {
+        makePlayer()
+        .then(function(data) {
           playerId = data.id;
-        }, done);
+          done();
+        })
+        .catch(function(err) {
+          done(err);
+        });
       })
       .catch(function(err) {
-        console.error(err);
-        done();
+        done(err);
       });
     });
 
@@ -162,8 +156,7 @@ module.exports = function() {
         done();
       })
       .catch(function(err) {
-        console.error(err);
-        done();
+        done(err);
       });
     });
 
@@ -171,24 +164,20 @@ module.exports = function() {
       expect(deck.dealTile).to.be.a('function');
     });
     it('should give a player a tile', function(done) {
-      var player;
       deck.dealTile(playerId)
       .then(function() {
         db.Player.get(playerId).run()
-        .then(function(data) {
-          player = data;
+        .then(function(player) {
+          expect(player.hand).to.deep.equal(['c']);
           done();
         })
         .catch(function(err) {
-          console.error(err);
-          done();
+          done(err);
         });
       })
       .catch(function(err) {
-        console.error(err);
-        done();
+        done(err);
       });
-      expect(player.hand).to.deep.equal(['c']);
     });
     it('should remove the given tile from the deck', function(done) {
       var tiles;
@@ -197,31 +186,107 @@ module.exports = function() {
         deck.getTiles()
         .then(function(data) {
           tiles = data;
+          expect(tiles).to.deep.equal(['a', 'b']);
           done();
         })
         .catch(function(err) {
-          console.error(err);
-          done();
+          done(err);
         });
       })
       .catch(function(err) {
-        console.error(err);
-        done();
+        done(err);
       });
 
-      expect(tiles).to.deep.equal(['a', 'b']);
+    });
+  });
+
+  describe('setHand method', function() {
+
+    beforeEach(function (done) {
+      makePlayer('testPlayerId')
+      .then(function() {
+        done();
+      })
+      .catch(function(err) {
+        done(err);
+      });
+    });
+
+    afterEach(function (done) {
+      db.Player.get('testPlayerId')
+      .delete()
+      .then(function() {
+        done();
+      })
+      .catch(function(err) {
+        done(err);
+      });
+    });
+
+    it('should exist', function() {
+      expect(deck.setHand).to.be.a('function');
+    });
+    it('should set the hand of a player', function(done) {
+      deck.setHand('testPlayerId', ['a', 'b', 'c'])
+      .then(function() {
+        db.Player.get('testPlayerId')
+        .run()
+        .then(function(player) {
+          expect(player.hand).to.be.an('array');
+          expect(player.hand).to.deep.equal(['a', 'b', 'c']);
+          done();
+        })
+        .catch(function(err) {
+          done(err);
+        });
+      })
+      .catch(function(err) {
+        done(err);
+      });
     });
   });
 
   describe('initialize method', function () {
 
     beforeEach(function (done) {
-      deck.initialize()
+      makePlayer('test1')
       .then(function() {
-        deck.getTiles()
-        .then(function(tiles) {
-          collection = tiles;
-          done();
+        makePlayer('test2')
+        .then(function() {
+          makePlayer('test3')
+          .then(function() {
+            makePlayer('test4')
+            .then(function() {
+              deck.initialize('test1', 'test2', 'test3', 'test4')
+              .then(function() {
+                deck.getTiles()
+                .then(function(tiles) {
+                  collection = tiles;
+                  done();
+                });
+              });
+            });
+          });
+        });
+      });
+    });
+
+    afterEach(function (done) {
+      db.Player.get('test1')
+      .delete()
+      .then(function() {
+        db.Player.get('test2')
+        .delete()
+        .then(function() {
+          db.Player.get('test3')
+          .delete()
+          .then(function() {
+            db.Player.get('test4')
+            .delete()
+            .then(function() {
+              done();
+            });
+          });
         });
       });
     });
@@ -229,32 +294,60 @@ module.exports = function() {
     it('should exist', function() {
       expect(deck.initialize).to.be.a('function');
     });
+
     it('should create a new collection of tiles', function() {
       expect(collection).to.be.an('array');
       expect(collection[0]).to.be.an('object');
     });
+    
     it('should have shuffled the new collection of tiles', function() {
       expect(collection.slice(0, 9)).to.not.deep.equal(tileDictionary.slice(0, 9));
     });
-    // TODO: Hook this up to database
+
     it('should deal 3 tiles to each player', function(done) {
       var players = [];
-      makePlayer(function(player) {
-        players.push(player);
-      }, function() {
-        makePlayer(function(player) {
-          players.push(player);
-        }, function() {
-          makePlayer(function(player) {
-            players.push(player);
-          }, done);
-        });
-      });
 
-      expect(players[0].hand.length).to.equal(3);
-      expect(players[1].hand.length).to.equal(3);
-      expect(players[2].hand.length).to.equal(3);
+      db.Player.get('test1')
+      .run()
+      .then(function(player) {
+        players.push(player);
+        db.Player.get('test2')
+        .run()
+        .then(function(player) {
+          players.push(player);
+          db.Player.get('test3')
+          .run()
+          .then(function(player) {
+            players.push(player);
+            db.Player.get('test4')
+            .run()
+            .then(function(player) {
+              players.push(player);
+              
+              expect(players[0].hand).to.have.length(3);
+              expect(players[0].hand[0]).to.be.an('object');
+              expect(players[1].hand).to.have.length(3);
+              expect(players[2].hand).to.have.length(3);
+              expect(players[3].hand).to.have.length(3);
+              done();
+            })
+            .catch(function(err) {
+              done(err);
+            });
+          })
+          .catch(function(err) {
+            done(err);
+          });
+        })
+        .catch(function(err) {
+          done(err);
+        });
+      })
+      .catch(function(err) {
+        done(err);
+      });
     });
+
     it('should have 54 tiles remaining in the collection', function() {
       expect(collection).to.have.length(54);
     });

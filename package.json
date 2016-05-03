@@ -11,7 +11,8 @@
     "gulp-exit": "0.0.2",
     "mocha": "^2.4.5",
     "rethinkdb": "^2.3.1",
-    "thinky": "^2.3.1"
+    "thinky": "^2.3.1",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "git-guppy": "^1.2.1",
