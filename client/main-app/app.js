@@ -10,7 +10,10 @@ angular.module('spacePirates', [
     'angular-storage',
     'angular-jwt'
   ])
-  .config(function($stateProvider, $urlRouterProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
+    $mdThemingProvider.theme('default')
+      .primaryPalette('deep-orange')
+
     $urlRouterProvider.otherwise('/login');
 
     $stateProvider
@@ -77,5 +80,3 @@ angular.module('spacePirates', [
     // This hooks al auth events to check everything as soon as the app starts
     auth.hookEvents();
   });
-
-
