@@ -89,8 +89,32 @@ describe('methods', function() {
   });
   
   describe('getMatrix', function() {
-    it('should exist');
-    it('should get the board matrix from the database for the current game');
+    it('should exist', function() {
+      expect(board.getMatrix).to.be.a('function');
+    });
+    it('should get the board matrix from the database for the current game', function(done) {
+      var matrix = [
+        [1, 2, 3], 
+        [4, 5, 6], 
+        [7, 8, 9]
+      ];
+
+      board.setMatrix(matrix)
+      .then(function() {
+        board.getMatrix()
+        .then(function(data) {
+          expect(data).to.be.an('array');
+          expect(data).to.deep.equal(matrix);
+          done();
+        })
+        .catch(function(err) {
+          done(err);
+        });
+      })
+      .catch(function(err) {
+        done(err);
+      });
+    });
   });
 
   describe('update', function() {
