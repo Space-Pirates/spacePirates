@@ -1,11 +1,41 @@
-<div layout="row" layout-padding="" layout-wrap="" layout-fill="" style="padding-bottom: 32px;" ng-cloak="">
-  
-  <md-whiteframe layout="column" class="md-whiteframe-2dp panel play" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout="" layout-align="center center" ng-repeat="room in rooms track by room.id" ui-sref="game.play({id: room.id})">
-    <span ng-bind="room.players.length"></span> Players
-  </md-whiteframe>
+<div layout="row" layout-padding="" layout-wrap="" layout-fill="">  
+  <div layout="column" flex="80">
+    <md-toolbar class="md-theme-indigo">
+      <h1 class="md-toolbar-tools">Join A Game</h1>
+    </md-toolbar>
+    <md-card class="md-card-2dp panel play" flex-xs="50" flex-gt-xs="50" flex-sm="50" flex-gt-sm="50" flex-gt-md="50" layout="" layout-align="center center" ng-repeat="room in rooms track by room.id" ui-sref="game.play({id: room.id})">
+      <span ng-bind="room.players.length">Players</span>
+      <md-button>Join Game</md-button>
+    </md-card>
 
-  <md-whiteframe layout="column" class="md-whiteframe-2dp panel play" flex-sm="45" flex-gt-sm="35" flex-gt-md="25" layout="" layout-align="center center" ui-sref="game.play({id: createGame()})">
-    <a>Create A Game</a>
-  </md-whiteframe>   
-
+    <md-card class="md-card-2dp panel play" flex-xs="50" flex-gt-xs="50" flex-sm="50" flex-gt-sm="50" flex-gt-md="50" layout="" layout-align="center center" ui-sref="game.play({id: createGame()})">
+      <md-button>Create Game</md-button>
+    </md-card> 
+  </div>
+    
+  <div layout="column" flex="20">
+    <div layout="row">
+      <md-sidenav md-component-id="right" md-is-locked-open="true" class="md-sidenav-right">
+        <md-toolbar class="md-theme-indigo">
+          <h1 class="md-toolbar-tools">Menu</h1>
+        </md-toolbar>
+        <div layout="column" flex-md="100" ui-sref="">
+        <md-button>
+          <a>Lobby</a>
+        </md-button>
+        </div>
+        <div layout="column" flex-md="100" ui-sref="">
+        <md-button>
+          <a>How To Play</a>
+        </md-button>
+        </div>
+        <div layout="column" flex-md="100" ui-sref="">
+        <md-button>
+          <a>Logout</a>
+        </md-button>
+        </div>
+      </md-sidenav>
+    </div>
+  </div>
 </div>
+
