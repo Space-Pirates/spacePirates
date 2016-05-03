@@ -5,7 +5,12 @@ function Board(gameId) {
 Board.prototype = {
   constructor: Board,
 
-  Tile: function() {},
+  Tile: function(top, left, bottom, right) {
+    this.top = top;
+    this.left = left;
+    this.bottom = bottom;
+    this.right = right;
+  },
 
   setMatrix: function() {},
 
