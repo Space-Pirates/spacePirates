@@ -37,7 +37,30 @@ Board.prototype = {
     });
   },
 
-  update: function() {},
+  update: function(row, col, tile) {
+    var board = this;
+
+    return this.getMatrix()
+    .then(function(matrix) {
+      matrix[row][col] = tile;
+
+      matrix[row - 1][col] = new board.Tile(row - 1, col, matrix);
+      matrix[row][col - 1] = new board.Tile(row, col - 1, matrix);
+      matrix[row + 1][col] = new board.Tile(row + 1, col, matrix);
+      matrix[row][col + 1] = new board.Tile(row, col + 1, matrix);
+
+      return board.setMatrix(matrix)
+      .then(function(data) {
+        return data;
+      })
+      .catch(function(err) {
+        console.error(err);
+      });
+    })
+    .catch(function(err) {
+      console.error(err);
+    });
+  },
 
   initialize: function() {}
 }
