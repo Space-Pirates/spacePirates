@@ -8,6 +8,8 @@ require('./utils/middleware')(app, express);
 // set up routes
 require('./utils/routes')(app);
 
+// set up sockets
+var http = require('./sockets/setup')(app);
 
-module.exports = app;
+module.exports = http;
 
