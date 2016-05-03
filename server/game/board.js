@@ -8,10 +8,21 @@ Board.prototype = {
   constructor: Board,
 
   Tile: function(row, col, matrix) {
-    this.top = matrix[row - 1][col].bottom || 0;
-    this.left = matrix[row][col - 1].right || 0;
-    this.bottom = matrix[row + 1][col].top || 0;
-    this.right = matrix[row][col + 1].left || 0;
+    if (row - 1 > 0) {
+      this.top = matrix[row - 1][col].bottom || 0;
+    } else this.top = 0;
+
+    if (col - 1 > 0) {
+      this.left = matrix[row][col - 1].right || 0;
+    } else this.left = 0;
+
+    if (row + 1 < matrix.length) {
+      this.bottom = matrix[row + 1][col].top || 0;
+    } else this.bottom = 0;
+
+    if (col + 1 < matrix[0].length) {
+      this.right = matrix[row][col + 1].left || 0;
+    } else this.right = 0;
   },
 
   setMatrix: function(matrix) {
