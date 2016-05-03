@@ -4,17 +4,20 @@
   "description": "Deep Space Kraken or Bust",
   "main": "index.js",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.15.0",
     "bower": "^1.7.9",
     "chai": "^3.5.0",
     "express": "^4.13.4",
     "gulp-exit": "0.0.2",
-    "mocha": "^2.4.5",
     "morgan": "^1.7.0",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.0.0",
+    "passport-local": "^1.0.0",
     "rethinkdb": "^2.3.1",
+    "socket.io": "^1.4.5",
     "thinky": "^2.3.1",
-    "underscore": "^1.8.3",
-    "socket.io": "^1.4.5"
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "git-guppy": "^1.2.1",
