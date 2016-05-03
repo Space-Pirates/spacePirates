@@ -30,13 +30,33 @@ describe('methods', function() {
     });
     it('should be a psuedoclassical constructor', function() {
       var tile = new board.Tile();
+
       expect(tile).to.be.an('object');
     });
     it('should set the properties for a tile instance', function() {
       var tile = new board.Tile(0, 1, 0, 0);
+
       expect(tile).to.deep.equal({top: 0, left: 1, bottom: 0, right: 0});
     });
-  })
+  });
+
+  beforeEach(function () {
+    new db.Board({
+      gameId: 'testGameId',
+      matrix: []
+    });
+  });
+
+  afterEach(function () {
+    db.board.filter({gameId: 'testGameId'})
+    .delete()
+    .then(function() {
+      done();
+    })
+    .catch(function(err) {
+      done(err);
+    })
+  });
 
   describe('setMatrix', function() {
     it('should exist', function() {
@@ -47,10 +67,20 @@ describe('methods', function() {
         [1, 2, 3], 
         [4, 5, 6], 
         [7, 8, 9]
-      ]
+      ];
+
       board.setMatrix(matrix)
       .then(function() {
-
+        db.Board.filter({gameId: 'testGameId'})
+        .run()
+        .then(function(data) {
+          expect(data[0]).to.be.an('object');
+          expect(data[0].matrix).to.deep.equal(matrix);
+          done();
+        })
+        .catch(function(err) {
+          done(err);
+        })
       })
       .catch(function(err) {
         done(err);
@@ -72,6 +102,7 @@ describe('methods', function() {
 
   describe('initialize', function() {
     it('should exist');
+    it('should create a new database document for the current game');
     it('should set the board matrix in the database for the current game');
     it('should place start location in the matrix slots');
     it('should have correct adjacent tiles in the matrix');
