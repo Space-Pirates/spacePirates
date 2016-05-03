@@ -1,5 +1,6 @@
 var chai = require('chai');
 var Board = require('../board');
+var db = require('../../db/db');
 var expect = chai.expect;
 var board;
 
@@ -38,8 +39,23 @@ describe('methods', function() {
   })
 
   describe('setMatrix', function() {
-    it('should exist');
-    it('should set the board matrix in the database for the current game');
+    it('should exist', function() {
+      expect(board.setMatrix).to.be.a('function');
+    });
+    it('should set the board matrix in the database for the current game', function(done) {
+      var matrix = [
+        [1, 2, 3], 
+        [4, 5, 6], 
+        [7, 8, 9]
+      ]
+      board.setMatrix(matrix)
+      .then(function() {
+
+      })
+      .catch(function(err) {
+        done(err);
+      });
+    });
   });
   
   describe('getMatrix', function() {
