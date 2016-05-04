@@ -33,8 +33,6 @@ module.exports = function() {
     it('should have a gameId property', function() {
       expect(board.gameId).to.equal('testGameId');
     });
-    // it('should have a lastDiscard property');  TODO: Move this to Deck Speck
-    // it('should have a tilesRemaining property');  TODO: Move this to Deck Speck
   });
 
   describe('methods', function() {
@@ -49,38 +47,40 @@ module.exports = function() {
         expect(tile).to.be.an('object');
       });
       it('should set the properties for a tile instance', function() {
+        testMatrix[4][1] = {top: 1, left: 1, bottom: 1, right: 1};
         var tile = new board.Tile(4, 2, testMatrix);
 
         expect(tile).to.deep.equal(testTile);
       });
     });
 
-    beforeEach(function (done) {
-      new db.Board({
-        gameId: 'testGameId',
-        matrix: []
-      })
-      .save()
-      .then(function() {
-        done();
-      })
-      .catch(function(err) {
-        done(err);
-      });
-    });
-
-    afterEach(function (done) {
-      db.Board.filter({gameId: 'testGameId'})
-      .delete()
-      .then(function() {
-        done();
-      })
-      .catch(function(err) {
-        done(err);
-      });
-    });
-
     describe('setMatrix', function() {
+
+      beforeEach(function (done) {
+        new db.Board({
+          gameId: 'testGameId',
+          matrix: []
+        })
+        .save()
+        .then(function() {
+          done();
+        })
+        .catch(function(err) {
+          done(err);
+        });
+      });
+
+      afterEach(function (done) {
+        db.Board.filter({gameId: 'testGameId'})
+        .delete()
+        .then(function() {
+          done();
+        })
+        .catch(function(err) {
+          done(err);
+        });
+      });
+
       it('should exist', function() {
         expect(board.setMatrix).to.be.a('function');
       });
@@ -105,6 +105,32 @@ module.exports = function() {
     });
     
     describe('getMatrix', function() {
+
+      beforeEach(function (done) {
+        new db.Board({
+          gameId: 'testGameId',
+          matrix: []
+        })
+        .save()
+        .then(function() {
+          done();
+        })
+        .catch(function(err) {
+          done(err);
+        });
+      });
+
+      afterEach(function (done) {
+        db.Board.filter({gameId: 'testGameId'})
+        .delete()
+        .then(function() {
+          done();
+        })
+        .catch(function(err) {
+          done(err);
+        });
+      });
+
       it('should exist', function() {
         expect(board.getMatrix).to.be.a('function');
       });
@@ -128,6 +154,31 @@ module.exports = function() {
     });
 
     describe('update', function() {
+
+      beforeEach(function (done) {
+        new db.Board({
+          gameId: 'testGameId',
+          matrix: []
+        })
+        .save()
+        .then(function() {
+          done();
+        })
+        .catch(function(err) {
+          done(err);
+        });
+      });
+
+      afterEach(function (done) {
+        db.Board.filter({gameId: 'testGameId'})
+        .delete()
+        .then(function() {
+          done();
+        })
+        .catch(function(err) {
+          done(err);
+        });
+      });
 
       beforeEach(function (done) {
         board.setMatrix(testMatrix)
@@ -175,8 +226,7 @@ module.exports = function() {
     describe('initialize', function() {
 
       beforeEach(function (done) {
-        board = new Board('testGameId')
-        .then(function() {
+        board = new Board('testGameId', function() {
           db.Board.filter({gameId: 'testGameId'})
           .run()
           .then(function(data) {
@@ -186,9 +236,6 @@ module.exports = function() {
           .catch(function(err) {
             done(err);
           });
-        })
-        .catch(function(err) {
-          done(err);
         });
       });
 
@@ -218,13 +265,13 @@ module.exports = function() {
       });
       it('should place start location in the matrix slots', function() {
         expect(doc.matrix[4][1]).to.be.an('object');
-        expect(doc.matrix[4][1]).to.have.all.keys({top: 1, left: 1, bottom: 1, right: 1});
+        expect(doc.matrix[4][1]).to.deep.equal({tileId: 'route-start-1', top: 1, left: 1, bottom: 1, right: 1});
       });
       it('should have correct adjacent tiles in the matrix', function() {
-        expect(doc.matrix[2][1]).to.have.all.keys({top: 0, left: 0, bottom: 1, right: 0});
-        expect(doc.matrix[3][0]).to.have.all.keys({top: 0, left: 0, bottom: 0, right: 1});
-        expect(doc.matrix[4][1]).to.have.all.keys({top: 1, left: 0, bottom: 0, right: 0});
-        expect(doc.matrix[3][2]).to.have.all.keys({top: 0, left: 1, bottom: 0, right: 0});
+        expect(doc.matrix[3][1]).to.deep.equal({top: 0, left: 0, bottom: 1, right: 0});
+        expect(doc.matrix[4][0]).to.deep.equal({top: 0, left: 0, bottom: 0, right: 1});
+        expect(doc.matrix[5][1]).to.deep.equal({top: 1, left: 0, bottom: 0, right: 0});
+        expect(doc.matrix[4][2]).to.deep.equal({top: 0, left: 1, bottom: 0, right: 0});
       });
       it('should place three randomized planets in the matrix slots', function() {
         var planetArray = [];

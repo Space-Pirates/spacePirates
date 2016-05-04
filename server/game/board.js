@@ -1,7 +1,9 @@
 var db = require('../db/db');
+var defaultMatrix = require('./board-matrix');
 
-var Board = function(gameId) {
+var Board = function(gameId, cb) {
   this.gameId = gameId;
+  this.initialize(cb);
 };
 
 Board.prototype = {
@@ -73,7 +75,36 @@ Board.prototype = {
     });
   },
 
-  initialize: function() {}
+  initialize: function(cb) {
+    var board = this;
+
+    new db.Board({
+      gameId: this.gameId,
+      matrix: defaultMatrix
+    })
+    .save()
+    .then(function() {
+      board.update(4, 1, {
+        tileId: 'route-start-1',
+        top: 1,
+        left: 1,
+        bottom: 1,
+        right: 1
+      })
+      .then(function(model) {
+        if (cb) {
+          cb();
+        }
+        return;
+      })
+      .catch(function(err) {
+        console.error(err);
+      });
+    })
+    .catch(function(err) {
+      console.error(err);
+    });
+  }
 }
 
 module.exports = Board;
