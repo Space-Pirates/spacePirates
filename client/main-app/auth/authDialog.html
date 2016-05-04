@@ -1,0 +1,82 @@
+<md-dialog aria-label="Welcome">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Welcome</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon aria-label="Close dialog">X</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:800px;max-height:810px; ">
+      <md-tabs md-dynamic-height md-border-bottom>
+        <md-tab label="signin" md-on-select='data.action="signin"'>
+          <md-content class="md-padding">
+            <!-- FORM HERE -->
+            <form>
+              <div layout-gt-sm="row">
+                <md-input-container flex>
+                  <label>Username</label>
+                  <input type="text" ng-model='data.user.username'/>
+                </md-input-container>
+              </div>
+              <div layout-gt-sm="row">
+                <md-input-container flex>
+                  <label>Password</label>
+                  <input type="password" ng-model='data.user.password'/>
+                </md-input-container>
+              </div>
+            </form>
+          </md-content>
+        </md-tab>
+        <md-tab label="signup" md-on-select='data.action="signup"'>
+          <md-content class="md-padding">
+            <!-- FORM HERE -->
+            <form>
+              <div layout-gt-sm="row">
+                <md-input-container flex>
+                  <label>Name</label>
+                  <input type="text" ng-model='data.user.name'/>
+                </md-input-container>
+              </div>
+              <div layout-gt-sm="row">
+                <md-input-container flex>
+                  <label>Email</label>
+                  <input type="email" ng-model='data.user.email'/>
+                </md-input-container>
+              </div>
+              <div layout-gt-sm="row">
+                <md-input-container flex>
+                  <label>Username</label>
+                  <input type="text" ng-model='data.user.username'/>
+                </md-input-container>
+              </div>
+              <div layout-gt-sm="row">
+                <md-input-container flex>
+                  <label>Password</label>
+                  <input type="password" ng-model='data.user.password'/>
+                </md-input-container>
+              </div>
+              <div layout-gt-sm="row">
+                <md-input-container flex>
+                  <label>Confirm</label>
+                  <input type="password" ng-model='cpass'/>
+                </md-input-container>
+              </div>
+            </form>
+          </md-content>
+        </md-tab>
+      </md-tabs>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="submit()" >
+        Submit
+      </md-button>
+      <md-button ng-click="cancel()" style="margin-right:20px;" >
+        Cancel
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

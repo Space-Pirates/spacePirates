@@ -9,4 +9,3 @@ require('./utils/middleware')(app, express);
 var http = require('./sockets/setup')(app);
 
 module.exports = http;
-
