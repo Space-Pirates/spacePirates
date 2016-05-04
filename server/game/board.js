@@ -87,7 +87,7 @@ Board.prototype = {
 
     new db.Board({
       gameId: this.gameId,
-      matrix: require('./board-matrix');
+      matrix: require('./board-matrix')
     })
     .save()
     .then(function() {

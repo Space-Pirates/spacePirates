@@ -5,7 +5,7 @@ var playerSpecs = require('./player-spec');
 
 describe('Backend Game Logic', function () {
   describe('Game Class', gameSpecs);
-  describe('Deck Class', deckSpecs);
-  describe('Board Class', boardSpecs);
-  describe('Player Class', playerSpecs);
+  xdescribe('Deck Class', deckSpecs);
+  xdescribe('Board Class', boardSpecs);
+  xdescribe('Player Class', playerSpecs);
 });

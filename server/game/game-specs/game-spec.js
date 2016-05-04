@@ -10,19 +10,19 @@ module.exports = function() {
     var game = new Game();
 
     it('should have a gameID', function() {
-      expect(game).to.have.keys('gameId');
+      expect(game).to.have.any.keys('gameId');
       expect(game.gameId).to.be.a('string');
     });
     it('should have a board object', function() {
-      expect(game).to.have.keys('board');
+      expect(game).to.have.any.keys('board');
       expect(game.board).to.be.an('object');
     });
     it('should have a deck object', function() {
-      expect(game).to.have.keys('board');
+      expect(game).to.have.any.keys('board');
       expect(game.deck).to.be.an('object');
     });
     it('should have a players object', function() {
-      expect(game).to.have.keys('board');
+      expect(game).to.have.any.keys('board');
       expect(game.players).to.be.an('object');
     });
   });
