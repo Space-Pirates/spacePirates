@@ -1,6 +1,21 @@
 angular.module('app.auth', [])
-  .controller('AuthController', function($scope, $state, Auth) {
+  .controller('AuthController', function($scope, $state, Auth, $mdDialog, $mdMedia) {
     $scope.user = {};
+
+    $scope.showDialog = function(ev) {
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: '/main-app/auth/authDialog.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true
+      })
+          .then(function(data) {
+            console.log(data);
+          }, function() {
+            $scope.status = 'You cancelled the dialog.';
+          });
+    };
 
     $scope.signin = function () {
       Auth.signin($scope.user)
@@ -63,3 +78,12 @@ angular.module('app.auth', [])
       signout: signout
     };
   });
+
+function DialogController($scope, $mdDialog) {
+  $scope.cancel = function() {
+    $mdDialog.cancel();
+  };
+  $scope.submit = function(answer) {
+    $mdDialog.hide(answer);
+  };
+}
