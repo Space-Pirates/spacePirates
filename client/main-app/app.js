@@ -2,6 +2,7 @@ angular.module('spacePirates', [
     'ngMaterial',
     'ngMessages',
     'ui.router',
+    'pubnub.angular.service',
     'app.auth',
     'app.menu',
     'app.lobby',
