@@ -1,14 +1,12 @@
 var _ = require('underscore');
 var Planet = function(isTrue) {
-  return {
-    truePlanet: isTrue,
-    top: 1,
-    left: 1,
-    bottom: 1,
-    right: 1
-  }
+    this.truePlanet = isTrue;
+    this.top = 1;
+    this.left = 1;
+    this.bottom = 1;
+    this.right = 1;
 };
-var planets = _.shuffle([Planet(true), Planet(false), Planet(false)]);
+var planets = _.shuffle([new Planet(true), new Planet(false), new Planet(false)]);
 var e = {};
 var a = planets[0],
     b = planets[1],

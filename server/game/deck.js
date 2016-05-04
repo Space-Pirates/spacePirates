@@ -54,6 +54,9 @@ Deck.prototype = {
         return db.Player.get(playerId)
         .update({hand: player.hand.concat([tile])})
         .run()
+        .catch(function(err) {
+          console.error(err);
+        });
       })
       .catch(function(err) {
         console.error(err);
@@ -61,7 +64,7 @@ Deck.prototype = {
     })
     .catch(function(err) {
       console.error(err);
-    })
+    });
   },
 
   setHand: function(playerId, hand) {
