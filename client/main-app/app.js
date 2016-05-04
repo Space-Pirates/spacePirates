@@ -25,12 +25,14 @@ angular.module('spacePirates', [
         url: '/menu',
         templateUrl: '/main-app/menu/menu.html',
         controller: 'MenuController',
-        data: { requiresLogin: true }
+        data: { requiresLogin: true },
+        authenticate: true
       })
       .state('menu.lobby', {
         url: '/lobby',
         templateUrl: 'main-app/lobby/lobby.html',
         controller: 'LobbyController',
+        authenticate: true
       })
       .state('menu.instructions', {
         url: '/instructions',
@@ -40,6 +42,7 @@ angular.module('spacePirates', [
                   <md-card>\
                     <md-card-title>Follow all the Rules!!!</md-card-title>\
                   </md-card>',
+        authenticate: true
       })
       .state('logout', {
         url: '/login'
@@ -47,15 +50,18 @@ angular.module('spacePirates', [
       .state('game', {
       url: '/game',
       abstract: true,
-      templateUrl: 'main-app/game/game.html'
+      templateUrl: 'main-app/game/game.html',
+      authenticate: true
     })
     .state('game.play', {
       url: '/:id',
       template: '<game-canvas></game-canvas>',
-      controller: 'GameController'
+      controller: 'GameController',
+      authenticate: true
     });;
 
   $httpProvider.interceptors.push('AttachTokens');
+
   })
   .factory('AttachTokens', function (store) {
     var attach = {
@@ -74,7 +80,7 @@ angular.module('spacePirates', [
   .run(function ($rootScope, $state, Auth) {
     $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams){
      if (toState.authenticate && !Auth.isAuth()) {
-       $state.transitionTo("signin");
+       $state.transitionTo("login");
        event.preventDefault();
      }
    });

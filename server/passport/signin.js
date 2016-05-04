@@ -6,6 +6,9 @@ module.exports = function (passport) {
     User.filter({username: username}).run()
       .then(function (users) {
         var user = users[0];
+        if (!user) {
+          return done();
+        }
         user.comparePassword(password, function (err, isMatch) {
           if(err) {
             return done(err);

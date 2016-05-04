@@ -1,5 +1,5 @@
 angular.module('app.auth', [])
-  .controller('AuthController', function($scope, $state, Auth, $mdDialog, $mdMedia) {
+  .controller('AuthController', function($scope, $state, Auth, store, $mdDialog, $mdMedia) {
     $scope.user = {};
 
     $scope.showDialog = function(ev) {
@@ -11,14 +11,18 @@ angular.module('app.auth', [])
         clickOutsideToClose:true
       })
           .then(function(data) {
-            console.log(data);
-          }, function() {
-            $scope.status = 'You cancelled the dialog.';
+            if (data.action === 'signin') {
+              // console.log(data.user);
+              signin(data.user);
+            } else if (data.action === 'signup') {
+              // console.log(data.user);
+              signup(data.user);
+            }
           });
     };
 
-    $scope.signin = function () {
-      Auth.signin($scope.user)
+    var signin = function (user) {
+      Auth.signin(user)
         .then(function (data) {
           store.set('com.spacePirates', JSON.stringify(data));
           $state.go('menu.lobby');
@@ -28,8 +32,8 @@ angular.module('app.auth', [])
         });
     };
 
-    $scope.signup = function () {
-      Auth.signup($scope.user)
+    var signup = function (user) {
+      Auth.signup(user)
         .then(function (data) {
           store.set('com.spacePirates', JSON.stringify(data));
           $state.go('menu.lobby');
@@ -44,7 +48,8 @@ angular.module('app.auth', [])
       return $http({
         method: 'POST',
         url: '/signin',
-        data: user
+        data: user,
+        contentType: 'application/json'
       })
       .then(function (res) {
         return res.data;
@@ -55,7 +60,8 @@ angular.module('app.auth', [])
       return $http({
         method: 'POST',
         url: '/signup',
-        data: user
+        data: user,
+        contentType: 'application/json'
       })
       .then(function (res) {
         return res.data;
@@ -67,8 +73,9 @@ angular.module('app.auth', [])
     };
 
     var signout = function () {
+      console.log('signout');
       store.remove('com.spacePirates');
-      state.go('login');
+      $state.transitionTo('login');
     };
 
     return {
@@ -80,10 +87,14 @@ angular.module('app.auth', [])
   });
 
 function DialogController($scope, $mdDialog) {
+  $scope.data = {};
+  $scope.data.user = {};
+  $scope.data.action = '';
+  $scope.cpass = '';
   $scope.cancel = function() {
     $mdDialog.cancel();
   };
-  $scope.submit = function(answer) {
-    $mdDialog.hide(answer);
+  $scope.submit = function() {
+    $mdDialog.hide($scope.data);
   };
 }
