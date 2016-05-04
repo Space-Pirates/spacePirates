@@ -12,7 +12,7 @@ angular.module('spacePirates', [
   ])
   .config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
     $mdThemingProvider.theme('default')
-      .primaryPalette('deep-orange')
+      .primaryPalette('orange')
 
     $urlRouterProvider.otherwise('/login');
 
@@ -35,7 +35,7 @@ angular.module('spacePirates', [
       })
       .state('menu.instructions', {
         url: '/instructions',
-        template: '<md-toolbar class="md-theme-indigo">\
+        template: '<md-toolbar>\
                     <h1 class="md-toolbar-tools">How To Play</h1>\
                   </md-toolbar>\
                   <md-card>\

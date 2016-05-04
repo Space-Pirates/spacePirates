@@ -1,4 +1,4 @@
-<div layout="row" layout-align="center">
+<div layout="row" layout-align="center" ng-style="{ 'background-color': 'black'}">
   <div layout="column">
     <div layout="row">
       <div layout="column">
@@ -19,19 +19,17 @@
   </div>
   <div layout="column">
     <div layout="row">
-      <md-toolbar class="md-theme-pink">
+      <md-toolbar>
           <h1 class="md-toolbar-tools">Space Pirates</h1>
       </md-toolbar>
     </div>
-    <md-card style="height:470px">
-      <md-card-content>
-        <h6>Player 1 just destroyed a route!!!</h6>
-        <h6>Player 2 just placed a tile</h6>
-        <h6>Player 1 just blocked Player 2</h6>
-        <h6>Player 3 just used a reveal card!!!</h6>
-      </md-card-content>
-    </md-card>
-    <div layout="row" layout-align="end">
+    <md-content layout="column" style="height:490px">
+      <p class="md-body-2">Player 1 just destroyed a route!!!</p>
+      <p class="md-body-2">Player 2 just placed a tile</p>
+      <p class="md-body-2">Player 1 just blocked Player 2</p>
+      <p class="md-body-2">Player 3 just used a reveal card!!!</p>
+    </md-content>
+    <div layout="column" layout-align="end">
       <div layout="column">
       <img src="http://placehold.it/280x200">
     </div>
