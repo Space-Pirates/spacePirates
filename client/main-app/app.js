@@ -10,7 +10,10 @@ angular.module('spacePirates', [
     'angular-storage',
     'angular-jwt'
   ])
-  .config(function($stateProvider, $urlRouterProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
+    $mdThemingProvider.theme('default')
+      .primaryPalette('orange')
+
     $urlRouterProvider.otherwise('/login');
 
     $stateProvider
@@ -32,7 +35,7 @@ angular.module('spacePirates', [
       })
       .state('menu.instructions', {
         url: '/instructions',
-        template: '<md-toolbar class="md-theme-indigo">\
+        template: '<md-toolbar>\
                     <h1 class="md-toolbar-tools">How To Play</h1>\
                   </md-toolbar>\
                   <md-card>\
@@ -77,5 +80,3 @@ angular.module('spacePirates', [
     // This hooks al auth events to check everything as soon as the app starts
     auth.hookEvents();
   });
-
-
