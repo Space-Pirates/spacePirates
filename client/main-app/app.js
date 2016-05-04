@@ -6,11 +6,10 @@ angular.module('spacePirates', [
     'app.menu',
     'app.lobby',
     'app.game',
-    'auth0',
     'angular-storage',
     'angular-jwt'
   ])
-  .config(function($stateProvider, $urlRouterProvider, $mdThemingProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $httpProvider) {
     $mdThemingProvider.theme('default')
       .primaryPalette('orange')
 
@@ -22,11 +21,11 @@ angular.module('spacePirates', [
         templateUrl: '/main-app/auth/auth.html',
         controller: 'AuthController'
       })
-      .state('menu', { 
+      .state('menu', {
         url: '/menu',
-        templateUrl: '/main-app/menu/menu.html', 
-        controller: 'MenuController', 
-        data: { requiresLogin: true } 
+        templateUrl: '/main-app/menu/menu.html',
+        controller: 'MenuController',
+        data: { requiresLogin: true }
       })
       .state('menu.lobby', {
         url: '/lobby',
@@ -55,28 +54,29 @@ angular.module('spacePirates', [
       template: '<game-canvas></game-canvas>',
       controller: 'GameController'
     });;
+
+  $httpProvider.interceptors.push('AttachTokens');
   })
-
-  .config(function(authProvider) {
-    authProvider.init({
-      domain: 'nassir.auth0.com',
-      clientID: '8dmgNdTCUMwrlYjndTIXU3dhg5ei3vuq'
-    });
-
-    authProvider.on('loginSuccess', function($location, profilePromise, idToken, store) {
-      console.log('Login Success');
-      profilePromise.then(function(profile) {
-        store.set('profile', profile);
-        store.set('token', idToken);
-      });
-      $location.path('/menu/lobby');
-    });
-
-    authProvider.on('loginFailure', function() {
-      // Error Callback
-    });
+  .factory('AttachTokens', function (store) {
+    var attach = {
+      request: function (object) {
+        var jwt = store.get('com.spacePirates');
+        if (jwt) {
+          jwt = JSON.parse(jwt);
+          object.headers['x-access-token'] = jwt.token;
+        }
+        object.headers['Allow-Control-Allow-Origin'] = '*';
+        return object;
+      }
+    };
+    return attach;
   })
-  .run(function(auth) {
-    // This hooks al auth events to check everything as soon as the app starts
-    auth.hookEvents();
+  .run(function ($rootScope, $state, Auth) {
+    $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams){
+     if (toState.authenticate && !Auth.isAuth()) {
+       $state.transitionTo("signin");
+       event.preventDefault();
+     }
+   });
   });
+
