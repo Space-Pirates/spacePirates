@@ -3,7 +3,7 @@ var gameState = {
   preload: function() {
     game.load.image('nebula', 'phaser-app/assets/Nebula.png');
     game.load.image('ship', 'phaser-app/assets/spaceship.png');
-    game.load.image('red', 'phaser-app/assets/red.png');
+    game.load.image('orange', 'phaser-app/assets/orange.png');
   },
 
   create: function() {
@@ -14,25 +14,34 @@ var gameState = {
     dropZone.height = 450;
     dropZone.width = 840;
 
-    player1 = game.add.sprite(0, 500, 'red');
+    player1 = game.add.sprite(630, 500, 'orange');
     player1.height = 50;
     player1.width = 210;
     //assign id zone to self
 
-    player2 = game.add.sprite(0, 0, 'red');
+    player2 = game.add.sprite(70, 0, 'orange');
     player2.height = 50;
     player2.width = 210;
     //assign to next
 
-    player3 = game.add.sprite(280, 0, 'red');
+    player3 = game.add.sprite(350, 0, 'orange');
     player3.height = 50;
     player3.width = 210;
     //assign to next
 
-    player4 = game.add.sprite(560, 0, 'red');
+    player4 = game.add.sprite(630, 0, 'orange');
     player4.height = 50;
     player4.width = 210;
     //assign to next
+
+    discard = game.add.sprite(0,500, 'orange');
+    discard.height = 50;
+    discard.width = 70;
+
+    hand = game.add.sprite(260 ,500, 'orange');
+    hand.height = 50;
+    hand.width = 210;
+
     var tileData = {
       x:4,
       y:6,
