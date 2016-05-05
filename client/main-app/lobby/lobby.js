@@ -24,3 +24,4 @@ angular.module('app.lobby', [])
 
     $scope.getGames();
   }]);
+  
