@@ -15,6 +15,7 @@ var loadState = {
     // init socket
     window.socket = io.connect();
     // socket.emit('addPlayer', {newPlayer: 'test'});
+    
     socket.on('4players', function(){
       console.log('4players');
       game.state.start('game');

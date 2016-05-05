@@ -3,14 +3,10 @@ angular.module('app.game', [])
   $scope.players = {};
   var user = JSON.parse(store.get('com.spacePirates'));
   var number;
-  if(user.username === "rdbruhn"){
-    number = '1234';
-  }else{
-    number = '4321';
-  }
+
   console.log(user);
   window.phone = PHONE({
-        number        : number,
+        number        : user.username,
         publish_key   : 'pub-c-561a7378-fa06-4c50-a331-5c0056d0163c',
         subscribe_key : 'sub-c-17b7db8a-3915-11e4-9868-02ee2ddab7fe',
         media         : { audio : true, video : {height:200, width:280} },
@@ -22,24 +18,25 @@ angular.module('app.game', [])
       //     phone.dial(change.object.username
       //   }
       // });
-      if(number==='1234'){
-        number = '4321';
-      }
-      var session = phone.dial(number);
+      var sessions = [];
+      sessions.push(phone.dial('mikek'));
+      sessions.push(phone.dial('rdbruhn'));
+      sessions.push(phone.dial(''));
       $('#myVid').append(phone.video);
   });
 
+  var player = 2;
   phone.receive(function(session){
     session.connected(function(session){
-      console.log(phone);
       if(session.number !== phone.number()){
       session.video.height = 200; 
       session.video.width = 280;  
-      $('#player2').append(session.video);
+      $('#player' + player).append(session.video);
+      player++;
     }
 
     });
-    session.ended(function(session){     /* call ended     */ });
+    session.ended(function(session){    player--;  });
   });
 
 }])

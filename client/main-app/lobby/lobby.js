@@ -6,7 +6,7 @@ angular.module('app.lobby', ['app.lobbyFact'])
     $scope.getGames = function(){
       LobbyFactory.getGames()
         .then(function(games){
-         // $scope.rooms = games;
+         // $scope.games = games;
         });
     };
 
@@ -19,7 +19,7 @@ angular.module('app.lobby', ['app.lobbyFact'])
     };
     
     $scope.joinGame = function (gameId){
-      $state.go('game.play/2');
+      $state.go('game.play', {id: gameId});
     };
 
     $scope.getGames();
