@@ -1,8 +1,8 @@
 angular.module('app.lobby', [])
-  .controller('LobbyController', ['$scope', 'LobbyFactory', '$state', function($scope, LobbyFactory, $state){
+  .controller('LobbyController', ['$scope', 'LobbyFactory', '$state', 'store', function($scope, LobbyFactory, $state, store){
     //Mock room data
     $scope.rooms = [];
-    
+    var user = JSON.parse(store.get('com.spacePirates'));
     $scope.getGames = function(){
       LobbyFactory.getGames()
         .then(function(games){
@@ -12,7 +12,7 @@ angular.module('app.lobby', [])
 
     $scope.createGame = function () {
       //call to backEnd to create new gameState
-      LobbyFactory.createGame()
+      LobbyFactory.createGame(user)
         .then(function(gameId){
           $scope.joinGame(gameId);
         });
