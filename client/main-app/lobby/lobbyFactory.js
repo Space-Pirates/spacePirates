@@ -1,7 +1,7 @@
-angular.module('app.lobby',[])
+angular.module('app.lobbyFact',[])
 .factory('LobbyFactory', ['$http', function($http){
   var getGames = function(){
-    $http({
+    return $http({
       method: 'GET',
       url: '/game/'
     }).then(function successCallback(resp){
@@ -12,7 +12,7 @@ angular.module('app.lobby',[])
   };
 
   var createGame = function(creator){
-     $http({
+     return $http({
       method: 'POST',
       url: '/game/',
       data: creator
