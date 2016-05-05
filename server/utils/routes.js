@@ -6,5 +6,5 @@ module.exports = function(app, passport) {
 
   app.route('/game/')
     .get(control.game.getAll)
-    .post(control.game.make);
+    .post(control.game.create);
 };
