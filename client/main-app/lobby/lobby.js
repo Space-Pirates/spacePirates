@@ -19,9 +19,8 @@ angular.module('app.lobby', [])
     };
     
     $scope.joinGame = function (gameId){
-      $state.go('game.play({id: gameId})');
+      $state.go('game.play({id:' + gameId +'})');
     };
 
     $scope.getGames();
   }]);
-  
