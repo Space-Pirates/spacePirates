@@ -1,12 +1,12 @@
-angular.module('app.lobby', [])
+angular.module('app.lobby', ['app.lobbyFact'])
   .controller('LobbyController', ['$scope', 'LobbyFactory', '$state', 'store', function($scope, LobbyFactory, $state, store){
     //Mock room data
-    $scope.rooms = [];
+    $scope.games = [{id: '555342342', players: ['Rob','Jak']}];
     var user = JSON.parse(store.get('com.spacePirates'));
     $scope.getGames = function(){
       LobbyFactory.getGames()
         .then(function(games){
-          $scope.rooms = games;
+         // $scope.rooms = games;
         });
     };
 
@@ -19,7 +19,7 @@ angular.module('app.lobby', [])
     };
     
     $scope.joinGame = function (gameId){
-      $state.go('game.play({id:' + gameId +'})');
+      $state.go('game.play/2');
     };
 
     $scope.getGames();
