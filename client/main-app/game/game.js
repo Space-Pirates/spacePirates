@@ -1,86 +1,46 @@
 angular.module('app.game', [])
-.controller('GameController', ['$scope', 'Pubnub',  function($scope, Pubnub){
-  Pubnub.init({
-    publish_key: 'pub-c-fcdb7326-54d1-4514-9471-95b2d2a880ed',
-    subscribe_key: 'sub-c-d24b6fd2-119c-11e6-875d-0619f8945a4f'
-  });
-  $scope.streams = {};
-  $scope.gameId = 'Game';
-  $scope.myUuid = 'me';
-
-  Pubnub.subscribe({
-    channel: $scope.gameId,
-    callback: function (message) {
-      // Do nothing in our callback
-    },
-    presence: function (data) {
-      if (data.action === 'join' && data.uuid != myUuid) {
-        var parts = data.uuid.split('-');
-        var newUser = newUserTemplate({
-          name: parts[1],
-          id: parts[0]
-        });
-        userList.append(newUser);
-      } else if (data.action === 'leave' && data.uuid != myUuid) {
-        var parts = data.uuid.split('-');
-        var item = userList.find('li[data-user=\'' + parts[0] + '\']');
-        item.remove();
-      }
-    }
-  });
-
-  function gotStream(stream) {
-    video = document.querySelector('#myVid');
-    video.src = URL.createObjectURL(stream);
-    video.onloadedmetadata = function(e) {
-      video.play();
-    };
-    myStream = stream; // Save the stream for later use
-  };
-
-  navigator.getUserMedia = navigator.getUserMedia ||
-                         navigator.webkitGetUserMedia ||
-                         navigator.mozGetUserMedia;
-
-  navigator.getUserMedia({ audio: true, video: true }, gotStream, function(err) {
-         console.log("The following error occurred: " + err.name);
-      });
-
-  function publishStream(uuid) {
-    Pubnub.publish({
-      user: uuid,
-      stream: myStream
-    });
-
-    Pubnub.subscribe({
-      user: uuid,
-      stream: function (data, event) {
-        document.querySelector('#call-video').src = window.URL.createObjectUrl(event.stream);
-      },
-      disconnect: function (uuid, pc) {
-        document.querySelector('#call-video').src = '';
-      $(document).trigger('call:end');
-      }
-    });
+.controller('GameController', ['$scope', 'store', function($scope, store){
+  $scope.players = {};
+  var user = JSON.parse(store.get('com.spacePirates'));
+  var number;
+  if(user.username === "rdbruhn"){
+    number = '1234';
+  }else{
+    number = '4321';
   }
+  console.log(user);
+  window.phone = PHONE({
+        number        : number,
+        publish_key   : 'pub-c-561a7378-fa06-4c50-a331-5c0056d0163c',
+        subscribe_key : 'sub-c-17b7db8a-3915-11e4-9868-02ee2ddab7fe',
+        media         : { audio : true, video : {height:200, width:280} },
+    });
 
-  // Pubnub.onNewConnection(function (uuid) {
-  //   if (myStream != null) {
-  //     publishStream(uuid);
-  //   }
-  // });
-
-  Pubnub.subscribe({
-    channel: $scope.gameId,
-    callback: function (data) {
-      if (data.caller == myUuid) {
-        publishStream(data.callee);
+  phone.ready(function(){
+      // Obect.observe($scope.players, function(changes){
+      //   changes.forEach(function(change){
+      //     phone.dial(change.object.username
+      //   }
+      // });
+      if(number==='1234'){
+        number = '4321';
       }
-    }
+      var session = phone.dial(number);
+      $('#myVid').append(phone.video);
   });
 
-  //var video_out = document.getElementById("vid-box");
-  //var vid_thumb = document.getElementById("my-vid");
+  phone.receive(function(session){
+    session.connected(function(session){
+      console.log(phone);
+      if(session.number !== phone.number()){
+      session.video.height = 200; 
+      session.video.width = 280;  
+      $('#player2').append(session.video);
+    }
+
+    });
+    session.ended(function(session){     /* call ended     */ });
+  });
 
 }])
 .directive('gameCanvas', ['$injector', function($injector) {
