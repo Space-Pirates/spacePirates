@@ -3,18 +3,14 @@ var Game = require('../game');
 var db = require('../../db/db');
 var _ = require('underscore');
 var expect = chai.expect;
-var game = new Game();
+var game = new Game('testGameId');
 
 module.exports = function() {
-
-  beforeEach(function (done) {
-    setTimeout(done, 100);
-  });
 
   describe('properties', function () {
     it('should have a gameID', function() {
       expect(game).to.have.any.keys('gameId');
-      expect(game.gameId).to.be.a('string');
+      expect(game.gameId).to.equal('testGameId');
     });
     it('should have a board object', function() {
       expect(game).to.have.any.keys('board');
@@ -31,27 +27,7 @@ module.exports = function() {
   });
 
   describe('initialize method', function () {
-    var doc;
 
-    before(function (done) {
-      db.Game.get(game.gameId)
-      .run()
-      .then(function(data) {
-        doc = data;
-        done();
-      })
-      .catch(function(err) {
-        done(err);
-      });
-    });
-
-    it('should create a new create a new game document in the database', function() {
-      expect(doc).to.be.an('object');
-      expect(doc.id).to.be.a('string');
-    });
-    it('should keep reference to the gameId', function() {
-      expect(game.gameId).to.equal(doc.id);
-    });
     it('should retain access to a new board instance', function() {
       expect(game.board).to.be.an('object');
       expect(game.board).to.have.any.keys('gameId');
