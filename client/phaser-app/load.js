@@ -12,10 +12,11 @@ var loadState = {
     var loadingLabel = game.add.text(0, 0, 'Waiting for players...', {font:'30px Arial', fill:'#ffffff', boundsAlignH: "center", boundsAlignV: "middle"});
     loadingLabel.setTextBounds(0,0,840,550);
 
-    socket.emit('ready');
-
     socket.on('4players', function(players) {
+      console.log('4players');
       game.state.start('game');
     });
+
+    socket.emit('ready');
   }
 };

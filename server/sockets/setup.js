@@ -17,16 +17,15 @@ module.exports = function(app) {
 
     socket.on('move', function(data) {
       // call game stuff here
-      socket.to(room).emit('moved', user);
+      io.to(room).emit('moved', user);
     })
 
-  });
+    socket.on('ready', function(socket, dat) {
+      if (io.sockets.adapter.rooms[room].length >= 4) {
+        io.to(room).emit('4players');
+      }
+    });
 
-  io.on('ready', function(socket, dat) {
-    console.log(dat, 'ready');
-    if (io.engine.clientsCount >= 4) {
-      io.sockets.emit('4players');
-    }
   });
 
   return http;
