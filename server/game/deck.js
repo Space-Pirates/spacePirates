@@ -4,6 +4,7 @@ var tileDictionary = require('./tile-dictionary.json');
 
 var Deck = function(gameId) {
   this.gameId = gameId;
+  this.initialize();
 };
 
 Deck.prototype = {
@@ -30,10 +31,6 @@ Deck.prototype = {
     .catch(function(err) {
       console.error(err);
     });
-  },
-
-  shuffle: function(collection) {
-    return _.shuffle(collection);
   },
 
   dealTile: function(playerId) {
@@ -76,37 +73,16 @@ Deck.prototype = {
       });
   },
 
-  initialize: function(player1, player2, player3, player4) {
+  initialize: function() {
     var deck = this;
-    var tiles = this.shuffle(tileDictionary);
-    var hand = {
-      0: [],
-      1: [],
-      2: [],
-      3: []
-    };
 
-    for (var i = 0; i < 4; i++) {
-      for (var j = 0; j < 3; j++) {
-        hand[i].push(tiles.pop());
-      }
-    }
-
-    return this.setTiles(tiles)
+    return new db.Deck({gameId: this.gameId})
+    .save()
     .then(function() {
-      deck.setHand(player1, hand[0])
-      .catch(function(err) {
-        console.error(err);
-      });
-      deck.setHand(player2, hand[1])
-      .catch(function(err) {
-        console.error(err);
-      });
-      deck.setHand(player3, hand[2])
-      .catch(function(err) {
-        console.error(err);
-      });
-      deck.setHand(player4, hand[3])
+      return deck.setTiles(_.shuffle(tileDictionary))
+      .then(function(data) {
+        return data;
+      })
       .catch(function(err) {
         console.error(err);
       });
