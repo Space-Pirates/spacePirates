@@ -3,7 +3,7 @@ angular.module('app.lobbyFact',[])
   var getGames = function(){
     return $http({
       method: 'GET',
-      url: '/game/'
+      url: '/game'
     }).then(function successCallback(resp){
         return resp.data;
     }, function errorCallback(resp){
@@ -14,7 +14,7 @@ angular.module('app.lobbyFact',[])
   var createGame = function(creator){
      return $http({
       method: 'POST',
-      url: '/game/',
+      url: '/game',
       data: creator
     }).then(function successCallback(resp){
         return resp.data;

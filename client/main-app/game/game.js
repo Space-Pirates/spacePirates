@@ -1,10 +1,13 @@
 angular.module('app.game', [])
-.controller('GameController', ['$scope', 'store', function($scope, store){
+.controller('GameController', ['$scope', 'store', '$stateParams', function($scope, store, $stateParams){
   $scope.players = {};
   var user = JSON.parse(store.get('com.spacePirates'));
-  var number;
 
-  console.log(user);
+  var game_id = $stateParams.id;
+
+  window.socket = io.connect({query: "game_id=" + game_id + "&user="+user.username});
+
+
   window.phone = PHONE({
         number        : user.username,
         publish_key   : 'pub-c-561a7378-fa06-4c50-a331-5c0056d0163c',
@@ -29,8 +32,8 @@ angular.module('app.game', [])
   phone.receive(function(session){
     session.connected(function(session){
       if(session.number !== phone.number()){
-      session.video.height = 200; 
-      session.video.width = 280;  
+      session.video.height = 200;
+      session.video.width = 280;
       $('#player' + player).append(session.video);
       player++;
     }

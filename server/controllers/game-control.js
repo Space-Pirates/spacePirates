@@ -24,6 +24,7 @@ module.exports = {
     .save()
     .then(function(doc) {
       currentGames[doc.id] = new Game(doc.id);
+      res.send(doc.id);
     })
     .catch(function(err) {
       console.error(err);
