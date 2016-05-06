@@ -19,6 +19,10 @@ angular.module('app.game', [])
   $scope.sessions = [];
   phone.ready(function(){
       $('#myVid').append(phone.video);
+      socket.on('joined', function(user) {
+        console.log(user.username);
+        $scope.sessions.push(phone.dial(user.username));
+      });
   });
 
   var player = 2;
@@ -36,10 +40,6 @@ angular.module('app.game', [])
     session.ended(function(session){    player--;  });
   });
 
-  socket.on('joined', function(user) {
-    console.log(user.username);
-    $scope.sessions.push(phone.dial(user.username));
-  });
 
 }])
 .directive('gameCanvas', ['$injector', function($injector) {
