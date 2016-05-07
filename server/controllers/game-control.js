@@ -1,8 +1,10 @@
 var db = require('../db/db');
 var Game = require('../game/game');
-var currentGames = {};
+currentGames = {};
 
 module.exports = {
+  currentGames: currentGames,
+
   getAll: function(req, res) {
     db.Game.getJoin({
       players: true
@@ -23,7 +25,7 @@ module.exports = {
     new db.Game({})
     .save()
     .then(function(doc) {
-      currentGames[doc.id] = new Game(doc.id);
+      this.currentGames[doc.id] = new Game(doc.id);
       res.send(doc.id);
     })
     .catch(function(err) {

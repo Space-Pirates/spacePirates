@@ -1,36 +1,42 @@
+var games = require('./../controllers/game-control').currentGames;
+var Player = require('./../game/player')
 module.exports = function(app) {
 
   var http =  require('http').Server(app);
   var io  = require('socket.io')(http);
 
   io.on('connection', function(socket) {
-    var room = socket.handshake.query.game_id;
+    var game_id = socket.handshake.query.game_id;
     var user = socket.handshake.query.user;
 
     // join room, room is the game_id
-    socket.join(room);
-    console.log(user + " joined game: " + room);
+    socket.join(game_id);
+    console.log(user + " joined game: " + game_id);
 
     socket.on('disconnect', function() {
-      socket.to(room).emit('left', user);
-      socket.leave(room);
+      socket.to(game_id).emit('left', user);
+      socket.leave(game_id);
     });
 
     // listen for moves
     socket.on('move', function(data) {
       // call game stuff here
-      io.to(room).emit('moved', user);
+      io.to(game_id).emit('moved', user);
     })
 
     // listen for load state is loaded
     socket.on('ready', function(socket, dat) {
-      if (io.sockets.adapter.rooms[room].length >= 4) {
-        io.to(room).emit('4players');
+      games[game_id].players[socket.id] = new Player(game_id, socket.id);
+      if (io.sockets.adapter.rooms[game_id].length >= 4) {
+        games[game_id].initialize().then(function() {
+          io.to(game_id).emit('startGame');
+        });
+        io.to(game_id).emit('4players');
       }
     });
 
     // announce arrival so everyone else in room can call
-    io.to(room).emit('joined', {username: user});
+    io.to(game_id).emit('joined', {username: user});
 
   });
 
