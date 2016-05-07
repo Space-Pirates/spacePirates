@@ -22,7 +22,7 @@ module.exports = function() {
     expect(player.gameID).to.equal('testGameID');
   });
   it('should have a playerID property', function() {
-    expect(player.playerID).to.be.a('number');
+    expect(player.playerID).to.be.a('string');
   });
   it('should have a socketID property', function() {
     expect(player.socketID).to.equal('testSocketID');
@@ -31,7 +31,7 @@ module.exports = function() {
     expect(player.lastPlayed).to.be.an('object');
   });
   it('should create a new player document in the database', function(done) {
-    db.Player.filter({gameID: 'testGameID'})
+    db.Player.filter({gameId: 'testGameID'})
     .run()
     .then(function (data) {
       expect(data[0]).to.be.an('object');
@@ -46,7 +46,7 @@ module.exports = function() {
     beforeEach(function (done) {
 
       var test = {
-        hand: ['test1', 'test2', 'test3']
+        hand: [{tileId: 'test1' }, {tileId: 'test2', }, {tileId: 'test3'}]
       };
 
       db.Player.filter({gameID: 'testGameID'})
@@ -65,28 +65,10 @@ module.exports = function() {
     it('should remove the given tile from the player\'s hand', function (done) {
       player.discard('test1')
       .then(function () {
-        db.Player.filter({gameID: 'testGameID'})
+        db.Player.filter({gameId: 'testGameID'})
         .run()
         .then(function (data) {
-          expect(data[0].hand).to.not.include('test1');
-          done();
-        })
-        .catch(function (err) {
-          done(err);
-        });
-      })
-      .catch(function (err) {
-        done(err);
-      });
-    });
-    it('should be dealt a new card from the deck', function (done) {
-      player.discard('test1')
-      .then(function () {
-        db.Player.filter({gameID: 'testGameID'})
-        .run()
-        .then(function (data) {
-          expect(data[0].hand).to.have.length(3);
-          expect(data[0].hand[2]).to.be.an('object');
+          expect(data[0].hand).to.not.include({tileId: 'test1'});
           done();
         })
         .catch(function (err) {
