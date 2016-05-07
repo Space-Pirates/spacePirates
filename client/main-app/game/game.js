@@ -1,12 +1,31 @@
 angular.module('app.game', [])
-.controller('GameController', ['$scope', 'store', '$stateParams', function($scope, store, $stateParams){
-  $scope.players = {};
+.controller('GameController', ['$scope', 'store', '$stateParams', function($scope, store, $stateParams) {
+  $scope.game = {
+    players: {
+      p1: {},
+      p2: {},
+      p3: {},
+      p4: {}
+    },
+    board: {
+      matrix: [],
+      lastPlayed: {}
+    },
+    deck: {
+      lastDiscard: {},
+      tilesRemaining: 54
+    },
+    player: {
+      role: '',
+      hand: []
+    }
+  };
   var user = JSON.parse(store.get('com.spacePirates'));
-
   var gameId = $stateParams.id;
 
   window.socket = io.connect({query: 'game_id=' + gameId + '&user='+user.username});
 
+  startSocketListeners(); // Located in ./socket.js
 
   window.phone = PHONE({
     number: user.username,
@@ -48,7 +67,7 @@ angular.module('app.game', [])
 }])
 .directive('gameCanvas', ['$injector', function($injector) {
   var linkFn = function(scope, ele, injector) {
-    createGame(ele, scope, scope.players, scope.mapId, $injector);
+    createGame(ele, scope, scope.game);
   };
   return {
     restrict: 'E',
