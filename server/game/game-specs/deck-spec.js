@@ -5,7 +5,7 @@ var db = require('../../db/db');
 var expect = chai.expect;
 var collection, doc;
 
-var deck = new Deck('testGameId'); 
+var deck = new Deck('testGameId');
 
 function makePlayer(id) {
   return new db.Player({

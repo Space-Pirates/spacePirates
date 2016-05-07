@@ -103,7 +103,7 @@ module.exports = function() {
         });
       });
     });
-    
+
     describe('getMatrix', function() {
 
       beforeEach(function (done) {
