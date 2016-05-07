@@ -7,7 +7,8 @@ var type = thinky.type;
 
 var Game = thinky.createModel('Game', {
   id: type.string(),
-  // ownerId: type.string(),
+  title: type.string(),
+  ownerId: type.string()
 });
 
 Game.hasOne(Board, 'board', 'id', 'gameId');
@@ -19,4 +20,4 @@ module.exports = Game;
 // Must come after export
 var User = require('./user');
 
-Game.hasAndBelongsToMany(User, 'users', 'id', 'id');
+Game.belongsTo(User, 'user', 'ownerId', 'id');
