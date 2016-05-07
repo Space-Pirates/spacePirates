@@ -32,8 +32,6 @@ var gameState = {
     game.load.image('special-unblock-BC', 'phaser-app/assets/special-unblock-BC.png');
     game.load.image('special-unblock-C', 'phaser-app/assets/special-unblock-C.png');
     game.load.image('start', 'phaser-app/assets/route-intersection.png');
-    
-    window.socket.emit('getGame', {});
   },
 
   create: function() {
