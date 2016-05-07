@@ -1,14 +1,16 @@
 var xInit, yInit;
 
 function createStaticTile(data){
-  var tile = game.add.image(data.x*70, data.y*50, data.tile.tileId);
+  var name = data.tile.tileId.substring(0, data.tile.tileId.length-2);
+  var tile = game.add.image(data.x*70, data.y*50, name);
   tile.height = 45;
   tile.width = 65;
   tile.tileData = data.tile;
 }
 
 function createTile(data){
-  var tile = game.add.sprite(data.x*70, data.y*50, data.tile.tileId);
+  var name = data.tile.tileId.substring(0, data.tile.tileId.length-2);
+  var tile = game.add.sprite(data.x*70, data.y*50, name);
   tile.height = 50;
   tile.width = 70;
   tile.tileData = data.tile;
