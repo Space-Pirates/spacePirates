@@ -5,6 +5,6 @@ module.exports = function(app, passport) {
   app.post('/signin', passport.authenticate('signin'), control.auth.signin);
 
   app.route('/game/')
-    .get(control.game.getAll)
-    .post(control.game.create);
+    .get(passport.authenticate('jwt'), control.game.getAll)
+    .post(passport.authenticate('jwt'), control.game.create);
 };
