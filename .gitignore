@@ -18,7 +18,10 @@ node_modules/
 client/bower_components/
 .env
 
+# AWS
+
 # Misc
+*.pem
 .DS_Store
 
 # DB
