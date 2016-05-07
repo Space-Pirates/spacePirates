@@ -34,13 +34,13 @@ Deck.prototype = {
   },
 
   dealTile: function(playerId) {
-    var context = this;
+    var deck = this;
 
     return this.getTiles()
     .then(function(tiles) {
       var tile = tiles.pop();
 
-      context.setTiles(tiles)
+      deck.setTiles(tiles)
       .catch(function(err) {
         console.error(err);
       });

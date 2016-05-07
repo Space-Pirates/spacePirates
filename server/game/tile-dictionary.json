@@ -1,4 +1,4 @@
-[
+special-[
   {
     "tileID": "route-intersection-1",
     "top": 1,
@@ -329,92 +329,92 @@
     "type": "destroy"
   },
   {
-    "tileID": "block-A-1",
+    "tileID": "special-block-A-1",
     "isSpecial": true,
     "type": "block-A"
   },
   {
-    "tileID": "block-A-2",
+    "tileID": "special-block-A-2",
     "isSpecial": true,
     "type": "block-A"
   },
   {
-    "tileID": "block-A-3",
+    "tileID": "special-block-A-3",
     "isSpecial": true,
     "type": "block-A"
   },
   {
-    "tileID": "block-B-1",
+    "tileID": "special-block-B-1",
     "isSpecial": true,
     "type": "block-B"
   },
   {
-    "tileID": "block-B-2",
+    "tileID": "special-block-B-2",
     "isSpecial": true,
     "type": "block-B"
   },
   {
-    "tileID": "block-B-3",
+    "tileID": "special-block-B-3",
     "isSpecial": true,
     "type": "block-B"
   },
   {
-    "tileID": "block-C-1",
+    "tileID": "special-block-C-1",
     "isSpecial": true,
     "type": "block-C"
   },
   {
-    "tileID": "block-C-2",
+    "tileID": "special-block-C-2",
     "isSpecial": true,
     "type": "block-C"
   },
   {
-    "tileID": "block-C-3",
+    "tileID": "special-block-C-3",
     "isSpecial": true,
     "type": "block-C"
   },
   {
-    "tileID": "unblock-A-1",
+    "tileID": "special-unblock-A-1",
     "isSpecial": true,
     "type": "unblock-A"
   },
   {
-    "tileID": "unblock-A-2",
+    "tileID": "special-unblock-A-2",
     "isSpecial": true,
     "type": "unblock-A"
   },
   {
-    "tileID": "unblock-B-1",
+    "tileID": "special-unblock-B-1",
     "isSpecial": true,
     "type": "unblock-B"
   },
   {
-    "tileID": "unblock-B-2",
+    "tileID": "special-unblock-B-2",
     "isSpecial": true,
     "type": "unblock-B"
   },
   {
-    "tileID": "unblock-C-1",
+    "tileID": "special-unblock-C-1",
     "isSpecial": true,
     "type": "unblock-C"
   },
   {
-    "tileID": "unblock-C-2",
+    "tileID": "special-unblock-C-2",
     "isSpecial": true,
     "type": "unblock-C"
   },
   {
-    "tileID": "unblock-AB-1",
+    "tileID": "special-unblock-AB-1",
     "isSpecial": true,
     "type": "unblock-AB"
   },
   {
-    "tileID": "unblock-AC-1",
+    "tileID": "special-unblock-AC-1",
     "isSpecial": true,
     "type": "unblock-AC"
   },
   {
-    "tileID": "unblock-BC-1",
+    "tileID": "special-unblock-BC-1",
     "isSpecial": true,
     "type": "unblock-BC"
   }
