@@ -1,5 +1,7 @@
+var db = require('../db/db');
 var games = require('./../controllers/game-control').currentGames;
-var Player = require('./../game/player')
+var Player = require('./../game/player');
+
 module.exports = function(app) {
 
   var http =  require('http').Server(app);
@@ -22,7 +24,7 @@ module.exports = function(app) {
     socket.on('move', function(data) {
       // call game stuff here
       io.to(game_id).emit('moved', user);
-    })
+    });
 
     // listen for load state is loaded
     socket.on('ready', function(socket, dat) {
@@ -41,10 +43,23 @@ module.exports = function(app) {
       }
     });
 
+    // setup change feed for lobby
+    if(game_id === 'LobbySocket'){
+      db.Game.changes().then(function(feed){
+        feed.each(function(error, doc) {
+          console.log(doc);
+          db.Game.getJoin({id: doc.id })
+          .then(function(data){
+            io.to(game_id).emit('update', doc);
+          });
+        });
+      });
+    }
+
     // announce arrival so everyone else in room can call
     io.to(game_id).emit('joined', {username: user});
 
   });
 
   return http;
-}
+};
