@@ -26,15 +26,16 @@ module.exports = {
     new db.Game({})
     .save()
     .then(function(doc) {
-      this.currentGames[doc.id] = new Game(doc.id);
-      player = new Player(doc.id);
+      var gameId = doc.id;
+      currentGames[gameId] = new Game(gameId);
+      player = new Player(gameId);
       player.initialize()
-      .then(function(doc) {
+      .then(function() {
         res.json({
-          gameId: doc.gameId,
-          playerId: doc.playerId
+          gameId: gameId,
+          playerId: this.playerId
         });
-      })
+      }.bind(player))
       .catch(function(err) {
         console.error(err);
       });

@@ -55,7 +55,7 @@ angular.module('spacePirates', [
       authenticate: true
     })
     .state('game.play', {
-      url: '/:id',
+      url: '/:gameId',
       template: '<game-canvas></game-canvas>',
       controller: 'GameController',
       authenticate: true

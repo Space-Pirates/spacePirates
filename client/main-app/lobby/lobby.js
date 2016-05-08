@@ -20,14 +20,14 @@ angular.module('app.lobby', ['app.lobbyFact'])
     $scope.createGame = function () {
       //call to backEnd to create new gameState
       LobbyFactory.createGame(user)
-        .then(function(gameId){
-          $scope.joinGame(gameId);
+        .then(function(data){
+          $scope.joinGame(data);
         });
     };
 
-    $scope.joinGame = function (gameId){
+    $scope.joinGame = function (data){
       window.lobbySocket.disconnect();
-      $state.go('game.play', {id: gameId});
+      $state.go('game.play', data);
     };
 
     $scope.getGames();

@@ -33,17 +33,16 @@ module.exports = function(app) {
     });
 
     // listen for moves
-    socket.on('move', function(data) {
+    socket.on('move', function(socket) {
       // call game stuff here
       io.to(game_id).emit('moved', user);
     });
 
     // listen for load state is loaded
-    socket.on('ready', function(socket, dat) {
+    socket.on('ready', function(socket) {
       var game = games[game_id];
-
-      game.players[dat.id] = new Player(game_id);
-      game.players[dat.id].initialize();
+      game.players[socket.playerId] = new Player(game_id);
+      game.players[socket.playerId].initialize();
       if (io.sockets.adapter.rooms[game_id].length >= 4) {
         game.startGame().then(function() {
           io.to(game_id).emit('startGame', {
