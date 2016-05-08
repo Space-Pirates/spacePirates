@@ -36,7 +36,8 @@ function startSocketListeners() {
 
 function emitMove(x, y, tile) {
   window.socket.emit('move', {
-    token: window.storage.getItem('com.spacepirates'),
+    playerId: window.playerId,
+    token: JSON.parse(window.localStorage.getItem('com.spacePirates')),
     x:x,
     y:y,
     tile: tile

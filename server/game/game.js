@@ -15,10 +15,10 @@ Game.prototype.startGame = function() {
   var roles = _.shuffle(['pirate', 'settler', 'settler', 'settler']);
   var deck = this;
 
-  this.deck.getTiles()
+  return this.deck.getTiles()
   .then(function(tiles) {
     var hands = [[], [], [], []];
-    
+
     for (var i = 0; i < 4; i++) {
       hands[0].push(tiles.pop());
       hands[1].push(tiles.pop());
