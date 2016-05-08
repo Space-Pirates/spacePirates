@@ -7,6 +7,18 @@ module.exports = function(app) {
   var http =  require('http').Server(app);
   var io  = require('socket.io')(http);
 
+// setup change feed for lobby
+
+  db.Game.changes().then(function(feed){
+    feed.each(function(error, doc) {
+      console.log(doc);
+      db.Game.get(doc.id).getJoin({players:true})
+      .then(function(game){
+        io.to('LobbySocket').emit('update', game);
+      });
+    });
+  });
+
   io.on('connection', function(socket) {
     var game_id = socket.handshake.query.game_id;
     var user = socket.handshake.query.user;
@@ -42,19 +54,6 @@ module.exports = function(app) {
         io.to(game_id).emit('4players');
       }
     });
-
-    // setup change feed for lobby
-    if(game_id === 'LobbySocket'){
-      db.Game.changes().then(function(feed){
-        feed.each(function(error, doc) {
-          console.log(doc);
-          db.Game.getJoin({id: doc.id })
-          .then(function(data){
-            io.to(game_id).emit('update', data);
-          });
-        });
-      });
-    }
 
     // announce arrival so everyone else in room can call
     io.to(game_id).emit('joined', {username: user});
