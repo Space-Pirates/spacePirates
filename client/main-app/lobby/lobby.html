@@ -4,7 +4,7 @@
 <div ng-model="games">
   <md-card class="md-card-2dp panel play" layout="" layout-align="center center" ng-repeat="game in games track by game.id">
     <span ng-bind="game.players.length">Players</span>
-    <md-button ng-click="joinGame({gameId:game.id, userId: userId})">Join Game</md-button>
+    <md-button ng-click="joinGame({gameId:game.id})">Join Game</md-button>
   </md-card>
 </div>
 

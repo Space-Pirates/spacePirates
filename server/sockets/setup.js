@@ -39,26 +39,28 @@ module.exports = function(app) {
 
     // listen for load state is loaded
     socket.on('ready', function(data) {
+      console.log(data);
       var game = games[game_id];
       game.players[data.userId] = new Player(game_id, socket.id);
-      game.players[data.userId].initialize();
-      if (io.sockets.adapter.rooms[game_id].length >= 4) {
-        game.startGame().then(function() {
-          game.board.getMatrix().then(function(matrix) {
-            io.to(game_id).emit('startGame', {
-              matrix: matrix,
-              tilesRemaining: Infinity
+      game.players[data.userId].initialize().then(function () {
+        if (io.sockets.adapter.rooms[game_id].length >= 4) {
+          game.startGame().then(function() {
+            game.board.getMatrix().then(function(matrix) {
+              io.to(game_id).emit('startGame', {
+                matrix: matrix,
+                tilesRemaining: Infinity
+              });
             });
+            for (userId in game.players) {
+              player = game.players[userId];
+              player.getHand().then(function (hand) {
+                io.to(player.socketId).emit('hand', hand);
+              });
+            }
           });
-          console.log(game.players);
-          game.players.forEach(function(player) {
-            player.getHand().then(function (hand) {
-              io.to(player.socketId).emit('hand', hand);
-            });
-          })
-        });
-        io.to(game_id).emit('4players');
-      }
+          io.to(game_id).emit('4players');
+        }
+      });
     });
 
     // announce arrival so everyone else in room can call

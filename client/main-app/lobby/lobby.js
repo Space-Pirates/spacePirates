@@ -3,7 +3,6 @@ angular.module('app.lobby', ['app.lobbyFact'])
 
 
     var user = JSON.parse(store.get('com.spacePirates'));
-
     $scope.userId = user.id;
     $scope.games = [];
 
@@ -24,14 +23,15 @@ angular.module('app.lobby', ['app.lobbyFact'])
     $scope.createGame = function () {
       //call to backEnd to create new gameState
       LobbyFactory.createGame(user)
-        .then(function(data){
-          $scope.joinGame(data);
+        .then(function(gameId){
+          $scope.joinGame(gameId);
         });
     };
 
-    $scope.joinGame = function (data){
+    $scope.joinGame = function (gameId){
       window.lobbySocket.disconnect();
-      $state.go('game.play', data);
+      console.log(gameId);
+      $state.go('game.play', {gameId: gameId});
     };
 
     $scope.getGames();

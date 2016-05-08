@@ -21,8 +21,7 @@ angular.module('app.game', [])
     }
   };
   var user = JSON.parse(store.get('com.spacePirates'));
-  window.gameId = $stateParams.gameId;
-  window.userId = $stateParams.userId;
+  var gameId = $stateParams.gameId;
 
   window.socket = io.connect({query: 'game_id=' + gameId + '&user='+user.username});
 

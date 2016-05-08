@@ -63,7 +63,7 @@ Player.prototype = {
   },
 
   getHand: function() {
-    db.Player.get(this.PlayerId)
+    return db.Player.get(this.playerId)
     .then(function(doc) {
       return doc.hand;
     })

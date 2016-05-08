@@ -28,17 +28,7 @@ module.exports = {
     .then(function(doc) {
       var gameId = doc.id;
       currentGames[gameId] = new Game(gameId);
-      // player = new Player(gameId);
-      // player.initialize()
-      // .then(function() {
-        res.json({
-          gameId: gameId,
-          userId: req.user.id
-        });
-      // }.bind(player))
-      // .catch(function(err) {
-      //   console.error(err);
-      // });
+      res.status(200).send(gameId)
     })
     .catch(function(err) {
       console.error(err);
