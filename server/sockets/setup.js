@@ -39,10 +39,10 @@ module.exports = function(app) {
     });
 
     // listen for load state is loaded
-    socket.on('ready', function(socket) {
+    socket.on('ready', function(data) {
       var game = games[game_id];
-      game.players[socket.playerId] = new Player(game_id);
-      game.players[socket.playerId].initialize();
+      game.players[data.playerId] = new Player(game_id, socket.id);
+      game.players[data.playerId].initialize();
       if (io.sockets.adapter.rooms[game_id].length >= 4) {
         game.startGame().then(function() {
           game.board.getMatrix().then(function(matrix) {
@@ -51,6 +51,11 @@ module.exports = function(app) {
               tilesRemaining: Infinity
             });
           });
+          game.players.forEach(function(player) {
+            player.getHand().then(function (hand) {
+              io.to(player.socketId).emit('hand', hand);
+            });
+          })
         });
         io.to(game_id).emit('4players');
       }

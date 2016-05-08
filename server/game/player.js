@@ -1,7 +1,8 @@
 var db = require('../db/db');
 
-var Player = function (gameId) {
+var Player = function (gameId, socketId) {
   this.gameId = gameId;
+  this.socketId = socketId;
   this.lastPlayed = {};
   this.playerId = '';
 };
@@ -61,11 +62,22 @@ Player.prototype = {
     });
   },
 
+  getHand: function() {
+    db.Player.get(this.PlayerId)
+    .then(function(doc) {
+      return doc.hand;
+    })
+    .catch(function(err) {
+      console.error(err);
+    });
+  },
+
   initialize: function () {
     var player = this;
 
     return new db.Player({
       gameId: player.gameId,
+      socketId: player.socketId,
       role: '',
       isTurn: false,
       hand: [],
