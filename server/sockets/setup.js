@@ -7,8 +7,7 @@ module.exports = function(app) {
   var http =  require('http').Server(app);
   var io  = require('socket.io')(http);
 
-// setup change feed for lobby
-
+  // setup change feed for lobby
   db.Game.changes().then(function(feed){
     feed.each(function(error, doc) {
       console.log(doc);
@@ -41,8 +40,8 @@ module.exports = function(app) {
     // listen for load state is loaded
     socket.on('ready', function(data) {
       var game = games[game_id];
-      game.players[data.playerId] = new Player(game_id, socket.id);
-      game.players[data.playerId].initialize();
+      game.players[data.userId] = new Player(game_id, socket.id);
+      game.players[data.userId].initialize();
       if (io.sockets.adapter.rooms[game_id].length >= 4) {
         game.startGame().then(function() {
           game.board.getMatrix().then(function(matrix) {
@@ -51,6 +50,7 @@ module.exports = function(app) {
               tilesRemaining: Infinity
             });
           });
+          console.log(game.players);
           game.players.forEach(function(player) {
             player.getHand().then(function (hand) {
               io.to(player.socketId).emit('hand', hand);

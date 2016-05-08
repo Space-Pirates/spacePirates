@@ -28,17 +28,17 @@ module.exports = {
     .then(function(doc) {
       var gameId = doc.id;
       currentGames[gameId] = new Game(gameId);
-      player = new Player(gameId);
-      player.initialize()
-      .then(function() {
+      // player = new Player(gameId);
+      // player.initialize()
+      // .then(function() {
         res.json({
           gameId: gameId,
-          playerId: this.playerId
+          userId: req.user.id
         });
-      }.bind(player))
-      .catch(function(err) {
-        console.error(err);
-      });
+      // }.bind(player))
+      // .catch(function(err) {
+      //   console.error(err);
+      // });
     })
     .catch(function(err) {
       console.error(err);

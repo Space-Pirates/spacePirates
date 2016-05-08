@@ -16,6 +16,6 @@ var loadState = {
       game.state.start('game');
     });
 
-    socket.emit('ready', {playerId: window.playerId});
+    socket.emit('ready', {userId: window.udserId});
   }
 };

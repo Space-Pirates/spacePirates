@@ -1,10 +1,15 @@
 angular.module('app.lobby', ['app.lobbyFact'])
   .controller('LobbyController', ['$scope', 'LobbyFactory', '$state', 'store', function($scope, LobbyFactory, $state, store){
-    //Mock room data
+
+
     var user = JSON.parse(store.get('com.spacePirates'));
+
+    $scope.userId = user.id;
+    $scope.games = [];
+
+    // lobbySocket setup for listening for game adds
     window.lobbySocket = io.connect({query: 'game_id=LobbySocket&user='+user.username});
     window.lobbySocket.on('update', function(change){
-      console.log(change);
       $scope.games.push(change);
       $scope.$apply();
     });
@@ -12,7 +17,6 @@ angular.module('app.lobby', ['app.lobbyFact'])
     $scope.getGames = function(){
       LobbyFactory.getGames()
         .then(function(games){
-          console.log(games);
           $scope.games = games;
         });
     };

@@ -22,7 +22,7 @@ angular.module('app.game', [])
   };
   var user = JSON.parse(store.get('com.spacePirates'));
   window.gameId = $stateParams.gameId;
-  window.playerId = $stateParams.playerId;
+  window.userId = $stateParams.userId;
 
   window.socket = io.connect({query: 'game_id=' + gameId + '&user='+user.username});
 
