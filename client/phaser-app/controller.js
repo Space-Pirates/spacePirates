@@ -19,7 +19,7 @@ function createTile(data){
   tile.input.enableDrag();
   tile.input.enableSnap(70, 50, false, true);
   tile.input.boundsRect = new Phaser.Rectangle(0, 0, 840, 550);
- 
+
   tile.events.onInputOver.add(onOver, this);
   tile.events.onInputOut.add(onOut, this);
   tile.events.onDragStart.add(onDragStart, this);

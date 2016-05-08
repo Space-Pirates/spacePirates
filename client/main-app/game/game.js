@@ -1,6 +1,6 @@
 angular.module('app.game', [])
 .controller('GameController', ['$scope', 'store', '$stateParams', function($scope, store, $stateParams) {
-  $scope.game = {
+  window.gameData = {
     players: {
       p1: {},
       p2: {},

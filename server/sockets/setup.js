@@ -45,9 +45,11 @@ module.exports = function(app) {
       game.players[socket.playerId].initialize();
       if (io.sockets.adapter.rooms[game_id].length >= 4) {
         game.startGame().then(function() {
-          io.to(game_id).emit('startGame', {
-            matrix: game.board.matrix,
-            tilesRemaining: game.deck.tilesRemaining
+          game.board.getMatrix().then(function(matrix) {
+            io.to(game_id).emit('startGame', {
+              matrix: matrix,
+              tilesRemaining: Infinity
+            });
           });
         });
         io.to(game_id).emit('4players');
