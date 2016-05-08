@@ -50,7 +50,7 @@ module.exports = function(app) {
           console.log(doc);
           db.Game.getJoin({id: doc.id })
           .then(function(data){
-            io.to(game_id).emit('update', doc);
+            io.to(game_id).emit('update', data);
           });
         });
       });

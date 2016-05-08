@@ -9,7 +9,7 @@ angular.module('app.lobby', ['app.lobbyFact'])
           $scope.games = games;
           window.lobbySocket = io.connect({query: 'game_id=LobbySocket&user='+user.username});
           window.lobbySocket.on('update', function(changes){
-            console.log(changes);
+            $scope.games = changes;
           });
         });
 
