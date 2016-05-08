@@ -1,12 +1,19 @@
 angular.module('app.lobby', ['app.lobbyFact'])
   .controller('LobbyController', ['$scope', 'LobbyFactory', '$state', 'store', function($scope, LobbyFactory, $state, store){
     //Mock room data
-    $scope.games = [{id: '555342342', players: ['Rob','Jak']}];
     var user = JSON.parse(store.get('com.spacePirates'));
+    window.lobbySocket = io.connect({query: 'game_id=LobbySocket&user='+user.username});
+    window.lobbySocket.on('update', function(change){
+      console.log(change);
+      $scope.games.push(change);
+      $scope.$apply();
+    });
+
     $scope.getGames = function(){
       LobbyFactory.getGames()
         .then(function(games){
-         // $scope.games = games;
+          console.log(games);
+          $scope.games = games;
         });
     };
 
@@ -19,6 +26,7 @@ angular.module('app.lobby', ['app.lobbyFact'])
     };
 
     $scope.joinGame = function (gameId){
+      window.lobbySocket.disconnect();
       $state.go('game.play', {id: gameId});
     };
 

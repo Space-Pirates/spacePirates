@@ -1,11 +1,12 @@
 <md-toolbar class="md-theme-indigo">
   <h1 class="md-toolbar-tools">Lobby</h1>
 </md-toolbar>
-
-<md-card class="md-card-2dp panel play" layout="" layout-align="center center" ng-repeat="game in games track by game.id">
-  <span ng-bind="game.players.length">Players</span>
-  <md-button ng-click="joinGame(game.id)">Join Game</md-button>
-</md-card>
+<div ng-model="games">
+  <md-card class="md-card-2dp panel play" layout="" layout-align="center center" ng-repeat="game in games track by game.id">
+    <span ng-bind="game.players.length">Players</span>
+    <md-button ng-click="joinGame(game.id)">Join Game</md-button>
+  </md-card>
+</div>
 
 <md-card class="md-card-2dp panel play" layout="" layout-align="center center">
   <md-button ng-click="createGame()">Create Game</md-button>

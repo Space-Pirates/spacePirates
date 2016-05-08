@@ -1,9 +1,23 @@
+var db = require('../db/db');
 var games = require('./../controllers/game-control').currentGames;
-var Player = require('./../game/player')
+var Player = require('./../game/player');
+
 module.exports = function(app) {
 
   var http =  require('http').Server(app);
   var io  = require('socket.io')(http);
+
+// setup change feed for lobby
+
+  db.Game.changes().then(function(feed){
+    feed.each(function(error, doc) {
+      console.log(doc);
+      db.Game.get(doc.id).getJoin({players:true})
+      .then(function(game){
+        io.to('LobbySocket').emit('update', game);
+      });
+    });
+  });
 
   io.on('connection', function(socket) {
     var game_id = socket.handshake.query.game_id;
@@ -22,7 +36,7 @@ module.exports = function(app) {
     socket.on('move', function(data) {
       // call game stuff here
       io.to(game_id).emit('moved', user);
-    })
+    });
 
     // listen for load state is loaded
     socket.on('ready', function(socket, dat) {
@@ -47,4 +61,4 @@ module.exports = function(app) {
   });
 
   return http;
-}
+};
