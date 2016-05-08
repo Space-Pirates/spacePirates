@@ -26,10 +26,16 @@ module.exports = function(app) {
 
     // listen for load state is loaded
     socket.on('ready', function(socket, dat) {
-      games[game_id].players[socket.id] = new Player(game_id, socket.id);
+      var game = games[game_id];
+
+      game.players[dat.id] = new Player(game_id);
+      game.players[dat.id].initialize();
       if (io.sockets.adapter.rooms[game_id].length >= 4) {
-        games[game_id].initialize().then(function() {
-          io.to(game_id).emit('startGame');
+        game.startGame().then(function() {
+          io.to(game_id).emit('startGame', {
+            matrix: game.board.matrix,
+            tilesRemaining: game.deck.tilesRemaining
+          });
         });
         io.to(game_id).emit('4players');
       }

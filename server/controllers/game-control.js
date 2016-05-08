@@ -1,5 +1,6 @@
 var db = require('../db/db');
 var Game = require('../game/game');
+var Player = require('../game/player');
 currentGames = {};
 
 module.exports = {
@@ -26,7 +27,17 @@ module.exports = {
     .save()
     .then(function(doc) {
       this.currentGames[doc.id] = new Game(doc.id);
-      res.send(doc.id);
+      player = new Player(doc.id);
+      player.initialize()
+      .then(function(doc) {
+        res.json({
+          gameId: doc.gameId,
+          playerId: doc.playerId
+        });
+      })
+      .catch(function(err) {
+        console.error(err);
+      });
     })
     .catch(function(err) {
       console.error(err);
