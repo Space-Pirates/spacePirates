@@ -2,8 +2,8 @@ function startSocketListeners() {
   socket.on('startGame', function(data) {
     $scope.game.board.matrix = data.matrix;
     $scope.game.deck.tilesRemaining = data.tilesRemaining;
-    $scope.game.player.role = data.role;
-    $scope.game.player.hand = data.hand;
+    // $scope.game.player.role = data.role;
+    // $scope.game.player.hand = data.hand;
 
     // populate players hand sprites
     createTile({x: 3, y: 10, tile: $scope.game.player.hand[0]});

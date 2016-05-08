@@ -6,10 +6,10 @@ var player;
 
 module.exports = function() {
 
-  before(function () {
-    var gameID = 'testGameID';
-    var socketID = 'testSocketID';
-    player = new Player(gameID, socketID);
+  before(function() {
+    var gameId = 'testGameID';
+    var socketId = 'testSocketID';
+    player = new Player(gameId, socketId);
   });
 
   it('should exist', function() {
@@ -18,43 +18,43 @@ module.exports = function() {
   it('should be a class in the psuedoclassical style', function() {
     expect(player).to.be.an('object');
   });
-  it('should have a gameID property', function() {
-    expect(player.gameID).to.equal('testGameID');
+  it('should have a gameId property', function() {
+    expect(player.gameId).to.equal('testGameID');
   });
-  it('should have a playerID property', function() {
-    expect(player.playerID).to.be.a('string');
+  it('should have a playerId property', function() {
+    expect(player.playerId).to.be.a('string');
   });
-  it('should have a socketID property', function() {
-    expect(player.socketID).to.equal('testSocketID');
+  it('should have a socketId property', function() {
+    expect(player.socketId).to.equal('testSocketID');
   });
-  it('should have a lastPlayed property', function () {
+  it('should have a lastPlayed property', function() {
     expect(player.lastPlayed).to.be.an('object');
   });
   it('should create a new player document in the database', function(done) {
     db.Player.filter({gameId: 'testGameID'})
     .run()
-    .then(function (data) {
+    .then(function(data) {
       expect(data[0]).to.be.an('object');
       done();
     })
-    .catch(function (err) {
+    .catch(function(err) {
       done(err);
     });
   });
 
-  describe('discard method', function () {
-    beforeEach(function (done) {
+  describe('discard method', function() {
 
+    beforeEach(function(done) {
       var test = {
         hand: [{tileId: 'test1' }, {tileId: 'test2', }, {tileId: 'test3'}]
       };
 
-      db.Player.filter({gameID: 'testGameID'})
+      db.Player.filter({gameId: 'testGameID'})
       .update(test)
-      .then(function () {
+      .then(function() {
         done();
       })
-      .catch(function (err) {
+      .catch(function(err) {
         done(err);
       });
     });
@@ -64,29 +64,29 @@ module.exports = function() {
     });
     it('should remove the given tile from the player\'s hand', function (done) {
       player.discard('test1')
-      .then(function () {
-        db.Player.filter({gameId: 'testGameID'})
+      .then(function() {
+        db.Player.get(player.playerId)
         .run()
-        .then(function (data) {
-          expect(data[0].hand).to.not.include({tileId: 'test1'});
+        .then(function(doc) {
+          expect(doc.hand).to.not.include({tileId: 'test1'});
           done();
         })
-        .catch(function (err) {
+        .catch(function(err) {
           done(err);
         });
       })
-      .catch(function (err) {
+      .catch(function(err) {
         done(err);
       });
     });
   });
 
-  db.Player.filter({gameID: 'testGameID'})
+  db.Player.filter({gameId: 'testGameID'})
   .delete()
-  .then(function (result) {
+  .then(function(result) {
     return result;
   })
-  .catch(function (err) {
+  .catch(function(err) {
     return err;
   });
 };
