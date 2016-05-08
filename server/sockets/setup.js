@@ -53,8 +53,9 @@ module.exports = function(app) {
             });
             for (userId in game.players) {
               player = game.players[userId];
+              console.log(hand);
               player.getHand().then(function (hand) {
-                io.to(player.socketId).emit('hand', hand);
+                io.to(player.socketId).emit('hand', {hand: hand});
               });
             }
           });

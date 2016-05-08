@@ -13,9 +13,10 @@ var Game = function(id) {
 Game.prototype.startGame = function() {
   var dealt = 0;
   var roles = _.shuffle(['pirate', 'settler', 'settler', 'settler']);
-  var deck = this;
+  var deck = this.deck;
+  var game = this;
 
-  return this.deck.getTiles()
+  return deck.getTiles()
   .then(function(tiles) {
     var hands = [[], [], [], []];
 
@@ -30,8 +31,8 @@ Game.prototype.startGame = function() {
     .catch(function(err) {
       console.error(err);
     });
-
-    for (var key in deck.players) {
+    console.log(game.players);
+    for (var key in game.players) {
       var player = deck.players[player];
 
       player.setRole(roles.pop());
