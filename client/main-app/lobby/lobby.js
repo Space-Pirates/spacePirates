@@ -6,8 +6,13 @@ angular.module('app.lobby', ['app.lobbyFact'])
     $scope.getGames = function(){
       LobbyFactory.getGames()
         .then(function(games){
-         $scope.games = games;
+          $scope.games = games;
+          window.lobbySocket = io.connect({query: 'game_id=LobbySocket&user='+user.username});
+          window.lobbySocket.on('update', function(changes){
+            console.log(changes);
+          });
         });
+
     };
 
     $scope.createGame = function () {
@@ -19,6 +24,7 @@ angular.module('app.lobby', ['app.lobbyFact'])
     };
 
     $scope.joinGame = function (gameId){
+      window.lobbySocket.disconnect();
       $state.go('game.play', {id: gameId});
     };
 
