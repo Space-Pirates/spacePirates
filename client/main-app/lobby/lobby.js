@@ -30,7 +30,6 @@ angular.module('app.lobby', ['app.lobbyFact'])
 
     $scope.joinGame = function (gameId){
       window.lobbySocket.disconnect();
-      console.log(gameId);
       $state.go('game.play', {gameId: gameId});
     };
 

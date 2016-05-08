@@ -33,13 +33,13 @@ Game.prototype.startGame = function() {
     });
     console.log(game.players);
     for (var key in game.players) {
-      var player = deck.players[player];
+      var player = game.players[key];
 
       player.setRole(roles.pop());
       if (dealt < 3) {
-        deck.setHand(player.id, hands.pop());
+        deck.setHand(player.playerId, hands.pop());
       } else {
-        return deck.setHand(player.id, hands.pop())
+        return deck.setHand(player.playerId, hands.pop())
         .then(function(doc) {
           return doc;
         })

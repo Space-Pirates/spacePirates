@@ -39,7 +39,6 @@ module.exports = function(app) {
 
     // listen for load state is loaded
     socket.on('ready', function(data) {
-      console.log(data);
       var game = games[game_id];
       game.players[data.userId] = new Player(game_id, socket.id);
       game.players[data.userId].initialize().then(function () {
@@ -53,7 +52,6 @@ module.exports = function(app) {
             });
             for (userId in game.players) {
               player = game.players[userId];
-              console.log(hand);
               player.getHand().then(function (hand) {
                 io.to(player.socketId).emit('hand', {hand: hand});
               });

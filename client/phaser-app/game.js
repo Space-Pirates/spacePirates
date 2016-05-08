@@ -41,7 +41,7 @@ var gameState = {
     var dropZone = game.add.image(0, 50, 'nebula');
     dropZone.height = 450;
     dropZone.width = 840;
-    
+
     var player1 = game.add.image(560, 500, 'orange');
     player1.height = 50;
     player1.width = 210;
@@ -96,7 +96,7 @@ var gameState = {
     game.add.text(610, 20, 'Drop Break Card', style);
     game.add.text(10, 518, 'Discard', style);
     game.add.text(280, 518, 'Player Hand', style);
-    
-    createTile({x:4,y:10,tile:{tileId:'start'}});
+
+    createTile({x:4,y:10,tile:{tileId:'start-T'}});
   }
 };
