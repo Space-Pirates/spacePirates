@@ -16,10 +16,11 @@ function startSocketListeners() {
     createTile({x: 5, y: 10, tile: window.gameData.player.hand[2]});
   });
 
-  socket.on('update', function(game) {
-    window.gameData.board.matrix = game.board.matrix;
-    window.gameData.board.lastPlayed = game.board.lastPlayed;
-    window.gameData.deck.tilesRemaining = game.deck.tilesRemaining;
+  socket.on('update', function(data) {
+    // data has matrix, lastPlayed, x, y, tilesRemaining
+    window.gameData.board.matrix = data.matrix;
+    window.gameData.board.lastPlayed = data.lastPlayed;
+    window.gameData.deck.tilesRemaining = data.tilesRemaining;
   });
 
   socket.on('deal', function(data) {
@@ -39,7 +40,7 @@ function startSocketListeners() {
 
 function emitMove(xStart, yStart, xEnd, yEnd, tile) {
   window.socket.emit('move', {
-    token: window.storage.getItem('com.spacepirates'),
+    userId: JSON.parse(JSON.parse(window.localStorage.getItem('com.spacePirates'))).id,
     xStart: xStart,
     yStart: yStart,
     xEnd: xEnd,
