@@ -2,12 +2,31 @@
   <h1 class="md-toolbar-tools">Lobby</h1>
 </md-toolbar>
 <div ng-model="games">
-  <md-card class="md-card-2dp panel play" layout="" layout-align="center center" ng-repeat="game in games track by game.id">
-    <span ng-bind="game.players.length">Players</span>
-    <md-button ng-click="joinGame({gameId:game.id})">Join Game</md-button>
+  <md-card class="md-card-2dp panel play" layout="column" ng-repeat="game in games track by game.id">
+    <div layout="row">
+      <div layout="column" flex="40">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">{{ game.title }}</span>
+            <span class="md-subhead">Player Count: {{ game.players.length }}</span>
+          </md-card-title-text>
+        </md-card-title>
+      </div>
+      <div layout="column" flex="40">
+        <ul>
+          <li ng-repeat="player in game.players"> {{ player.name }}</li>
+        </ul>
+      </div>
+      <div layout="column" layout-align="end end" flex="20">
+        <img style="width:100px; height:100px" class="sm-card-image" src="../../assets/skull.png">
+        <md-card-actions layout="row" layout-align="end end">
+          <md-button ng-click="joinGame({gameId:game.id})">Join Game</md-button>
+        </md-card-actions>
+      </div>
+    </div>
   </md-card>
 </div>
 
 <md-card class="md-card-2dp panel play" layout="" layout-align="center center">
-  <md-button ng-click="createGame()">Create Game</md-button>
+  <md-button ng-click="showDialog()">Create Game</md-button>
 </md-card>
