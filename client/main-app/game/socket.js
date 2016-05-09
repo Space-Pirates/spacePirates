@@ -37,12 +37,13 @@ function startSocketListeners() {
   });
 }
 
-function emitMove(x, y, tile) {
+function emitMove(xStart, yStart, xEnd, yEnd, tile) {
   window.socket.emit('move', {
-    playerId: window.playerId,
-    token: JSON.parse(window.localStorage.getItem('com.spacePirates')),
-    x:x,
-    y:y,
+    token: window.storage.getItem('com.spacepirates'),
+    xStart: xStart,
+    yStart: yStart,
+    xEnd: xEnd,
+    yEnd: yEnd,
     tile: tile
   });
 }
