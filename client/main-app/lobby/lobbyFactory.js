@@ -11,11 +11,13 @@ angular.module('app.lobbyFact',[])
     });
   };
 
-  var createGame = function(creator){
+  var createGame = function(title){
      return $http({
       method: 'POST',
       url: '/game',
-      data: creator
+      data: {
+        title: title
+      }
     }).then(function successCallback(resp){
         return resp.data;
     }, function errorCallback(resp){
