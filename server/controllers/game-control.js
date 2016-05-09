@@ -23,7 +23,7 @@ module.exports = {
   getById: function(req, res) {},
 
   create: function(req, res) {
-    new db.Game({})
+    new db.Game({ownerId: req.user.id, title: req.body.title})
     .save()
     .then(function(doc) {
       var gameId = doc.id;
