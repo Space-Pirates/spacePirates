@@ -13,12 +13,13 @@ var Game = function(id) {
 Game.prototype.startGame = function() {
   var dealt = 0;
   var roles = _.shuffle(['pirate', 'settler', 'settler', 'settler']);
-  var deck = this;
+  var deck = this.deck;
+  var game = this;
 
-  this.deck.getTiles()
+  return deck.getTiles()
   .then(function(tiles) {
     var hands = [[], [], [], []];
-    
+
     for (var i = 0; i < 4; i++) {
       hands[0].push(tiles.pop());
       hands[1].push(tiles.pop());
@@ -31,14 +32,14 @@ Game.prototype.startGame = function() {
       console.error(err);
     });
 
-    for (var key in deck.players) {
-      var player = deck.players[player];
+    for (var key in game.players) {
+      var player = game.players[key];
 
       player.setRole(roles.pop());
       if (dealt < 3) {
-        deck.setHand(player.id, hands.pop());
+        deck.setHand(player.playerId, hands.pop());
       } else {
-        return deck.setHand(player.id, hands.pop())
+        return deck.setHand(player.playerId, hands.pop())
         .then(function(doc) {
           return doc;
         })

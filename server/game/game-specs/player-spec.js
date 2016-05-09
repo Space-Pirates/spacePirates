@@ -6,10 +6,11 @@ var player;
 
 module.exports = function() {
 
-  before(function() {
+  before(function(done) {
     var gameId = 'testGameID';
     var socketId = 'testSocketID';
     player = new Player(gameId, socketId);
+    player.initialize().then( () => done());
   });
 
   it('should exist', function() {

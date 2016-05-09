@@ -13,10 +13,9 @@ var loadState = {
     loadingLabel.setTextBounds(0,0,840,550);
 
     socket.on('4players', function(players) {
-      console.log('4players');
       game.state.start('game');
     });
-
-    socket.emit('ready');
+    var userId = JSON.parse(JSON.parse(window.localStorage.getItem('com.spacePirates'))).id;
+    socket.emit('ready', {userId: userId});
   }
 };

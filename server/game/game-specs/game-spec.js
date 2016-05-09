@@ -3,9 +3,13 @@ var Game = require('../game');
 var db = require('../../db/db');
 var _ = require('underscore');
 var expect = chai.expect;
-var game = new Game('testGameId');
+
+game = new Game('testGameId');
 
 module.exports = function() {
+  before(function(done){
+    game.startGame().then(() => done());
+  });
 
   describe('properties', function () {
     it('should have a gameID', function() {

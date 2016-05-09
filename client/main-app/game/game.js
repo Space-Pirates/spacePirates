@@ -1,6 +1,6 @@
 angular.module('app.game', [])
 .controller('GameController', ['$scope', 'store', '$stateParams', function($scope, store, $stateParams) {
-  $scope.game = {
+  window.gameData = {
     players: {
       p1: {},
       p2: {},
@@ -21,7 +21,7 @@ angular.module('app.game', [])
     }
   };
   var user = JSON.parse(store.get('com.spacePirates'));
-  var gameId = $stateParams.id;
+  var gameId = $stateParams.gameId;
 
   window.socket = io.connect({query: 'game_id=' + gameId + '&user='+user.username});
 
@@ -32,10 +32,10 @@ angular.module('app.game', [])
     publish_key: 'pub-c-561a7378-fa06-4c50-a331-5c0056d0163c',
     subscribe_key: 'sub-c-17b7db8a-3915-11e4-9868-02ee2ddab7fe',
     media: {
-      audio: true, 
-      video: 
+      audio: true,
+      video:
       {
-        height:200, 
+        height:200,
         width:280
       }
     },

@@ -7,8 +7,7 @@ module.exports = function(app) {
   var http =  require('http').Server(app);
   var io  = require('socket.io')(http);
 
-// setup change feed for lobby
-
+  // setup change feed for lobby
   db.Game.changes().then(function(feed){
     feed.each(function(error, doc) {
       console.log(doc);
@@ -33,26 +32,40 @@ module.exports = function(app) {
     });
 
     // listen for moves
-    socket.on('move', function(data) {
+    socket.on('move', function(socket) {
       // call game stuff here
       io.to(game_id).emit('moved', user);
     });
 
     // listen for load state is loaded
-    socket.on('ready', function(socket, dat) {
+    socket.on('ready', function(data) {
       var game = games[game_id];
+      game.players[data.userId] = new Player(game_id, socket.id);
+      game.players[data.userId].initialize().then(function () {
+        if (io.sockets.adapter.rooms[game_id].length >= 4) {
+          io.to(game_id).emit('4players');
+        }
+      });
+    });
 
-      game.players[dat.id] = new Player(game_id);
-      game.players[dat.id].initialize();
-      if (io.sockets.adapter.rooms[game_id].length >= 4) {
-        game.startGame().then(function() {
+    socket.on('readyForHand', function(data) {
+      var game = games[game_id];
+      game.startGame().then(function() {
+        game.board.getMatrix().then(function(matrix) {
           io.to(game_id).emit('startGame', {
-            matrix: game.board.matrix,
-            tilesRemaining: game.deck.tilesRemaining
+            matrix: matrix,
+            tilesRemaining: Infinity
           });
         });
-        io.to(game_id).emit('4players');
-      }
+        // for (userId in game.players) {
+        player = game.players[data.userId];
+        player.getHand().then(function (hand) {
+          player.getRole().then(function (role) {
+            io.to(player.socketId).emit('hand', {hand: hand, role: role});
+          });
+        });
+        // }
+      });
     });
 
     // announce arrival so everyone else in room can call
