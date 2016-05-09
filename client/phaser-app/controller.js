@@ -9,7 +9,6 @@ function createStaticTile(data){
 }
 
 function createTile(data){
-  console.log(data);
   var name = data.tile.tileId.substring(0, data.tile.tileId.length-2);
   var tile = game.add.sprite(data.x*70, data.y*50, name);
   tile.height = 50;

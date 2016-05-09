@@ -9,7 +9,7 @@ function startSocketListeners() {
   socket.on('hand', function(data) {
     window.gameData.player.role = data.role;
     window.gameData.player.hand = data.hand;
-    console.log(window.gameData.player);
+
     // populate players hand sprites
     createTile({x: 3, y: 10, tile: window.gameData.player.hand[0]});
     createTile({x: 4, y: 10, tile: window.gameData.player.hand[1]});

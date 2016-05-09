@@ -49,7 +49,6 @@ module.exports = function(app) {
     });
 
     socket.on('readyForHand', function(data) {
-      console.log('readyForHand');
       var game = games[game_id];
       game.startGame().then(function() {
         game.board.getMatrix().then(function(matrix) {
