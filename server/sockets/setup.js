@@ -54,7 +54,7 @@ module.exports = function(app) {
         game.board.getMatrix().then(function(matrix) {
           io.to(game_id).emit('startGame', {
             matrix: matrix,
-            tilesRemaining: Infinity
+            tilesRemaining: 54
           });
         });
         // for (userId in game.players) {
