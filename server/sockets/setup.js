@@ -59,7 +59,35 @@ module.exports = function(app) {
 
     // listen for moves
     socket.on('move', function(move) {
-
+      switch (parseMove(move.xEnd, move.yEnd)) {
+        case 'discard':
+          //
+          break;
+        case 'block1':
+          //
+          break;
+        case 'block2':
+          //
+          break;
+        case 'block3':
+          //
+          break;
+        case 'unblock':
+          //
+          break;
+        case 'reveal1':
+          //
+          break;
+        case 'reveal2':
+          //
+          break;
+        case 'reveal3':
+          //
+          break;
+        case 'update':
+          //
+          break;
+      }
       // io.to(game_id).emit('moved', user);
     });
 
