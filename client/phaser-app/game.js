@@ -98,5 +98,7 @@ var gameState = {
     game.add.text(280, 518, 'Player Hand', style);
 
     createTile({x:4,y:10,tile:{tileId:'start-T'}});
+    var userId = JSON.parse(JSON.parse(window.localStorage.getItem('com.spacePirates'))).id;
+    socket.emit('readyForHand', {userId: userId});
   }
 };

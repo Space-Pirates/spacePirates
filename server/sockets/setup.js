@@ -43,22 +43,29 @@ module.exports = function(app) {
       game.players[data.userId] = new Player(game_id, socket.id);
       game.players[data.userId].initialize().then(function () {
         if (io.sockets.adapter.rooms[game_id].length >= 4) {
-          game.startGame().then(function() {
-            game.board.getMatrix().then(function(matrix) {
-              io.to(game_id).emit('startGame', {
-                matrix: matrix,
-                tilesRemaining: Infinity
-              });
-            });
-            for (userId in game.players) {
-              player = game.players[userId];
-              player.getHand().then(function (hand) {
-                io.to(player.socketId).emit('hand', {hand: hand});
-              });
-            }
-          });
           io.to(game_id).emit('4players');
         }
+      });
+    });
+
+    socket.on('readyForHand', function(data) {
+      console.log('readyForHand');
+      var game = games[game_id];
+      game.startGame().then(function() {
+        game.board.getMatrix().then(function(matrix) {
+          io.to(game_id).emit('startGame', {
+            matrix: matrix,
+            tilesRemaining: Infinity
+          });
+        });
+        // for (userId in game.players) {
+        player = game.players[data.userId];
+        player.getHand().then(function (hand) {
+          player.getRole().then(function (role) {
+            io.to(player.socketId).emit('hand', {hand: hand, role: role});
+          });
+        });
+        // }
       });
     });
 

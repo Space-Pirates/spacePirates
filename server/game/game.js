@@ -31,7 +31,7 @@ Game.prototype.startGame = function() {
     .catch(function(err) {
       console.error(err);
     });
-    console.log(game.players);
+
     for (var key in game.players) {
       var player = game.players[key];
 

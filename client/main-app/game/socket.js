@@ -14,7 +14,7 @@ function startSocketListeners() {
     createTile({x: 3, y: 10, tile: window.gameData.player.hand[0]});
     createTile({x: 4, y: 10, tile: window.gameData.player.hand[1]});
     createTile({x: 5, y: 10, tile: window.gameData.player.hand[2]});
-  })
+  });
 
   socket.on('update', function(game) {
     window.gameData.board.matrix = game.board.matrix;
