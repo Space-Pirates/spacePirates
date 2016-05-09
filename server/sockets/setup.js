@@ -20,50 +20,50 @@ module.exports = function(app) {
   });
 
   io.on('connection', function(socket) {
-    var game_id = socket.handshake.query.game_id;
+    var gameId = socket.handshake.query.gameId;
     var user = socket.handshake.query.user;
 
-    // join room, room is the game_id
-    socket.join(game_id);
-    console.log(user + " joined game: " + game_id);
+    // join room, room is the gameId
+    socket.join(gameId);
+    console.log(user + " joined game: " + gameId);
 
     socket.on('disconnect', function() {
-      socket.to(game_id).emit('left', user);
-      socket.leave(game_id);
+      socket.to(gameId).emit('left', user);
+      socket.leave(gameId);
     });
 
     // listen for moves
     socket.on('move', function(move) {
       switch (utils.parseMove(move.xEnd, move.yEnd)) {
         case 'discard':
-          //
+          utils.discard(move, games[gameId]);
           break;
         case 'block1':
-          //
+          utils.block(1, move, games[gameId]);
           break;
         case 'block2':
-          //
+          utils.block(2, move, games[gameId]);
           break;
         case 'block3':
-          //
+          utils.block(3, move, games[gameId]);
           break;
         case 'unblock':
-          //
+          utils.unblock(move, games[gameId]);
           break;
         case 'reveal1':
-          //
+          utils.reveal(1, move, games[gameId]);
           break;
         case 'reveal2':
-          //
+          utils.reveal(2, move, games[gameId]);
           break;
         case 'reveal3':
-          //
+          utils.reveal(3, move, games[gameId]);
           break;
         case 'update':
-          //
+          utils.update(move, games[gameId]);
           break;
       }
-      // io.to(game_id).emit('moved', user);
+      // io.to(gameId).emit('moved', user);
     });
 
     // listen for load state is loaded
@@ -84,10 +84,10 @@ module.exports = function(app) {
     });
 
     socket.on('readyForHand', function(data) {
-      var game = games[game_id];
+      var game = games[gameId];
       game.startGame().then(function() {
         game.board.getMatrix().then(function(matrix) {
-          io.to(game_id).emit('startGame', {
+          io.to(gameId).emit('startGame', {
             matrix: matrix,
             tilesRemaining: 54
           });
@@ -104,7 +104,7 @@ module.exports = function(app) {
     });
 
     // announce arrival so everyone else in room can call
-    io.to(game_id).emit('joined', {username: user});
+    io.to(gameId).emit('joined', {username: user});
 
   });
 

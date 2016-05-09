@@ -1,3 +1,5 @@
+var Player = require('./../game/player');
+
 module.exports = {
   parseMove: function(x, y) {
     if (x === 0 && y === 10) {
@@ -23,5 +25,15 @@ module.exports = {
         return 'update';
       }
     }
-  }
+  },
+
+  discard: function(move, game) {},
+
+  block: function(player, move, game) {},
+
+  unblock: function(move, game) {},
+
+  reveal: function(planet, move, game) {},
+
+  update: function(move, game) {}
 }
