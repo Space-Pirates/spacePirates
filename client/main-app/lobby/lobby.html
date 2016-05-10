@@ -1,7 +1,7 @@
-<md-toolbar class="md-theme-indigo">
+<md-toolbar>
   <h1 class="md-toolbar-tools">Lobby</h1>
 </md-toolbar>
-<div style="height: 480px; overflow: auto" ng-model="games">
+<div class="games-window"  ng-model="games">
   <md-card class="md-card-2dp panel play" layout="column" ng-repeat="game in games track by game.id">
     <div layout="row">
       <div layout="column" flex="40">
@@ -18,7 +18,7 @@
         </ul>
       </div>
       <div layout="column" layout-align="end end" flex="20">
-        <img style="width:100px; height:100px" class="sm-card-image" src="../../assets/skull.png">
+        <img class="game-icon sm-card-image" src="../../assets/skull.png">
         <md-card-actions layout="row" layout-align="end end">
           <md-button ng-click="joinGame(game.id)">Join Game</md-button>
         </md-card-actions>

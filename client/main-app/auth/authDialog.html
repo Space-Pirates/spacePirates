@@ -8,7 +8,7 @@
         </md-button>
       </div>
     </md-toolbar>
-    <md-dialog-content style="max-width:800px;max-height:810px; " >
+    <md-dialog-content class="dialog-box">
       <md-tabs md-dynamic-height md-border-bottom>
         <md-tab label="signin" md-on-select='data.action="signin"'>
           <md-content class="md-padding">
@@ -90,7 +90,7 @@
       <md-button ng-click="submit()" ng-disabled="data.action ==='signup' && !signupForm.$valid">
         Submit
       </md-button>
-      <md-button ng-click="cancel()" style="margin-right:20px;" >
+      <md-button class="cancel-btn" ng-click="cancel()">
         Cancel
       </md-button>
     </md-dialog-actions>
