@@ -1,0 +1,35 @@
+<md-dialog aria-label="Welcome">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Create A Game</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon aria-label="Close dialog">X</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:800px;max-height:810px; ">
+          <md-content class="md-padding">
+            <!-- FORM HERE -->
+            <form>
+              <div layout-gt-sm="row">
+                <md-input-container flex>
+                  <label>Game Title</label>
+                  <input type="text" ng-model='data.game.title'/>
+                </md-input-container>
+              </div>
+            </form>
+          </md-content>
+    </md-dialog-content>
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button ng-click="submit()" >
+        Submit
+      </md-button>
+      <md-button ng-click="cancel()" style="margin-right:20px;" >
+        Cancel
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

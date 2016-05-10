@@ -1,8 +1,9 @@
 var db = require('../db/db');
 
-var Player = function (gameId, socketId) {
+var Player = function (gameId, socketId, userId) {
   this.gameId = gameId;
   this.socketId = socketId;
+  this.userId = userId;
   this.lastPlayed = {};
   this.playerId = '';
 };
@@ -88,6 +89,7 @@ Player.prototype = {
     return new db.Player({
       gameId: player.gameId,
       socketId: player.socketId,
+      userId: player.userId,
       role: '',
       isTurn: false,
       hand: [],

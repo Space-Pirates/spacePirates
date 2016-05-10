@@ -1,5 +1,5 @@
 angular.module('app.lobby', ['app.lobbyFact'])
-  .controller('LobbyController', ['$scope', 'LobbyFactory', '$state', 'store', function($scope, LobbyFactory, $state, store){
+  .controller('LobbyController', ['$scope', 'LobbyFactory', '$state', 'store', '$mdDialog', function($scope, LobbyFactory, $state, store, $mdDialog){
 
 
     var user = JSON.parse(store.get('com.spacePirates'));
@@ -13,16 +13,16 @@ angular.module('app.lobby', ['app.lobbyFact'])
       $scope.$apply();
     });
 
-    $scope.getGames = function(){
+    var getGames = function(){
       LobbyFactory.getGames()
         .then(function(games){
           $scope.games = games;
         });
     };
 
-    $scope.createGame = function () {
+    var createGame = function (title) {
       //call to backEnd to create new gameState
-      LobbyFactory.createGame(user)
+      LobbyFactory.createGame(title)
         .then(function(gameId){
           $scope.joinGame(gameId);
         });
@@ -33,5 +33,32 @@ angular.module('app.lobby', ['app.lobbyFact'])
       $state.go('game.play', {gameId: gameId});
     };
 
-    $scope.getGames();
+    $scope.showDialog = function(ev) {
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: '/main-app/lobby/lobbyDialog.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true
+      })
+      .then(function(data) {
+          console.log(data.game);
+          createGame(data.game.title);
+      });
+    };
+
+    getGames();
   }]);
+
+function DialogController($scope, $mdDialog) {
+  $scope.data = {};
+  $scope.data.game = {};
+  $scope.data.action = '';
+  $scope.cpass = '';
+  $scope.cancel = function() {
+    $mdDialog.cancel();
+  };
+  $scope.submit = function() {
+    $mdDialog.hide($scope.data);
+  };
+}

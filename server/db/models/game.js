@@ -8,7 +8,8 @@ var type = thinky.type;
 var Game = thinky.createModel('Game', {
   id: type.string(),
   title: type.string(),
-  ownerId: type.string()
+  ownerId: type.string(),
+  open: type.boolean()
 });
 
 Game.hasOne(Board, 'board', 'id', 'gameId');

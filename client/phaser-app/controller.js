@@ -1,4 +1,5 @@
 var xInit, yInit;
+var boundsRect = new Phaser.Rectangle(0, 0, 840, 550);
 
 function createStaticTile(data){
   var name = data.tile.tileId.substring(0, data.tile.tileId.length-2);
@@ -18,7 +19,7 @@ function createTile(data){
   tile.inputEnabled = true;
   tile.input.enableDrag();
   tile.input.enableSnap(70, 50, false, true);
-  tile.input.boundsRect = new Phaser.Rectangle(0, 0, 840, 550);
+  tile.input.boundsRect = boundsRect;
 
   tile.events.onInputOver.add(onOver, this);
   tile.events.onInputOut.add(onOut, this);
