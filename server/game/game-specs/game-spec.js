@@ -1,14 +1,19 @@
 var chai = require('chai');
 var Game = require('../game');
-var db = require('../../db/db');
 var _ = require('underscore');
 var expect = chai.expect;
 
-game = new Game('testGameId');
+var game = new Game('testGameId');
 
 module.exports = function() {
   before(function(done){
-    game.startGame().then(() => done());
+    game.startGame()
+    .then(function() {
+      done();
+    })
+    .catch(function(err) {
+      done(err);
+    });
   });
 
   describe('properties', function () {

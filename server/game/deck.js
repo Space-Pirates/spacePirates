@@ -4,6 +4,7 @@ var tileDictionary = require('./tile-dictionary.json');
 
 var Deck = function(gameId) {
   this.gameId = gameId;
+  this.tilesRemaining = 54;
   this.initialize();
 };
 
@@ -51,6 +52,10 @@ Deck.prototype = {
         return db.Player.get(playerId)
         .update({hand: player.hand.concat([tile])})
         .run()
+        .then(function(player) {
+          deck.tilesRemaining--;
+          return player;
+        })
         .catch(function(err) {
           console.error(err);
         });
