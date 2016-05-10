@@ -1,5 +1,5 @@
 <md-dialog aria-label="Welcome">
-  <form>
+  <!-- <form> -->
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Welcome</h2>
@@ -9,7 +9,7 @@
         </md-button>
       </div>
     </md-toolbar>
-    <md-dialog-content style="max-width:800px;max-height:810px; ">
+    <md-dialog-content style="max-width:800px;max-height:810px; " >
       <md-tabs md-dynamic-height md-border-bottom>
         <md-tab label="signin" md-on-select='data.action="signin"'>
           <md-content class="md-padding">
@@ -33,17 +33,24 @@
         <md-tab label="signup" md-on-select='data.action="signup"'>
           <md-content class="md-padding">
             <!-- FORM HERE -->
-            <form>
+            <form name="signupForm" novalidate>
               <div layout-gt-sm="row">
-                <md-input-container flex>
+                <md-input-container>
                   <label>Name</label>
-                  <input type="text" ng-model='data.user.name'/>
+                  <input name="name" type="text" ng-model='data.user.name' required/>
+                  <div ng-messages="signupForm.name.$error">
+                    <div ng-message="required">Name is Required</div>
+                  </div>
                 </md-input-container>
               </div>
               <div layout-gt-sm="row">
-                <md-input-container flex>
+                <md-input-container>
                   <label>Email</label>
-                  <input type="email" ng-model='data.user.email'/>
+                  <input name="emailAddress" type="email" ng-model='data.user.email' ng-required="true"/>
+                  <div ng-messages="signupForm.emailAddress.$error" ng-show="(signupForm.emailAddress.$error.email || signupForm.emailAddress.$error.required) && signupForm.emailAddress.$dirty">
+                    <div ng-message="required">Email is required</div>
+                    <div ng-message="email">Enter valid email address</div>
+                  </div>
                 </md-input-container>
               </div>
               <div layout-gt-sm="row">
@@ -78,5 +85,5 @@
         Cancel
       </md-button>
     </md-dialog-actions>
-  </form>
+  <!-- </form> -->
 </md-dialog>
