@@ -1,5 +1,4 @@
 <md-dialog aria-label="Welcome">
-  <!-- <form> -->
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Welcome</h2>
@@ -13,7 +12,7 @@
       <md-tabs md-dynamic-height md-border-bottom>
         <md-tab label="signin" md-on-select='data.action="signin"'>
           <md-content class="md-padding">
-            <!-- FORM HERE -->
+            <!-- SIGN IN FORM -->
             <form>
               <div layout-gt-sm="row">
                 <md-input-container flex>
@@ -32,7 +31,7 @@
         </md-tab>
         <md-tab label="signup" md-on-select='data.action="signup"'>
           <md-content class="md-padding">
-            <!-- FORM HERE -->
+            <!-- SIGN UP FORM -->
             <form name="signupForm" novalidate>
               <div layout-gt-sm="row">
                 <md-input-container>
@@ -85,6 +84,7 @@
         </md-tab>
       </md-tabs>
     </md-dialog-content>
+    <!-- BUTTONS -->
     <md-dialog-actions layout="row">
       <span flex></span>
       <md-button ng-click="submit()" ng-disabled="data.action ==='signup' && !signupForm.$valid">
@@ -94,5 +94,4 @@
         Cancel
       </md-button>
     </md-dialog-actions>
-  <!-- </form> -->
 </md-dialog>
