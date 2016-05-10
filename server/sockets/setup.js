@@ -41,8 +41,9 @@ module.exports = function(app) {
           utils.discard(move, game, player)
           .then(function(data) {
             socket.emit('endTurn', {
-              isTurn: data.isTurn
-            })
+              isTurn: data.player.isTurn
+            });
+            // emit startTurn socket to nextPlayer
           })
           .catch(function(err) {
             console.error(err);
@@ -85,6 +86,10 @@ module.exports = function(app) {
               x: move.xStart,
               y: move.yStart
             });
+            socket.emit('endTurn', {
+              isTurn: data.player.isTurn
+            });
+            // emit startTurn socket to nextPlayer
           })
           .catch(function(err) {
             console.error(err);
@@ -100,7 +105,6 @@ module.exports = function(app) {
       game.players[data.userId] = new Player(game_id, socket.id, data.userId);
       game.players[data.userId].initialize().then(function () {
         if (io.sockets.adapter.rooms[game_id].length >= 4) {
-
           db.Game.get(game_id).update({
             open: false
           }).run()

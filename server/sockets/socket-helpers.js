@@ -30,10 +30,12 @@ module.exports = {
     .then(function() {
       game.deck.dealTile(player.playerId)
       .then(function() {
-        // Should also change next player's turn
-        player.changeTurn()
-        .then(function(player) {
-          return player;
+        return game.rotateTurn()
+        .then(function(nextPlayer) {
+          return {
+            player: player,
+            nextPlayer: nextPlayer
+          };
         })
         .catch(function(err) {
           console.error(err);
@@ -60,13 +62,13 @@ module.exports = {
       return player.discard(move.tile.tileId)
       .then(function() {
         return game.deck.dealTile(player.playerId)
-        .then(function() {
-          // Should also change next player's turn
-          return player.changeTurn()
-          .then(function(player) {
+        .then(function(player) {
+          return game.rotateTurn()
+          .then(function(nextPlayer) {
             return {
-              board: board,
-              player: player
+              board: board.matrix,
+              player: player,
+              nextPlayer: nextPlayer
             };
           })
           .catch(function(err) {
