@@ -23,7 +23,7 @@ angular.module('app.game', [])
   var user = JSON.parse(store.get('com.spacePirates'));
   var gameId = $stateParams.gameId;
 
-  window.socket = io.connect({query: 'game_id=' + gameId + '&user='+user.username});
+  window.socket = io.connect({query: 'gameId=' + gameId + '&user='+user.username});
 
   startSocketListeners(); // Located in ./socket.js
 
