@@ -1,10 +1,9 @@
 var db = require('../db/db');
 var Game = require('../game/game');
 var Player = require('../game/player');
-currentGames = {};
 
 module.exports = {
-  currentGames: currentGames,
+  currentGames: {},
 
   getAll: function(req, res) {
     db.Game.filter({open: true})
@@ -22,6 +21,8 @@ module.exports = {
   getById: function(req, res) {},
 
   create: function(req, res) {
+    var utils = this;
+
     new db.Game({
       ownerId: req.user.id,
       title: req.body.title,
@@ -30,7 +31,7 @@ module.exports = {
     .save()
     .then(function(doc) {
       var gameId = doc.id;
-      currentGames[gameId] = new Game(gameId);
+      utils.currentGames[gameId] = new Game(gameId);
       res.status(200).send(gameId)
     })
     .catch(function(err) {
