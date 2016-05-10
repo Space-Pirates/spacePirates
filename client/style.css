@@ -1,0 +1,32 @@
+body {
+  background: url('assets/spaceBanner.jpg') no-repeat center center fixed;
+  background-size: cover;
+}
+
+.dialog-box {
+  max-width: 800px;
+  max-height: 810px; 
+}
+
+.cancel-btn {
+   margin-right: 20px; 
+}
+
+.games-window {
+  height: 480px; 
+  overflow: auto;
+}
+
+.game-icon {
+  width: 100px;
+  height: 100px; 
+}
+
+.player-videos {
+  height: 200px;
+}
+
+.feed-window {
+  height: 500px;
+}
+
