@@ -47,7 +47,7 @@
                 <md-input-container>
                   <label>Email</label>
                   <input name="emailAddress" type="email" ng-model='data.user.email' ng-required="true"/>
-                  <div ng-messages="signupForm.emailAddress.$error" ng-show="(signupForm.emailAddress.$error.email || signupForm.emailAddress.$error.required) && signupForm.emailAddress.$dirty">
+                  <div ng-messages="signupForm.emailAddress.$error" ng-show="(signupForm.emailAddress.$error.email || signupForm.emailAddress.$error.required) && signupForm.emailAddress.$touched">
                     <div ng-message="required">Email is required</div>
                     <div ng-message="email">Enter valid email address</div>
                   </div>
@@ -56,13 +56,22 @@
               <div layout-gt-sm="row">
                 <md-input-container flex>
                   <label>Username</label>
-                  <input type="text" ng-model='data.user.username'/>
+                  <input name="username"type="text" ng-model='data.user.username'  md-maxlength="10"  required  minlength="3"/>
+                  <div ng-messages="signupForm.username.$error" ng-show="signupForm.username.$touched">
+                    <div ng-message="required">Username is required</div>
+                    <div ng-message="md-maxlength">Username is too long</div>
+                    <div ng-message="minlength">Username is too short</div>
+                  </div>
                 </md-input-container>
               </div>
               <div layout-gt-sm="row">
                 <md-input-container flex>
                   <label>Password</label>
-                  <input type="password" ng-model='data.user.password'/>
+                  <input name="pwd" type="password" ng-model='data.user.password' required minlength="3" />
+                  <div ng-messages="signupForm.pwd.$error" ng=show="signupForm.pwd.$touched">
+                    <div ng-message="required">Password is required</div>
+                    <div ng-message="minlength">Password must contain atleast 3 characters</div>
+                  </div>
                 </md-input-container>
               </div>
               <div layout-gt-sm="row">
@@ -78,7 +87,7 @@
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="submit()" >
+      <md-button ng-click="submit()" ng-disabled="data.action ==='signup' && !signupForm.$valid">
         Submit
       </md-button>
       <md-button ng-click="cancel()" style="margin-right:20px;" >
