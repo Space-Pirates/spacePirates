@@ -9,7 +9,12 @@ var Player = thinky.createModel('Player', {
   role: type.string(),
   isTurn: type.boolean(),
   hand: type.array(),
-  debuffs: type.array()
+  debuffs: type.array(),
+  userId: type.string()
 });
 
 module.exports = Player;
+
+var User = require('./user');
+
+Player.belongsTo(User, 'user', 'userId', 'id');

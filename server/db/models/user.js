@@ -45,7 +45,9 @@ module.exports = User;
 
 // Must come after export
 var Game = require('./game');
+var Player = require('./player');
 
 User.hasMany(Game, 'games', 'id', 'ownerId');
+User.hasMany(Player, 'players', 'id', 'userId');
 // User.hasMany(Game, 'ownedGames', 'id', 'ownerId');
 
