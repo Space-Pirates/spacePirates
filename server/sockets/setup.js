@@ -101,15 +101,15 @@ module.exports = function(app) {
 
     // listen for load state is loaded
     socket.on('ready', function(data) {
-      var game = games[game_id];
-      game.players[data.userId] = new Player(game_id, socket.id, data.userId);
+      var game = games[gameId];
+      game.players[data.userId] = new Player(gameId, socket.id, data.userId);
       game.players[data.userId].initialize().then(function () {
-        if (io.sockets.adapter.rooms[game_id].length >= 4) {
-          db.Game.get(game_id).update({
+        if (io.sockets.adapter.rooms[gameId].length >= 4) {
+          db.Game.get(gameId).update({
             open: false
           }).run()
           .then(function(){
-            io.to(game_id).emit('4players');
+            io.to(gameId).emit('4players');
           });
         }
       });
