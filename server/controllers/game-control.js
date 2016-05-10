@@ -7,9 +7,8 @@ module.exports = {
   currentGames: currentGames,
 
   getAll: function(req, res) {
-    db.Game.getJoin({
-      players: true
-    })
+    db.Game.filter({open: true})
+    .getJoin({players: {user: true }})
     .run()
     .then(function(collection) {
       res.status(200).send(collection);
@@ -23,7 +22,11 @@ module.exports = {
   getById: function(req, res) {},
 
   create: function(req, res) {
-    new db.Game({ownerId: req.user.id, title: req.body.title})
+    new db.Game({
+      ownerId: req.user.id,
+      title: req.body.title,
+      open: true
+    })
     .save()
     .then(function(doc) {
       var gameId = doc.id;
