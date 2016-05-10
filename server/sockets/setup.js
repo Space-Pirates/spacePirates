@@ -19,6 +19,17 @@ module.exports = function(app) {
     });
   });
 
+  db.Player.changes().then(function(feed){
+    feed.each(function(error, doc) {
+      console.log(doc);
+      db.Player.get(doc.id).getJoin({user:true})
+      .then(function(player){
+        console.log(player);
+        io.to('LobbySocket').emit('updatePlayers', player);
+      });
+    });
+  });
+
   io.on('connection', function(socket) {
     var gameId = socket.handshake.query.gameId;
     var user = socket.handshake.query.user;
