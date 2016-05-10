@@ -38,7 +38,15 @@ module.exports = function(app) {
       var player = game.players[move.userId];
       switch (utils.parseMove(move.xEnd, move.yEnd)) {
         case 'discard':
-          utils.discard(move, game, player);
+          utils.discard(move, game, player)
+          .then(function(data) {
+            socket.emit('endTurn', {
+              isTurn: data.isTurn
+            })
+          })
+          .catch(function(err) {
+            console.error(err);
+          });
           break;
         case 'block1':
           utils.block(1, move, game, player);
@@ -69,7 +77,7 @@ module.exports = function(app) {
               lastPlayed: move.tile,
               x: move.xEnd,
               y: move.yEnd,
-              tilesRemaining: game.deck.tilesRemaining;
+              tilesRemaining: game.deck.tilesRemaining
             });
             socket.emit('deal', {
               hand: data.player.hand,

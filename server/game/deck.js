@@ -51,8 +51,8 @@ Deck.prototype = {
         return db.Player.get(playerId)
         .update({hand: player.hand.concat([tile])})
         .run()
-        .then(function(data) {
-          return data;
+        .then(function(player) {
+          return player;
         })
         .catch(function(err) {
           console.error(err);
