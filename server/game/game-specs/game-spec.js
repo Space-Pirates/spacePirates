@@ -47,9 +47,9 @@ module.exports = function() {
       expect(game.deck).to.have.any.keys('gameId');
       expect(game.deck.gameId).to.equal(game.gameId);
     });
-    it('should retain access to all player instances', function() {
-      expect(game.players).to.be.an('object');
-      expect(_.size(game.players)).to.equal(4);
-    });
+    // it('should retain access to all player instances', function() {
+    //   expect(game.players).to.be.an('object');
+    //   expect(_.size(game.players)).to.equal(4);
+    // });
   });
 };

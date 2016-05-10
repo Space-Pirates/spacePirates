@@ -63,17 +63,17 @@ module.exports = {
       .then(function() {
         return game.deck.dealTile(player.playerId)
         .then(function(player) {
-          return game.rotateTurn()
-          .then(function(nextPlayer) {
+          // return game.rotateTurn()
+          // .then(function(nextPlayer) {
             return {
-              board: board.matrix,
+              board: board,
               player: player,
-              nextPlayer: nextPlayer
+              // nextPlayer: nextPlayer
             };
-          })
-          .catch(function(err) {
-            console.error(err);
-          });
+          // })
+          // .catch(function(err) {
+            // console.error(err);
+          // });
         })
         .catch(function(err) {
           console.error(err);

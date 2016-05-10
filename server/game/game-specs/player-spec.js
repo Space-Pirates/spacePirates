@@ -69,6 +69,7 @@ module.exports = function() {
         db.Player.get(player.playerId)
         .run()
         .then(function(doc) {
+          expect(doc.hand).to.have.length(2);
           expect(doc.hand).to.not.include({tileId: 'test1'});
           done();
         })
