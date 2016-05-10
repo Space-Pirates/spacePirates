@@ -27,13 +27,36 @@ module.exports = {
     }
   },
 
-  discard: function(move, game) {},
+  discard: function(move, game, player) {},
 
-  block: function(player, move, game) {},
+  block: function(player, move, game, player) {},
 
-  unblock: function(move, game) {},
+  unblock: function(move, game, player) {},
 
-  reveal: function(planet, move, game) {},
+  reveal: function(planet, move, game, player) {},
 
-  update: function(move, game) {}
+  update: function(move, game, player) {
+    return game.board.update(move.yEnd - 1, move.xEnd -1, move.tile)
+    .then(function(board) {
+      return player.discard(move.tile)
+      .then(function() {
+        return game.deck.dealTile(player.playerId)
+        .then(function(player) {
+          return {
+            board: board,
+            player: player
+          }
+        })
+        .catch(function(err) {
+          console.error(err);
+        });
+      })
+      .catch(function(err) {
+        console.error(err);
+      });
+    })
+    .catch(function(err) {
+      console.error(err);
+    })
+  }
 }
