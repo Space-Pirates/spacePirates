@@ -50,4 +50,3 @@ var Player = require('./player');
 User.hasMany(Game, 'games', 'id', 'ownerId');
 User.hasMany(Player, 'players', 'id', 'userId');
 // User.hasMany(Game, 'ownedGames', 'id', 'ownerId');
-
