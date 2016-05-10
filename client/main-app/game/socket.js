@@ -27,7 +27,7 @@ function startSocketListeners() {
   socket.on('deal', function(data) {
     window.player.hand = data.hand;
     window.board.lastPlayed = data.lastPlayed;
-    createTile({x: data.x, y: data.y, tile: data.hand[2]})
+    createTile({x: data.x, y: data.y, tile: data.hand[2]});
   });
 
   socket.on('startTurn', function(data) {
@@ -36,7 +36,7 @@ function startSocketListeners() {
 
   socket.on('endTurn', function(data) {
     // change game status to not playing and disable hand draggable
-  })
+  });
 
   socket.on('gameOver', function(gameData){
     //change game state to outcomes

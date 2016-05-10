@@ -1,5 +1,3 @@
-var Player = require('./../game/player');
-
 module.exports = {
   parseMove: function(x, y) {
     if (x === 0 && y === 10) {
@@ -50,7 +48,7 @@ module.exports = {
     });
   },
 
-  block: function(player, move, game, player) {},
+  block: function(victim, move, game, player) {},
 
   unblock: function(move, game, player) {},
 
@@ -69,7 +67,7 @@ module.exports = {
             return {
               board: board,
               player: player
-            }
+            };
           })
           .catch(function(err) {
             console.error(err);
@@ -85,6 +83,6 @@ module.exports = {
     })
     .catch(function(err) {
       console.error(err);
-    })
+    });
   }
-}
+};
