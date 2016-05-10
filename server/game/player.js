@@ -22,8 +22,8 @@ Player.prototype = {
         }
       }
       return doc.save()
-      .then(function (doc) {
-        return doc;
+      .then(function (player) {
+        return player;
       })
       .catch(function (err) {
         console.error(err);
@@ -60,8 +60,8 @@ Player.prototype = {
     .then(function(doc) {
       doc.isTurn = !doc.isTurn;
       return doc.save()
-      .then(function(doc) {
-        return doc;
+      .then(function(player) {
+        return player;
       })
       .catch(function(err) {
         console.error(err);

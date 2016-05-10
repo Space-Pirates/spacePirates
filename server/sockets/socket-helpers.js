@@ -27,7 +27,28 @@ module.exports = {
     }
   },
 
-  discard: function(move, game, player) {},
+  discard: function(move, game, player) {
+    player.discard(move.tile.tileId)
+    .then(function() {
+      game.deck.dealTile(player.playerId)
+      .then(function() {
+        // Should also change next player's turn
+        player.changeTurn()
+        .then(function(player) {
+          return player;
+        })
+        .catch(function(err) {
+          console.error(err);
+        });
+      })
+      .catch(function(err) {
+        console.error(err);
+      });
+    })
+    .catch(function(err) {
+      console.error(err);
+    });
+  },
 
   block: function(player, move, game, player) {},
 
@@ -38,14 +59,21 @@ module.exports = {
   update: function(move, game, player) {
     return game.board.update(move.yEnd - 1, move.xEnd -1, move.tile)
     .then(function(board) {
-      return player.discard(move.tile)
+      return player.discard(move.tile.tileId)
       .then(function() {
         return game.deck.dealTile(player.playerId)
-        .then(function(player) {
-          return {
-            board: board,
-            player: player
-          }
+        .then(function() {
+          // Should also change next player's turn
+          return player.changeTurn()
+          .then(function(player) {
+            return {
+              board: board,
+              player: player
+            }
+          })
+          .catch(function(err) {
+            console.error(err);
+          });
         })
         .catch(function(err) {
           console.error(err);
