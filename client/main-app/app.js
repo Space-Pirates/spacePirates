@@ -1,4 +1,5 @@
 angular.module('spacePirates', [
+    'ngAria',
     'ngMaterial',
     'ngMessages',
     'ui.router',

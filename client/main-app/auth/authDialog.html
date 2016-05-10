@@ -1,5 +1,4 @@
 <md-dialog aria-label="Welcome">
-  <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Welcome</h2>
@@ -9,11 +8,11 @@
         </md-button>
       </div>
     </md-toolbar>
-    <md-dialog-content style="max-width:800px;max-height:810px; ">
+    <md-dialog-content style="max-width:800px;max-height:810px; " >
       <md-tabs md-dynamic-height md-border-bottom>
         <md-tab label="signin" md-on-select='data.action="signin"'>
           <md-content class="md-padding">
-            <!-- FORM HERE -->
+            <!-- SIGN IN FORM -->
             <form>
               <div layout-gt-sm="row">
                 <md-input-container flex>
@@ -32,30 +31,46 @@
         </md-tab>
         <md-tab label="signup" md-on-select='data.action="signup"'>
           <md-content class="md-padding">
-            <!-- FORM HERE -->
-            <form>
+            <!-- SIGN UP FORM -->
+            <form name="signupForm" novalidate>
               <div layout-gt-sm="row">
-                <md-input-container flex>
+                <md-input-container>
                   <label>Name</label>
-                  <input type="text" ng-model='data.user.name'/>
+                  <input name="name" type="text" ng-model='data.user.name' required/>
+                  <div ng-messages="signupForm.name.$error">
+                    <div ng-message="required">Name is Required</div>
+                  </div>
                 </md-input-container>
               </div>
               <div layout-gt-sm="row">
-                <md-input-container flex>
+                <md-input-container>
                   <label>Email</label>
-                  <input type="email" ng-model='data.user.email'/>
+                  <input name="emailAddress" type="email" ng-model='data.user.email' ng-required="true"/>
+                  <div ng-messages="signupForm.emailAddress.$error" ng-show="(signupForm.emailAddress.$error.email || signupForm.emailAddress.$error.required) && signupForm.emailAddress.$touched">
+                    <div ng-message="required">Email is required</div>
+                    <div ng-message="email">Enter valid email address</div>
+                  </div>
                 </md-input-container>
               </div>
               <div layout-gt-sm="row">
                 <md-input-container flex>
                   <label>Username</label>
-                  <input type="text" ng-model='data.user.username'/>
+                  <input name="username"type="text" ng-model='data.user.username'  md-maxlength="10"  required  minlength="3"/>
+                  <div ng-messages="signupForm.username.$error" ng-show="signupForm.username.$touched">
+                    <div ng-message="required">Username is required</div>
+                    <div ng-message="md-maxlength">Username is too long</div>
+                    <div ng-message="minlength">Username is too short</div>
+                  </div>
                 </md-input-container>
               </div>
               <div layout-gt-sm="row">
                 <md-input-container flex>
                   <label>Password</label>
-                  <input type="password" ng-model='data.user.password'/>
+                  <input name="pwd" type="password" ng-model='data.user.password' required minlength="3" />
+                  <div ng-messages="signupForm.pwd.$error" ng=show="signupForm.pwd.$touched">
+                    <div ng-message="required">Password is required</div>
+                    <div ng-message="minlength">Password must contain atleast 3 characters</div>
+                  </div>
                 </md-input-container>
               </div>
               <div layout-gt-sm="row">
@@ -69,14 +84,14 @@
         </md-tab>
       </md-tabs>
     </md-dialog-content>
+    <!-- BUTTONS -->
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="submit()" >
+      <md-button ng-click="submit()" ng-disabled="data.action ==='signup' && !signupForm.$valid">
         Submit
       </md-button>
       <md-button ng-click="cancel()" style="margin-right:20px;" >
         Cancel
       </md-button>
     </md-dialog-actions>
-  </form>
 </md-dialog>
