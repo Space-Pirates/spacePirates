@@ -27,7 +27,6 @@ Player.prototype = {
       .catch(function (err) {
         console.error(err);
       });
-
     })
     .catch(function (err) {
       console.error(err);

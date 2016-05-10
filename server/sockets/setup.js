@@ -34,33 +34,53 @@ module.exports = function(app) {
 
     // listen for moves
     socket.on('move', function(move) {
+      var game = games[gameId];
+      var player = game.players[move.userId];
       switch (utils.parseMove(move.xEnd, move.yEnd)) {
         case 'discard':
-          utils.discard(move, games[gameId]);
+          utils.discard(move, game, player);
           break;
         case 'block1':
-          utils.block(1, move, games[gameId]);
+          utils.block(1, move, game, player);
           break;
         case 'block2':
-          utils.block(2, move, games[gameId]);
+          utils.block(2, move, game, player);
           break;
         case 'block3':
-          utils.block(3, move, games[gameId]);
+          utils.block(3, move, game, player);
           break;
         case 'unblock':
-          utils.unblock(move, games[gameId]);
+          utils.unblock(move, game, player);
           break;
         case 'reveal1':
-          utils.reveal(1, move, games[gameId]);
+          utils.reveal(1, move, game, player);
           break;
         case 'reveal2':
-          utils.reveal(2, move, games[gameId]);
+          utils.reveal(2, move, game, player);
           break;
         case 'reveal3':
-          utils.reveal(3, move, games[gameId]);
+          utils.reveal(3, move, game, player);
           break;
         case 'update':
-          utils.update(move, games[gameId]);
+          utils.update(move, game, player)
+          .then(function(data) {
+            socket.to(gameId).emit('update', {
+              matrix: data.board.matrix,
+              lastPlayed: move.tile,
+              x: move.xEnd,
+              y: move.yEnd,
+              tilesRemaining: game.deck.tilesRemaining;
+            });
+            socket.emit('deal', {
+              hand: data.player.hand,
+              lastPlayed: move.tile,
+              x: move.xStart,
+              y: move.yStart
+            });
+          })
+          .catch(function(err) {
+            console.error(err);
+          });
           break;
       }
       // io.to(gameId).emit('moved', user);
