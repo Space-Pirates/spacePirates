@@ -38,7 +38,7 @@ Game.prototype = {
       for (var key in game.players) {
         var player = game.players[key];
 
-        game.turnOrder.push(player);
+        game.turnOrder.push(player.playerId);
         player.setRole(roles.pop());
         if (dealt < 3) {
           deck.setHand(player.playerId, hands.pop());
