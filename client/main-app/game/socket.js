@@ -22,11 +22,12 @@ function startSocketListeners() {
     window.gameData.board.matrix = data.matrix;
     window.gameData.board.lastPlayed = data.lastPlayed;
     window.gameData.deck.tilesRemaining = data.tilesRemaining;
+    createStaticTile({x: data.x, y: data.y, tile: data.lastPlayed});
   });
 
   socket.on('deal', function(data) {
-    window.player.hand = data.hand;
-    window.board.lastPlayed = data.lastPlayed;
+    window.gameData.player.hand = data.hand;
+    window.gameData.board.lastPlayed = data.lastPlayed;
     createTile({x: data.x, y: data.y, tile: data.hand[2]});
   });
 

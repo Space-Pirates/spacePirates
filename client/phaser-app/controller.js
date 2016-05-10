@@ -4,8 +4,8 @@ var boundsRect = new Phaser.Rectangle(0, 0, 840, 550);
 function createStaticTile(data){
   var name = data.tile.tileId.substring(0, data.tile.tileId.length-2);
   var tile = game.add.image(data.x*70, data.y*50, name);
-  tile.height = 45;
-  tile.width = 65;
+  tile.height = 50;
+  tile.width = 70;
   tile.tileData = data.tile;
 }
 
