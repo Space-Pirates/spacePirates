@@ -15,7 +15,7 @@ var loadState = {
     socket.on('4players', function(players) {
       game.state.start('game');
     });
-    var userId = JSON.parse(JSON.parse(window.localStorage.getItem('com.spacePirates'))).id;
-    socket.emit('ready', {userId: userId});
+    var user = JSON.parse(JSON.parse(window.localStorage.getItem('com.spacePirates')));
+    socket.emit('ready', {id: user.id, username: user.username});
   }
 };

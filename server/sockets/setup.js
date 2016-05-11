@@ -90,7 +90,8 @@ module.exports = function(app) {
               lastPlayed: move.tile,
               x: move.xEnd,
               y: move.yEnd,
-              tilesRemaining: game.deck.tilesRemaining
+              tilesRemaining: game.deck.tilesRemaining,
+              player: player
             });
             socket.emit('deal', {
               hand: data.player.hand,
@@ -114,8 +115,8 @@ module.exports = function(app) {
     // listen for load state is loaded
     socket.on('ready', function(data) {
       var game = games[gameId];
-      game.players[data.userId] = new Player(gameId, socket.id, data.userId);
-      game.players[data.userId].initialize().then(function () {
+      game.players[data.id] = new Player(gameId, socket.id, data.id, data.username);
+      game.players[data.id].initialize().then(function () {
         if (io.sockets.adapter.rooms[gameId].length >= 4) {
           db.Game.get(gameId).update({
             open: false
