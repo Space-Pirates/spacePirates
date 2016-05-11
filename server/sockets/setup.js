@@ -11,7 +11,6 @@ module.exports = function(app) {
   // setup change feed for lobby
   db.Game.changes().then(function(feed){
     feed.each(function(error, doc) {
-      console.log(doc);
       db.Game.get(doc.id).getJoin({players:true})
       .then(function(game){
         io.to('LobbySocket').emit('update', game);
@@ -21,7 +20,6 @@ module.exports = function(app) {
 
   db.Player.changes().then(function(feed){
     feed.each(function(error, doc) {
-      console.log(doc);
       db.Player.get(doc.id).getJoin({user:true})
       .then(function(player){
         io.to('LobbySocket').emit('updatePlayers', player);

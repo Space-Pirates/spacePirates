@@ -30,6 +30,8 @@ body {
 }
 
 .feed-window {
-  height: 500px;
+  height: 320px;
+  width: 200px;
+  overflow: auto;
 }
 
