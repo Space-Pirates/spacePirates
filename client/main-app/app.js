@@ -8,6 +8,7 @@ angular.module('spacePirates', [
     'app.menu',
     'app.lobby',
     'app.game',
+    'app.gameChat',
     'angular-storage',
     'angular-jwt'
   ])
@@ -51,14 +52,15 @@ angular.module('spacePirates', [
       })
       .state('game', {
       url: '/game',
-      abstract: true,
+      abstract:true,
+      controller: 'GameChatController',
       templateUrl: 'main-app/game/game.html',
       authenticate: true
     })
     .state('game.play', {
       url: '/:gameId',
-      template: '<game-canvas></game-canvas>',
       controller: 'GameController',
+      template: '<game-canvas></game-canvas>',
       authenticate: true
     });;
 
