@@ -21,5 +21,19 @@
         <a>Logout</a>
       </md-button>
     </md-card>
+    <md-card>
+      <md-card-title>Lobby Chat</md-card-title>
+      <md-content class="chat-window" ng-model="feed" layout="column">
+        <p ng-repeat="chat in feed">{{ chat.user }}: {{chat.message}}</p>
+      </md-content>
+      <form ng-submit="submit(chat)">
+        <div layout-gt-sm="row">
+          <md-input-container flex>
+            <label>Lobby Chat</label>
+            <input type="text" layout="column" type="text" ng-model="chat"/>
+          </md-input-container>
+        </div>
+      </form>
+    </md-card>
   </div>
 </div>

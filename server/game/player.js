@@ -1,11 +1,12 @@
 var db = require('../db/db');
 
-var Player = function (gameId, socketId, userId) {
+var Player = function (gameId, socketId, userId, username) {
   this.gameId = gameId;
   this.socketId = socketId;
   this.userId = userId;
   this.lastPlayed = {};
   this.playerId = '';
+  this.username = username;
 };
 
 Player.prototype = {
@@ -92,7 +93,8 @@ Player.prototype = {
       role: '',
       isTurn: false,
       hand: [],
-      debuffs: []
+      debuffs: [],
+      username: player.username
     })
     .save()
     .then(function (data) {

@@ -11,7 +11,6 @@ module.exports = function(app) {
   // setup change feed for lobby
   db.Game.changes().then(function(feed){
     feed.each(function(error, doc) {
-      console.log(doc);
       db.Game.get(doc.id).getJoin({players:true})
       .then(function(game){
         io.to('LobbySocket').emit('update', game);
@@ -21,10 +20,8 @@ module.exports = function(app) {
 
   db.Player.changes().then(function(feed){
     feed.each(function(error, doc) {
-      console.log(doc);
       db.Player.get(doc.id).getJoin({user:true})
       .then(function(player){
-        console.log(player);
         io.to('LobbySocket').emit('updatePlayers', player);
       });
     });
@@ -41,6 +38,10 @@ module.exports = function(app) {
     socket.on('disconnect', function() {
       socket.to(gameId).emit('left', user);
       socket.leave(gameId);
+    });
+    
+    socket.on('chat', function(chat){
+      socket.to(gameId).emit('chat', chat);
     });
 
     // listen for moves
@@ -89,7 +90,8 @@ module.exports = function(app) {
               lastPlayed: move.tile,
               x: move.xEnd,
               y: move.yEnd,
-              tilesRemaining: game.deck.tilesRemaining
+              tilesRemaining: game.deck.tilesRemaining,
+              player: player
             });
             socket.emit('deal', {
               hand: data.player.hand,
@@ -113,8 +115,8 @@ module.exports = function(app) {
     // listen for load state is loaded
     socket.on('ready', function(data) {
       var game = games[gameId];
-      game.players[data.userId] = new Player(gameId, socket.id, data.userId);
-      game.players[data.userId].initialize().then(function () {
+      game.players[data.id] = new Player(gameId, socket.id, data.id, data.username);
+      game.players[data.id].initialize().then(function () {
         if (io.sockets.adapter.rooms[gameId].length >= 4) {
           db.Game.get(gameId).update({
             open: false

@@ -10,7 +10,8 @@ var Player = thinky.createModel('Player', {
   isTurn: type.boolean(),
   hand: type.array(),
   debuffs: type.array(),
-  userId: type.string()
+  userId: type.string(),
+  username: type.string()
 });
 
 module.exports = Player;

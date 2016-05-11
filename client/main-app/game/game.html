@@ -23,12 +23,20 @@
           <h1 class="md-toolbar-tools">Space Pirates</h1>
       </md-toolbar>
     </div>
-    <md-content class="feed-window" layout="column">
-      <p class="md-body-2">Player 1 just destroyed a route!!!</p>
-      <p class="md-body-2">Player 2 just placed a tile</p>
-      <p class="md-body-2">Player 1 just blocked Player 2</p>
-      <p class="md-body-2">Player 3 just used a reveal card!!!</p>
-    </md-content>
+    <md-card>
+      <md-card-title>Game Feed</md-card-title>
+      <md-content class="feed-window" ng-model="gameFeed" layout="column">
+        <p ng-repeat="gameChat in gameFeed" class="md-body-2">{{ gameChat.user }}: {{gameChat.message}}</p>
+      </md-content>
+      <form ng-submit="chatSubmit(gameChat)">
+        <div layout-gt-sm="row">
+          <md-input-container flex>
+            <label>Game Chat</label>
+            <input type="text" layout="column" type="text" ng-model="gameChat"/>
+          </md-input-container>
+        </div>
+      </form>
+    </md-card>
     <div layout="column" class="player-videos" layout-align="end">
       <div id="myVid"></div>
     </div>

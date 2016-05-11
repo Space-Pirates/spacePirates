@@ -25,6 +25,17 @@ angular.module('app.game', [])
 
   window.socket = io.connect({query: 'gameId=' + gameId + '&user='+user.username});
 
+  socket.on('update', function(data) {
+    // data has matrix, lastPlayed, x, y, tilesRemaining
+    window.gameData.board.matrix = data.matrix;
+    window.gameData.board.lastPlayed = data.lastPlayed;
+    window.gameData.deck.tilesRemaining = data.tilesRemaining;
+    createStaticTile({x: data.x, y: data.y, tile: data.lastPlayed});
+    $scope.gameFeed.unshift({user: data.player.username, message: data.lastPlayed.tileId});
+    console.log($scope.gameFeed);
+    $scope.$digest();
+  });
+
   startSocketListeners(); // Located in ./socket.js
 
   window.phone = PHONE({
