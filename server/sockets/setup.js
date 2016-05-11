@@ -13,7 +13,7 @@ module.exports = function(app) {
     feed.each(function(error, doc) {
       db.Game.get(doc.id).getJoin({players:true})
       .then(function(game){
-        io.to('LobbySocket').emit('update', game);
+        io.to('LobbySocket').emit('updateLobby', game);
       });
     });
   });

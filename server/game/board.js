@@ -9,13 +9,13 @@ Board.prototype = {
   constructor: Board,
 
   Tile: function(row, col, matrix) {
-    if (row - 1 > 0) {
+    if (row - 1 >= 0) {
       this.top = matrix[row - 1][col].bottom || 0;
     } else {
       this.top = 0;
     }
 
-    if (col - 1 > 0) {
+    if (col - 1 >= 0) {
       this.left = matrix[row][col - 1].right || 0;
     } else {
       this.left = 0;
@@ -64,10 +64,18 @@ Board.prototype = {
     .then(function(matrix) {
       matrix[row][col] = tile;
 
-      matrix[row - 1][col] = new board.Tile(row - 1, col, matrix);
-      matrix[row][col - 1] = new board.Tile(row, col - 1, matrix);
-      matrix[row + 1][col] = new board.Tile(row + 1, col, matrix);
-      matrix[row][col + 1] = new board.Tile(row, col + 1, matrix);
+      if (row > 0) {
+        matrix[row - 1][col] = new board.Tile(row - 1, col, matrix);
+      }
+      if (col > 0) {
+        matrix[row][col - 1] = new board.Tile(row, col - 1, matrix);
+      }
+      if (row < matrix.length - 1) {
+        matrix[row + 1][col] = new board.Tile(row + 1, col, matrix);
+      }
+      if (col < matrix[0].length - 1) {
+        matrix[row][col + 1] = new board.Tile(row, col + 1, matrix);
+      }
 
       return board.setMatrix(matrix)
       .then(function(data) {
