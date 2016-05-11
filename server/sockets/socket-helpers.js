@@ -57,7 +57,7 @@ module.exports = {
   reveal: function(planet, move, game, player) {},
 
   update: function(move, game, player) {
-    return game.board.update(move.yEnd - 1, move.xEnd -1, move.tile)
+    return game.board.update(move.yEnd - 1, move.xEnd, move.tile)
     .then(function(board) {
       return player.discard(move.tile.tileId)
       .then(function() {

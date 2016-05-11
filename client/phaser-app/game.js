@@ -99,6 +99,8 @@ var gameState = {
 
     // createTile({x:4,y:10,tile:{tileId:'start-T'}});
     var userId = JSON.parse(JSON.parse(window.localStorage.getItem('com.spacePirates'))).id;
+
+    // player has loaded all game assets and is ready to receive first hand
     socket.emit('readyForHand', {userId: userId});
   }
 };

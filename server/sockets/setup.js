@@ -39,7 +39,7 @@ module.exports = function(app) {
       socket.to(gameId).emit('left', user);
       socket.leave(gameId);
     });
-    
+
     socket.on('chat', function(chat){
       socket.to(gameId).emit('chat', chat);
     });
@@ -114,38 +114,46 @@ module.exports = function(app) {
 
     // listen for load state is loaded
     socket.on('ready', function(data) {
+      // instance of Game class corresponding to current game
       var game = games[gameId];
+      // instantiate new player class and save it on players
+      // prop in our in our instance of Game class (under key of userId)
       game.players[data.id] = new Player(gameId, socket.id, data.id, data.username);
+      // save player to db
       game.players[data.id].initialize().then(function () {
+        // check if four players are in the game
         if (io.sockets.adapter.rooms[gameId].length >= 4) {
+          // close game to lobby if full
           db.Game.get(gameId).update({
             open: false
           }).run()
-          .then(function(){
-            io.to(gameId).emit('4players');
+          // initialize game
+          game.startGame().then(function() {
+            game.board.getMatrix().then(function(matrix) {
+              // send initial game data
+              io.to(gameId).emit('startGame', {
+                matrix: matrix,
+                tilesRemaining: 54
+              });
+              // tell game to start (load game state)
+              io.to(gameId).emit('4players');
+            });
           });
         }
       });
     });
 
     socket.on('readyForHand', function(data) {
+      // get instance of game
       var game = games[gameId];
-      game.startGame().then(function() {
-        game.board.getMatrix().then(function(matrix) {
-          io.to(gameId).emit('startGame', {
-            matrix: matrix,
-            tilesRemaining: 54
-          });
+      // for (userId in game.players) {
+      player = game.players[data.userId];
+      player.getHand().then(function (hand) {
+        player.getRole().then(function (role) {
+          io.to(player.socketId).emit('hand', {hand: hand, role: role});
         });
-        // for (userId in game.players) {
-        player = game.players[data.userId];
-        player.getHand().then(function (hand) {
-          player.getRole().then(function (role) {
-            io.to(player.socketId).emit('hand', {hand: hand, role: role});
-          });
-        });
-        // }
       });
+      // }
     });
 
     // announce arrival so everyone else in room can call
