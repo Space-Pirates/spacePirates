@@ -6,7 +6,7 @@ angular.module('app.lobby', ['app.lobbyFact'])
     $scope.games = [];
     var gameRecord = {};
 
-    window.lobbySocket.on('update', function(change){
+    window.lobbySocket.on('updateLobby', function(change){
       gameRecord[change.id] = change;
       $scope.games.push(change);
       $scope.$digest();
