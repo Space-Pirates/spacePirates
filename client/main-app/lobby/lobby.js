@@ -9,11 +9,9 @@ angular.module('app.lobby', ['app.lobbyFact'])
     $scope.$watch('games', function(newVal, oldVal){
       $scope.games = newVal;
     });
-    // lobbySocket setup for listening for game adds
-    window.lobbySocket = io.connect({query: 'gameId=LobbySocket&user='+user.username});
-    
+
     window.lobbySocket.on('update', function(change){
-      gameRecord[change.id]=change;
+      gameRecord[change.id] = change;
       $scope.games.push(change);
       $scope.$digest();
     });
