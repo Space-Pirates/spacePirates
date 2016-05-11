@@ -1,6 +1,6 @@
+var request = require('request');
 var io = require('socket.io-client');
 var db = require('../../db/db');
-var games = require('./../../controllers/game-control').currentGames;
 var Game = require('../../game/game');
 var chai = require('chai');
 var spies = require('chai-spies');
@@ -8,49 +8,60 @@ var spies = require('chai-spies');
 chai.use(spies);
 var expect = chai.expect;
 
-var SOCKET_URL = 'http://0.0.0.0:5000';
+var URL = 'http://0.0.0.0:5000';
 
-var GAME,
-    CLIENT;
+var CLIENT_1,
+    CLIENT_2
+    GAME_ID;
 
 describe('Socket connection', function () {
 
   before(function(done) {
-    GAME = db.Game.save({}).then(function(doc) {
-      games[doc.id] = new Game(doc.id);
-      CLIENT = io.connect(SOCKET_URL, {query: 'game_id=' + doc.id + '&user=TEST_USERNAME_1'});
-        done();
-    });
-  });
 
-  after(function(done) {
-    db.Game.filter({}).then(function(data) {
-      data.forEach(function(doc) {
-        doc.deleteAll();
+    request({
+      headers: {
+        'x-access-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1pZWtAYXNrZGouYXNkIiwiaWQiOiIzZGU1MGY0YS01OGVjLTQ1M2EtYTM4Mi1mNmZmYjg5NGJkZWIiLCJuYW1lIjoiTWlrZWsiLCJwYXNzd29yZCI6IiQyYSQxMCRud0ExVk4vSmFCUHMucFdPMHlBRlhPeGNSVk4vdE03S2pRU2pZWXhuaVNYZGNRanVWMjdoVyIsInVzZXJuYW1lIjoibWlrZWsiLCJpYXQiOjE0NjI3Mzc2MDF9.byYckg02t_fvN8QqlANYabq4ySKy1v7h-cY8l79MU2E"
+      },
+      method: 'POST',
+      url: 'http://0.0.0.0:5000/game'
+    }, function(err, res, data) {
+      console.log(data);
+      var GAME_ID = data;
+
+      Promise.all([
+        CLIENT_1 = io.connect(URL, {query: 'game_id=' + GAME_ID + '&user=TEST_USERNAME1'}),
+        CLIENT_2 = io.connect(URL, {query: 'game_id=' + GAME_ID + '&user=TEST_USERNAME2'}),
+        CLIENT_3 = io.connect(URL, {query: 'game_id=' + GAME_ID + '&user=TEST_USERNAME3'}),
+        CLIENT_4 = io.connect(URL, {query: 'game_id=' + GAME_ID + '&user=TEST_USERNAME4'})
+      ]).then(function() {
         done();
       });
-    });
+
+    })
+
   });
+
 
   it('should emit a "joined" event on connect', function (done) {
 
     var cb = chai.spy(function(data) {
-      expect(data.username).to.be.equal('TEST_USERNAME_1');
+      expect(data.username).to.be.equal('TEST_USERNAME1');
       expect(cb).to.have.been.called();
-      CLIENT.disconnect();
       done();
     });
 
-    CLIENT.on('connect', function () {
-      CLIENT.on('joined', cb);
-    });
+    CLIENT_1.on('joined', cb);
   });
 
-  it('should handle a "ready" event by creating player and adding to game', function (done) {
-    CLIENT.emit('ready', {userId: 'TEST_USER_ID'});
-    setTimeout(function () {
+  it('should fire a "4players" event when joined by 4 players', function (done) {
+
+    CLIENT_1.on('4players', function(data) {
       done();
-    }, 250);
-  });
+    });
 
+    CLIENT_1.emit('ready', {userId: 'TEST_USER_ID1'});
+    CLIENT_2.emit('ready', {userId: 'TEST_USER_ID2'});
+    CLIENT_3.emit('ready', {userId: 'TEST_USER_ID3'});
+    CLIENT_4.emit('ready', {userId: 'TEST_USER_ID4'});
+  });
 });
