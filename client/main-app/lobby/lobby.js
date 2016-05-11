@@ -6,10 +6,6 @@ angular.module('app.lobby', ['app.lobbyFact'])
     $scope.games = [];
     var gameRecord = {};
 
-    $scope.$watch('games', function(newVal, oldVal){
-      $scope.games = newVal;
-    });
-
     window.lobbySocket.on('update', function(change){
       gameRecord[change.id] = change;
       $scope.games.push(change);
