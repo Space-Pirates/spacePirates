@@ -42,6 +42,7 @@ function  onDragStart(sprite, pointer) {
 }
 
 function  onDragStop(sprite, pointer) {
+  if (gameData.player.isTurn) {
     var x = sprite.position.x/70;
     var y = sprite.position.y/50;
     sprite.input.draggable = false;
@@ -49,4 +50,7 @@ function  onDragStop(sprite, pointer) {
     console.log(xInit, yInit);
     //TODO: Write validation called checkPosition(sprite); ...will contain animation back to dragposition
     emitMove(xInit, yInit,x, y, sprite.tileData);
+  } else {
+    game.add.tween(sprite).to({x: dragPosition.x, y: dragPosition.y}, 500, 'Back.easeOut', true);
+  }
 }
