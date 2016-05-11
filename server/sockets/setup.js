@@ -24,7 +24,6 @@ module.exports = function(app) {
       console.log(doc);
       db.Player.get(doc.id).getJoin({user:true})
       .then(function(player){
-        console.log(player);
         io.to('LobbySocket').emit('updatePlayers', player);
       });
     });
@@ -41,6 +40,10 @@ module.exports = function(app) {
     socket.on('disconnect', function() {
       socket.to(gameId).emit('left', user);
       socket.leave(gameId);
+    });
+    
+    socket.on('chat', function(chat){
+      socket.to(gameId).emit('chat', chat);
     });
 
     // listen for moves
