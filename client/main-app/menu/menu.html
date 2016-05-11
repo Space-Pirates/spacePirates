@@ -22,23 +22,18 @@
       </md-button>
     </md-card>
     <md-card>
-        <md-content>
-            <md-card-title>Lobby Chat</md-card-title>
-            <md-content class="chat-window" ng-model="feed" layout="column">
-              <p ng-repeat="chat in feed" class="md-body-2">{{ chat.user }}: {{chat.message}}</p>
-            </md-content>
-            <form ng-submit="submit(chat)">
-              <div layout-gt-sm="row">
-                <md-input-container>
-                  <label>Lobby Chat</label>
-                  <input type="text" layout="colum" type="text" ng-model='chat'/>
-                  <md-button layout="column">
-                    <a>Submit</a>
-                  </md-button>
-                </md-input-container>
-              </div>
-            </form>
-          </md-content>
+      <md-card-title>Lobby Chat</md-card-title>
+      <md-content class="chat-window" ng-model="feed" layout="column">
+        <p ng-repeat="chat in feed">{{ chat.user }}: {{chat.message}}</p>
+      </md-content>
+      <form ng-submit="submit(chat)">
+        <div layout-gt-sm="row">
+          <md-input-container flex>
+            <label>Lobby Chat</label>
+            <input type="text" layout="column" type="text" ng-model="chat"/>
+          </md-input-container>
+        </div>
+      </form>
     </md-card>
   </div>
 </div>

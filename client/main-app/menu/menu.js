@@ -12,6 +12,7 @@ angular.module('app.menu', [])
     
     $scope.submit = function(val){
       var chat = {user:user.username, message: val};
+      $scope.feed.unshift(chat);
       window.lobbySocket.emit('chat', chat);
       $scope.chat = '';
     };
