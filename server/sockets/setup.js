@@ -52,10 +52,18 @@ module.exports = function(app) {
         case 'discard':
           utils.discard(move, game, player)
           .then(function(data) {
+            socket.emit('deal', {
+              hand: data.player.hand,
+              lastPlayed: move.tile,
+              x: move.xStart,
+              y: move.yStart
+            });
             socket.emit('endTurn', {
               isTurn: data.player.isTurn
             });
-            // emit startTurn socket to nextPlayer
+            io.to(data.nextPlayer.socketId).emit('startTurn', {
+              isTurn: data.nextPlayer.isTurn
+            });
           })
           .catch(function(err) {
             console.error(err);
@@ -102,7 +110,9 @@ module.exports = function(app) {
             socket.emit('endTurn', {
               isTurn: data.player.isTurn
             });
-            // emit startTurn socket to nextPlayer
+            io.to(data.nextPlayer.socketId).emit('startTurn', {
+              isTurn: data.nextPlayer.isTurn
+            });
           })
           .catch(function(err) {
             console.error(err);
