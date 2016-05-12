@@ -101,9 +101,6 @@ Player.prototype = {
       isTurn: turn
     })
     .run()
-    .then(function(doc) {
-      return doc;
-    })
     .catch(function(err) {
       console.error(err);
     });
