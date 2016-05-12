@@ -67,7 +67,7 @@ Player.prototype = {
   },
 
   changeTurn: function() {
-    db.Player.get(this.playerId)
+    return db.Player.get(this.playerId)
     .then(function(doc) {
       doc.isTurn = !doc.isTurn;
       return doc.save()
@@ -87,6 +87,22 @@ Player.prototype = {
     return db.Player.get(this.playerId)
     .then(function(doc) {
       return doc.hand;
+    })
+    .catch(function(err) {
+      console.error(err);
+    });
+  },
+
+  updateInfo: function(hand, turn, role) {
+    return db.Player.get(this.playerId)
+    .update({
+      hand: hand,
+      role: role,
+      isTurn: turn
+    })
+    .run()
+    .then(function(doc) {
+      return doc;
     })
     .catch(function(err) {
       console.error(err);
