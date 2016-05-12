@@ -18,6 +18,7 @@ Game.prototype = {
     var roles = _.shuffle(['pirate', 'settler', 'settler', 'settler']);
     var deck = this.deck;
     var game = this;
+    var firstTurn = true;
 
     return deck.getTiles()
     .then(function(tiles) {
@@ -39,6 +40,10 @@ Game.prototype = {
         var player = game.players[key];
 
         game.turnOrder.push(player.playerId);
+        if (firstTurn) {
+          player.changeTurn();
+          firstTurn = false;
+        }
         player.setRole(roles.pop());
         if (dealt < 3) {
           deck.setHand(player.playerId, hands.pop());
