@@ -1,5 +1,5 @@
-<div layout="row" layout-align="center" flex>
-  <div layout="column" flex="100">
+<div layout="row" layout-align="center">
+  <div layout="column" layout-align="center">
     <div class="player-videos" layout="row">
       <div layout="column">
         <div id="player2"></div>
@@ -17,32 +17,32 @@
       </div>
     </div>
   </div>
-  <div layout="column" layout-align="center" flex="100">
+  <div class="side-bar" layout="column" layout-align="center">
     <div layout="row">
       <md-toolbar layout="column" flex>
           <h1 class="header-text">Space Pirates</h1>
       </md-toolbar>
     </div>
     <div layout="row">
-      <md-card layout="column" flex>
-      <form ng-submit="chatSubmit(gameChat)">
+      <div layout="column" class="orange-border normal-text" flex>
+      
+      </div>
+    </div>
+    <div layout="row">
+        <div layout="column" flex id="feed" class="feed-window orange-border" ng-model="gameFeed">
+          <form ng-submit="chatSubmit(gameChat)">
         <div layout-gt-sm="row">
           <md-input-container flex>
             <label class="normal-text">Game Chat</label>
-            <input type="text" type="text" ng-model="gameChat" flex/>
+            <input type="text" ng-model="gameChat" flex/>
           </md-input-container>
         </div>
       </form>
-      </md-card>
-    </div>
-    <div layout="row">
-        <div layout="column" flex id="feed" class="feed-window" ng-model="gameFeed">
-          <div class="header-text">Game Feed</div>
           <p class="feed-posts normal-text" ng-repeat="chat in gameFeed">{{ chat.user }}: {{chat.message}}</p>
         </div>
     </div>
     <div layout="row" class="player-videos">
-      <div layout="column" id="myVid"></div>
+      <div layout="column" id="myVid" flex></div>
     </div>
   </div>
 </div>
