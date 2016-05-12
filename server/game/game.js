@@ -64,7 +64,7 @@ Game.prototype = {
 
     return this.players[this.turnOrder[this.currentTurn]].changeTurn()
     .then(function() {
-      if (game.currentTurn < 4) {
+      if (game.currentTurn < 3) {
         game.currentTurn++;
       } else {
         game.currentTurn = 0;
