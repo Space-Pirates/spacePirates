@@ -4,36 +4,35 @@
   </div>
   <div layout="column" flex="25">
     <md-toolbar>
-      <h1 class="md-toolbar-tools">Menu</h1>
+      <h1 class="header-text">Menu</h1>
     </md-toolbar>
     <md-card>
       <md-button ui-sref="menu.lobby">
-        <a>Lobby</a>
+        <a class="normal-text">Lobby</a>
       </md-button>
     </md-card>
     <md-card>
       <md-button ui-sref="menu.instructions">
-        <a>How To Play</a>
+        <a class="normal-text">How To Play</a>
       </md-button>
     </md-card>
     <md-card>
       <md-button ui-sref="logout" ng-click='signout()'>
-        <a>Logout</a>
+        <a class="normal-text">Logout</a>
       </md-button>
     </md-card>
     <md-card>
-      <md-card-title>Lobby Chat</md-card-title>
-      <md-content class="chat-window" ng-model="feed" layout="column">
-        <p ng-repeat="chat in feed">{{ chat.user }}: {{chat.message}}</p>
-      </md-content>
-      <form ng-submit="submit(chat)">
+    <form ng-submit="submit(chat)">
         <div layout-gt-sm="row">
           <md-input-container flex>
-            <label>Lobby Chat</label>
+            <label class="normal-text">Lobby Chat</label>
             <input type="text" layout="column" type="text" ng-model="chat"/>
           </md-input-container>
         </div>
       </form>
+      <md-content id="lobbyChat" class="chat-window" ng-model="feed" layout="column">
+        <p class="normal-text"ng-repeat="chat in feed">{{ chat.user }}: {{chat.message}}</p>
+      </md-content>
     </md-card>
   </div>
 </div>

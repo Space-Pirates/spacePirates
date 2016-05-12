@@ -31,11 +31,16 @@ angular.module('app.game', [])
     window.gameData.board.matrix = data.matrix;
     window.gameData.board.lastPlayed = data.lastPlayed;
     window.gameData.deck.tilesRemaining = data.tilesRemaining;
-    createStaticTile({x: data.x, y: data.y, tile: data.lastPlayed});
-    $scope.gameFeed.unshift({user: data.player.username, message: data.lastPlayed.tileId});
-    console.log($scope.gameFeed);
-    $scope.$digest();
+    createStaticTile({x: data.x, y: data.y, tile: data.lastPlayed})
+    $scope.$parent.gameFeed.unshift({user: data.player.username, message: data.lastPlayed.tileId});
+    $scope.$parent.$digest();
   });
+
+  window.socket.on('chat', function(chat){
+      $scope.$parent.gameFeed.unshift(chat);
+      $scope.$parent.$digest();
+    });
+
 
   startSocketListeners(); // Located in ./socket.js
 
@@ -68,8 +73,6 @@ angular.module('app.game', [])
   phone.receive(function(session){
     session.connected(function(session){
       if(session.number !== phone.number()){
-        session.video.height = 200;
-        session.video.width = 280;
         $('#player' + player).append(session.video);
         player++;
       }

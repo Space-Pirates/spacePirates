@@ -1,7 +1,6 @@
 var gameState = {
 
   preload: function() {
-    game.load.image('nebula', 'phaser-app/assets/nebula.png');
     game.load.image('orange', 'phaser-app/assets/orange.png');
     game.load.image('planet', 'phaser-app/assets/planet.png');
     game.load.image('dead-end-horizontal-half', 'phaser-app/assets/dead-end-horizontal-half.png');
@@ -37,10 +36,6 @@ var gameState = {
   create: function() {
     //Create all playable spots
     var style = { font: "14px Arial", fill: "#ffffff", align: "center" };
-
-    var dropZone = game.add.image(0, 50, 'nebula');
-    dropZone.height = 450;
-    dropZone.width = 840;
 
     var player1 = game.add.image(560, 500, 'orange');
     player1.height = 50;
@@ -97,7 +92,6 @@ var gameState = {
     game.add.text(10, 518, 'Discard', style);
     game.add.text(280, 518, 'Player Hand', style);
 
-    // createTile({x:4,y:10,tile:{tileId:'start-T'}});
     var userId = JSON.parse(JSON.parse(window.localStorage.getItem('com.spacePirates'))).id;
 
     // player has loaded all game assets and is ready to receive first hand

@@ -60,7 +60,7 @@ angular.module('spacePirates', [
     .state('game.play', {
       url: '/:gameId',
       controller: 'GameController',
-      template: '<game-canvas></game-canvas>',
+      template: '<div class="orange-border"><game-canvas></game-canvas></div>',
       authenticate: true
     });;
 
