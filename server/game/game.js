@@ -23,7 +23,7 @@ Game.prototype = {
     .then(function(tiles) {
       var hands = [[], [], [], []];
 
-      for (var i = 0; i < 4; i++) {
+      for (var i = 0; i < 3; i++) {
         hands[0].push(tiles.pop());
         hands[1].push(tiles.pop());
         hands[2].push(tiles.pop());
