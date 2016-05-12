@@ -51,7 +51,7 @@ Game.prototype = {
             console.error(err);
           });
         }
-        dealt++
+        dealt++;
       }
     })
     .catch(function(err) {
@@ -81,6 +81,6 @@ Game.prototype = {
       console.error(err);
     });
   }
-}
+};
 
 module.exports = Game;

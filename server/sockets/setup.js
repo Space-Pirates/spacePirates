@@ -33,7 +33,7 @@ module.exports = function(app) {
 
     // join room, room is the gameId
     socket.join(gameId);
-    console.log(user + " joined game: " + gameId);
+    console.log(user + ' joined game: ' + gameId);
 
     socket.on('disconnect', function() {
       socket.to(gameId).emit('left', user);
@@ -136,7 +136,7 @@ module.exports = function(app) {
           // close game to lobby if full
           db.Game.get(gameId).update({
             open: false
-          }).run()
+          }).run();
           // initialize game
           game.startGame().then(function() {
             game.board.getMatrix().then(function(matrix) {
