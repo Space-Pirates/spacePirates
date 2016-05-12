@@ -156,7 +156,8 @@ module.exports = function(app) {
     socket.on('readyForHand', function(data) {
       // get instance of game
       var game = games[gameId];
-      player = game.players[data.userId];
+      var player = game.players[data.userId];
+      
       player.getHand()
       .then(function (hand) {
         player.getRole()
