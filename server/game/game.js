@@ -18,12 +18,13 @@ Game.prototype = {
     var roles = _.shuffle(['pirate', 'settler', 'settler', 'settler']);
     var deck = this.deck;
     var game = this;
+    var firstTurn = true;
 
     return deck.getTiles()
     .then(function(tiles) {
       var hands = [[], [], [], []];
 
-      for (var i = 0; i < 4; i++) {
+      for (var i = 0; i < 3; i++) {
         hands[0].push(tiles.pop());
         hands[1].push(tiles.pop());
         hands[2].push(tiles.pop());
@@ -39,6 +40,10 @@ Game.prototype = {
         var player = game.players[key];
 
         game.turnOrder.push(player.playerId);
+        if (firstTurn) {
+          player.changeTurn();
+          firstTurn = false;
+        }
         player.setRole(roles.pop());
         if (dealt < 3) {
           deck.setHand(player.playerId, hands.pop());
@@ -61,15 +66,17 @@ Game.prototype = {
 
   rotateTurn: function(playerId) {
     var game = this;
-
-    return this.players[this.turnOrder[this.currentTurn]].changeTurn()
-    .then(function() {
-      if (game.currentTurn < 3) {
-        game.currentTurn++;
+    var currentPlayer = this.players[this.turnOrder[this.currentTurn]];
+    if (this.currentTurn < 3) {
+        this.currentTurn++;
       } else {
-        game.currentTurn = 0;
+        this.currentTurn = 0;
       }
-      return game.players[game.turnOrder[game.currentTurn]].changeTurn()
+    var nextPlayer = this.players[this.turnOrder[this.currentTurn]];
+
+    return currentPlayer.changeTurn()
+    .then(function() {
+      return nextPlayer.changeTurn()
       .then(function(nextPlayer) {
         return nextPlayer;
       })

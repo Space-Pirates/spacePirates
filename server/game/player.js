@@ -67,7 +67,7 @@ Player.prototype = {
   },
 
   changeTurn: function() {
-    db.Player.get(this.PlayerId)
+    db.Player.get(this.playerId)
     .then(function(doc) {
       doc.isTurn = !doc.isTurn;
       return doc.save()
