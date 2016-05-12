@@ -1,22 +1,29 @@
+@font-face {
+  font-family:"Pirate Font";
+  src: url('assets/BOOTERFF.ttf') format("truetype");
+}
+
 body {
   background: url('assets/spaceBanner.jpg') no-repeat center center fixed;
   background-size: cover;
+  font-family: "Pirate Font";
 }
 
 .dialog-box {
   max-width: 800px;
-  max-height: 810px; 
+  max-height: 810px;
 }
 .chat-window {
   height: 350px;
   overflow: auto;
+  padding-bottom: 0;
 }
 .cancel-btn {
    margin-right: 20px; 
 }
 
 .games-window {
-  height: 660px; 
+  height: 585px; 
   overflow: auto;
 }
 
@@ -25,13 +32,64 @@ body {
   height: 100px; 
 }
 
-.player-videos {
+.video-box {
   height: 200px;
 }
 
+.player-videos {
+  width: 280px;
+  height: 200px;
+}
+
+.player-videos video{
+  width:100%;
+  height: 190px;
+  vertical-align: center;
+  margin: 5px;
+}
+
+#myVid {
+  width: 100%;
+}
+
+.side-bar {
+  margin-left: 10px;
+}
+
 .feed-window {
-  height: 320px;
+  height: 400px;
   width: 200px;
   overflow: auto;
+  color: orange;
+  background-color: white;
+  opacity: 0.8;
 }
+
+.orange-border {
+  border: 1px solid orange;
+}
+
+.md-toolbar {
+  background-color: rgba(0,0,0,0);
+}
+
+.header-text {
+  text-align: center;
+  font-size: 60px;
+  padding: 0px 10px 0px 10px;
+}
+
+.title-text {
+  font-size: 45px;
+}
+.normal-text{
+  font-size: 20px;
+}
+
+.feed-posts{
+  margin: 10px;
+  padding: 0;
+  color: black;
+}
+
 
