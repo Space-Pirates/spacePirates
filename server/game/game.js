@@ -2,6 +2,7 @@ var Board = require('./board');
 var Deck = require('./deck');
 var Player = require('./player');
 var _ = require('underscore');
+var Promise = require('bluebird');
 
 var Game = function(id) {
   this.gameId = id;
@@ -18,7 +19,8 @@ Game.prototype = {
     var roles = _.shuffle(['pirate', 'settler', 'settler', 'settler']);
     var deck = this.deck;
     var game = this;
-    var firstTurn = true;
+    var isTurn = true;
+    var updateArray = [];
 
     return deck.getTiles()
     .then(function(tiles) {
@@ -40,24 +42,29 @@ Game.prototype = {
         var player = game.players[key];
 
         game.turnOrder.push(player.playerId);
-        if (firstTurn) {
-          player.changeTurn();
-          firstTurn = false;
-        }
-        player.setRole(roles.pop());
-        if (dealt < 3) {
-          deck.setHand(player.playerId, hands.pop());
-        } else {
-          return deck.setHand(player.playerId, hands.pop())
-          .then(function(doc) {
-            return doc;
-          })
-          .catch(function(err) {
-            console.error(err);
-          });
-        }
-        dealt++;
+        updateArray.push(player.updateInfo(hands.pop(), isTurn, roles.pop()));
+        isTurn = false;
       }
+        return Promise.all(updateArray)
+        .then(function(docs) {
+          return docs;
+        })
+        .catch(function(err) {
+          console.error(err);
+        });
+
+        // player.setRole(roles.pop());
+        // if (dealt < 3) {
+        //   deck.setHand(player.playerId, hands.pop());
+        // } else {
+        //   return deck.setHand(player.playerId, hands.pop())
+        //   .then(function(doc) {
+        //     return doc;
+        //   })
+        //   .catch(function(err) {
+        //     console.error(err);
+        //   });
+        // }
     })
     .catch(function(err) {
       console.error(err);
