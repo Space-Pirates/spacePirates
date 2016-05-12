@@ -1,5 +1,5 @@
 <md-toolbar>
-  <h1 class="md-toolbar-tools">Lobby</h1>
+  <h1 class="header-text">SPACE PIRATES LOBBY</h1>
 </md-toolbar>
 <div class="games-window"  ng-model="games">
   <md-card class="md-card-2dp panel play" layout="column" ng-repeat="game in games track by game.id">
@@ -7,26 +7,26 @@
       <div layout="column" flex="40">
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline">{{ game.title }}</span>
-            <span class="md-subhead">Player Count: {{ game.players.length }}</span>
+            <span class="title-text">{{ game.title }}</span>
+            <span class="normal-text">Player Count: {{ game.players.length }}</span>
           </md-card-title-text>
         </md-card-title>
       </div>
       <div layout="column" flex="40">
         <ul>
-          <li ng-repeat="player in game.players"> {{ player.user.username }}</li>
+          <li class="normal-text feed-posts" ng-repeat="player in game.players"> {{ player.user.username }}</li>
         </ul>
       </div>
       <div layout="column" layout-align="end end" flex="20">
         <img class="game-icon sm-card-image" src="../../assets/skull.png">
         <md-card-actions layout="row" layout-align="end end">
-          <md-button ng-click="joinGame(game.id)">Join Game</md-button>
+          <md-button class="normal-text" ng-click="joinGame(game.id)">Join Game</md-button>
         </md-card-actions>
       </div>
     </div>
   </md-card>
-  <md-card class="md-card-2dp panel play" layout="" layout-align="center center">End of Open Games - Create A New One!</md-card>
+  <md-card class="normal-text md-card-2dp panel play" layout="" layout-align="center center">End of Open Games - Create A New One!</md-card>
 </div>
 <md-card class="md-card-2dp panel play" layout="" layout-align="center center">
-  <md-button ng-click="showDialog()">Create Game</md-button>
+  <md-button class="normal-text" ng-click="showDialog()">Create Game</md-button>
 </md-card>
