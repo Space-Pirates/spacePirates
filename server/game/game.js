@@ -66,15 +66,17 @@ Game.prototype = {
 
   rotateTurn: function(playerId) {
     var game = this;
-
-    return this.players[this.turnOrder[this.currentTurn]].changeTurn()
-    .then(function() {
-      if (game.currentTurn < 3) {
-        game.currentTurn++;
+    var currentPlayer = this.players[this.turnOrder[this.currentTurn]];
+    if (this.currentTurn < 3) {
+        this.currentTurn++;
       } else {
-        game.currentTurn = 0;
+        this.currentTurn = 0;
       }
-      return game.players[game.turnOrder[game.currentTurn]].changeTurn()
+    var nextPlayer = this.players[this.turnOrder[this.currentTurn]];
+
+    return currentPlayer.changeTurn()
+    .then(function() {
+      return nextPlayer.changeTurn()
       .then(function(nextPlayer) {
         return nextPlayer;
       })
