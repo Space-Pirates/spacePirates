@@ -156,14 +156,31 @@ module.exports = function(app) {
     socket.on('readyForHand', function(data) {
       // get instance of game
       var game = games[gameId];
-      // for (userId in game.players) {
-      player = game.players[data.userId];
-      player.getHand().then(function (hand) {
-        player.getRole().then(function (role) {
-          io.to(player.socketId).emit('hand', {hand: hand, role: role});
+      var player = game.players[data.userId];
+      
+      player.getHand()
+      .then(function (hand) {
+        player.getRole()
+        .then(function (role) {
+          player.isTurn()
+          .then(function (turn) {
+            io.to(player.socketId).emit('hand', {
+              hand: hand,
+              role: role,
+              isTurn: turn
+            });
+          })
+          .catch(function(err) {
+            console.error(err);
+          });
+        })
+        .catch(function(err) {
+          console.error(err);
         });
+      })
+      .catch(function(err) {
+        console.error(err);
       });
-      // }
     });
 
     // announce arrival so everyone else in room can call

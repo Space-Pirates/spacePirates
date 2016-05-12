@@ -46,10 +46,20 @@ Player.prototype = {
     });
   },
 
-  getRole: function(role) {
+  getRole: function() {
     return db.Player.get(this.playerId)
     .then(function(doc) {
       return doc.role;
+    })
+    .catch(function(err) {
+      console.error(err);
+    });
+  },
+
+  isTurn: function() {
+    return db.Player.get(this.playerId)
+    .then(function(doc) {
+      return doc.isTurn;
     })
     .catch(function(err) {
       console.error(err);
