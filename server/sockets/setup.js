@@ -157,16 +157,28 @@ module.exports = function(app) {
       // get instance of game
       var game = games[gameId];
       player = game.players[data.userId];
-      player.getHand().then(function (hand) {
-        player.getRole().then(function (role) {
-          player.isTurn().then(function (turn) {
+      player.getHand()
+      .then(function (hand) {
+        player.getRole()
+        .then(function (role) {
+          player.isTurn()
+          .then(function (turn) {
             io.to(player.socketId).emit('hand', {
               hand: hand,
               role: role,
               isTurn: turn
             });
+          })
+          .catch(function(err) {
+            console.error(err);
           });
+        })
+        .catch(function(err) {
+          console.error(err);
         });
+      })
+      .catch(function(err) {
+        console.error(err);
       });
     });
 
