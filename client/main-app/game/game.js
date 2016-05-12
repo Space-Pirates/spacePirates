@@ -17,7 +17,8 @@ angular.module('app.game', [])
     },
     player: {
       role: '',
-      hand: []
+      hand: [],
+      isTurn: false
     }
   };
   var user = JSON.parse(store.get('com.spacePirates'));

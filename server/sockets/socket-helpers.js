@@ -29,7 +29,7 @@ module.exports = {
     player.discard(move.tile.tileId)
     .then(function() {
       game.deck.dealTile(player.playerId)
-      .then(function() {
+      .then(function(player) {
         return game.rotateTurn()
         .then(function(nextPlayer) {
           return {
@@ -57,23 +57,23 @@ module.exports = {
   reveal: function(planet, move, game, player) {},
 
   update: function(move, game, player) {
-    return game.board.update(move.yEnd-1, move.xEnd, move.tile)
+    return game.board.update(move.yEnd - 1, move.xEnd, move.tile)
     .then(function(board) {
       return player.discard(move.tile.tileId)
       .then(function() {
         return game.deck.dealTile(player.playerId)
         .then(function(player) {
-          // return game.rotateTurn()
-          // .then(function(nextPlayer) {
+          return game.rotateTurn()
+          .then(function(nextPlayer) {
             return {
               board: board,
               player: player,
-              // nextPlayer: nextPlayer
+              nextPlayer: nextPlayer
             };
-          // })
-          // .catch(function(err) {
-            // console.error(err);
-          // });
+          })
+          .catch(function(err) {
+            console.error(err);
+          });
         })
         .catch(function(err) {
           console.error(err);

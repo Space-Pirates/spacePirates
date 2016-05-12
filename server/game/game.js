@@ -51,7 +51,7 @@ Game.prototype = {
             console.error(err);
           });
         }
-        dealt++
+        dealt++;
       }
     })
     .catch(function(err) {
@@ -64,7 +64,7 @@ Game.prototype = {
 
     return this.players[this.turnOrder[this.currentTurn]].changeTurn()
     .then(function() {
-      if (game.currentTurn < 4) {
+      if (game.currentTurn < 3) {
         game.currentTurn++;
       } else {
         game.currentTurn = 0;
@@ -81,6 +81,6 @@ Game.prototype = {
       console.error(err);
     });
   }
-}
+};
 
 module.exports = Game;
