@@ -35,17 +35,6 @@ Player.prototype = {
     });
   },
 
-  setRole: function(role) {
-    db.Player.get(this.playerId)
-    .update({role: role})
-    .then(function(doc) {
-      return doc;
-    })
-    .catch(function(err) {
-      console.error(err);
-    });
-  },
-
   getRole: function() {
     return db.Player.get(this.playerId)
     .then(function(doc) {
