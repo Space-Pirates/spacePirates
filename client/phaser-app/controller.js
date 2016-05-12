@@ -35,21 +35,30 @@ function onOut(sprite, pointer) {
   sprite.tint = 0xffffff;
 }
 
-function  onDragStart(sprite, pointer) {
+function isValidMove(row, col) {
+  if (!gameData.player.isTurn) {
+    return false;
+  }
+
+  return true;
+}
+
+function onDragStart(sprite, pointer) {
   dragPosition.set(sprite.x, sprite.y);
   xInit = dragPosition.x/70;
   yInit = dragPosition.y/50;
 }
 
-function  onDragStop(sprite, pointer) {
-  if (gameData.player.isTurn) {
-    var x = sprite.position.x/70;
-    var y = sprite.position.y/50;
+function onDragStop(sprite, pointer) {
+  var x = sprite.position.x/70;
+  var y = sprite.position.y/50;
+
+  if (isValidMove(y, x)) {
     sprite.input.draggable = false;
     console.log(x,y);
     console.log(xInit, yInit);
     //TODO: Write validation called checkPosition(sprite); ...will contain animation back to dragposition
-    emitMove(xInit, yInit,x, y, sprite.tileData);
+    emitMove(xInit, yInit, x, y, sprite.tileData);
   } else {
     game.add.tween(sprite).to({x: dragPosition.x, y: dragPosition.y}, 500, 'Back.easeOut', true);
   }
