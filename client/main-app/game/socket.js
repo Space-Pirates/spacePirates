@@ -23,12 +23,12 @@ function startSocketListeners() {
     createTile({x: data.x, y: data.y, tile: data.hand[2]});
   });
 
-  socket.on('startTurn', function(data) {
-    // change game status to playing making hand draggable
+  socket.on('startTurn', function() {
+    window.gameData.player.isTurn = true;
   });
 
-  socket.on('endTurn', function(data) {
-    // change game status to not playing and disable hand draggable
+  socket.on('endTurn', function() {
+    window.gameData.player.isTurn = false;
   });
 
   socket.on('gameOver', function(gameData){
