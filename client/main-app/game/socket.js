@@ -10,7 +10,10 @@ function startSocketListeners() {
     window.gameData.player.role = data.role;
     window.gameData.player.hand = data.hand;
     window.gameData.player.isTurn = data.isTurn;
-
+    // display role
+    var role = game.add.image(770, 500, data.role);
+    role.height = 50;
+    role.width = 70;
     // populate players hand sprites
     createTile({x: 3, y: 10, tile: window.gameData.player.hand[0]});
     createTile({x: 4, y: 10, tile: window.gameData.player.hand[1]});

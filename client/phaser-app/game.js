@@ -3,7 +3,6 @@ var gameState = {
   preload: function() {
 
     game.load.image('board', 'phaser-app/assets/new-game-board.png');
-    game.load.image('planet', 'phaser-app/assets/planet.png');
     game.load.image('pirate', 'phaser-app/assets/pirate-icon.png');
     game.load.image('settler', 'phaser-app/assets/settler-icon.png');
 
