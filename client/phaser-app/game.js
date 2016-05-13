@@ -1,8 +1,7 @@
 var gameState = {
 
   preload: function() {
-    game.load.image('orange', 'phaser-app/assets/orange.png');
-    game.load.image('planet', 'phaser-app/assets/planet.png');
+    game.load.image('board', 'phaser-app/assets/new-game-board.png');
     game.load.image('dead-end-horizontal-half', 'phaser-app/assets/dead-end-horizontal-half.png');
     game.load.image('dead-end-horizontal-T', 'phaser-app/assets/dead-end-horizontal-T.png');
     game.load.image('dead-end-horizontal', 'phaser-app/assets/dead-end-horizontal.png');
@@ -30,68 +29,11 @@ var gameState = {
     game.load.image('special-unblock-B', 'phaser-app/assets/special-unblock-B.png');
     game.load.image('special-unblock-BC', 'phaser-app/assets/special-unblock-BC.png');
     game.load.image('special-unblock-C', 'phaser-app/assets/special-unblock-C.png');
-    game.load.image('start', 'phaser-app/assets/route-intersection.png');
   },
 
   create: function() {
-    //Create all playable spots
     var style = { font: "14px Arial", fill: "#ffffff", align: "center" };
-
-    var player1 = game.add.image(560, 500, 'orange');
-    player1.height = 50;
-    player1.width = 210;
-
-    var player2 = game.add.image(0, 0, 'orange');
-    player2.height = 50;
-    player2.width = 210;
-
-    var player3 = game.add.image(280, 0, 'orange');
-    player3.height = 50;
-    player3.width = 210;
-
-    var player4 = game.add.image(560, 0, 'orange');
-    player4.height = 50;
-    player4.width = 210;
-
-    var discard = game.add.image(0,500, 'orange');
-    discard.height = 50;
-    discard.width = 70;
-
-    var hand = game.add.image(210 ,500, 'orange');
-    hand.height = 50;
-    hand.width = 210;
-
-    var planet1 = game.add.sprite(650 ,150, 'planet');
-    planet1.height = 50;
-    planet1.width = 70;
-    planet1.inputEnabled = true;
-    planet1.events.onInputOver.add(onOver, this);
-    planet1.events.onInputOut.add(onOut, this);
-
-    var planet2 = game.add.sprite(650 ,250, 'planet');
-    planet2.height = 50;
-    planet2.width = 70;
-    planet2.inputEnabled = true;
-    planet2.events.onInputOver.add(onOver, this);
-    planet2.events.onInputOut.add(onOut, this);
-
-    var planet3 = game.add.sprite(650 ,350, 'planet');
-    planet3.height = 50;
-    planet3.width = 70;
-    planet3.inputEnabled = true;
-    planet3.events.onInputOver.add(onOver, this);
-    planet3.events.onInputOut.add(onOut, this);
-
-    var start = game.add.image(70, 250, 'start');
-    start.height = 50;
-    start.width = 70;
-
-    game.add.text(50, 20, 'Drop Break Card', style);
-    game.add.text(330, 20, 'Drop Break Card', style);
-    game.add.text(610, 20, 'Drop Break Card', style);
-    game.add.text(10, 518, 'Discard', style);
-    game.add.text(280, 518, 'Player Hand', style);
-
+    var board = game.add.image(0, 0, 'board');
     var userId = JSON.parse(JSON.parse(window.localStorage.getItem('com.spacePirates'))).id;
 
     // player has loaded all game assets and is ready to receive first hand
