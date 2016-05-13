@@ -35,12 +35,28 @@ function onOut(sprite, pointer) {
   sprite.tint = 0xffffff;
 }
 
-function isValidMove(row, col) {
-  if (!gameData.player.isTurn) {
-    return false;
+function isValidMove(row, col, tile) {
+  if (gameData.board.matrix[row][col].tileId) {
+    return gameData.player.isTurn && false;
   }
+  var leftTile = col > 0 ? gameData.board.matrix[row][col - 1].right : 0;
+  var rightTile = col < 11 ? gameData.board.matrix[row][col + 1].left : 0;
+  var topTile = col > 0 ? gameData.board.matrix[row - 1][col].bottom : 0;
+  var bottomTile = row < 8 ? gameData.board.matrix[row + 1][col].top : 0;
 
-  return true;
+  if (!(leftTile === 0 || tile.left === leftTile)) {
+    return gameData.player.isTurn && false;
+  }
+  if (!(rightTile === 0 || tile.right === rightTile)) {
+    return gameData.player.isTurn && false;
+  }
+  if (!(topTile === 0 || tile.top === topTile)) {
+    return gameData.player.isTurn && false;
+  }
+  if (!(bottomTile === 0 || tile.bottom === bottomTile)) {
+    return gameData.player.isTurn && false;
+  }
+  return gameData.player.isTurn && true;
 }
 
 function onDragStart(sprite, pointer) {
@@ -53,7 +69,7 @@ function onDragStop(sprite, pointer) {
   var x = sprite.position.x/70;
   var y = sprite.position.y/50;
 
-  if (isValidMove(y, x)) {
+  if (isValidMove(y-1, x, sprite.tileData)) {
     sprite.input.draggable = false;
     console.log(x,y);
     console.log(xInit, yInit);
