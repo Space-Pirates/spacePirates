@@ -41,7 +41,7 @@ Game.prototype = {
       for (var key in game.players) {
         var player = game.players[key];
 
-        game.turnOrder.push(player.playerId);
+        game.turnOrder.push(player.userId);
         updateArray.push(player.updateInfo(hands.pop(), isTurn, roles.pop()));
         isTurn = false;
       }
@@ -56,7 +56,7 @@ Game.prototype = {
     });
   },
 
-  rotateTurn: function(playerId) {
+  rotateTurn: function() {
     var game = this;
     var currentPlayer = this.players[this.turnOrder[this.currentTurn]];
     if (this.currentTurn < 3) {
