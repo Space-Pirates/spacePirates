@@ -37,7 +37,7 @@ body {
 }
 
 .player-videos video{
-  width:100%;
+  width:280px;
   height: 190px;
   vertical-align: center;
   margin: 5px;
