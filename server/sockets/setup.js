@@ -94,7 +94,7 @@ module.exports = function(app) {
           utils.update(move, game, player)
           .then(function(data) {
             socket.to(gameId).emit('update', {
-              matrix: data.board.matrix,
+              matrix: data.board[0].matrix,
               lastPlayed: move.tile,
               x: move.xEnd,
               y: move.yEnd,
@@ -157,7 +157,7 @@ module.exports = function(app) {
       // get instance of game
       var game = games[gameId];
       var player = game.players[data.userId];
-      
+
       player.getHand()
       .then(function (hand) {
         player.getRole()
