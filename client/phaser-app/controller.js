@@ -40,10 +40,15 @@ function isValidMove(row, col, tile) {
     console.log(0)
     return false;
   }
-  var leftTile = col > 0 ? gameData.board.matrix[row][col - 1].right : 0;
-  var rightTile = col < 11 ? gameData.board.matrix[row][col + 1].left : 0;
-  var topTile = col > 0 ? gameData.board.matrix[row - 1][col].bottom : 0;
-  var bottomTile = row < 8 ? gameData.board.matrix[row + 1][col].top : 0;
+
+  var leftTile = col > 0 && gameData.board.matrix[row][col - 1].right
+    ? gameData.board.matrix[row][col - 1].right : 0;
+  var rightTile = col < 11 && gameData.board.matrix[row][col + 1].left
+    ? gameData.board.matrix[row][col + 1].left : 0;
+  var topTile = col > 0 && gameData.board.matrix[row - 1][col].bottom
+    ? gameData.board.matrix[row - 1][col].bottom : 0;
+  var bottomTile = row < 8 && gameData.board.matrix[row + 1][col].top
+    ? gameData.board.matrix[row + 1][col].top : 0;
 
   if (!(leftTile === 0 || tile.left === leftTile)) {
     console.log(1)
