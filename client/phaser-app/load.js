@@ -1,6 +1,5 @@
 var loadState = {
   preload: function() {
-    // waiting for players sprite
   },
   create: function(){
 

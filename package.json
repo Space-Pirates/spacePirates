@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.3.5",
     "body-parser": "^1.15.0",
     "bower": "^1.7.9",
     "chai": "^3.5.0",

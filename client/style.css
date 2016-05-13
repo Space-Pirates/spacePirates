@@ -33,12 +33,17 @@ body {
 }
 
 .player-videos {
+  width: 840px;
+  height: 200px;
+}
+
+.my-video {
   width: 280px;
   height: 200px;
 }
 
 .player-videos video{
-  width:100%;
+  width:280px;
   height: 190px;
   vertical-align: center;
   margin: 5px;
