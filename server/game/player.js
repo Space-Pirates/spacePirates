@@ -35,17 +35,6 @@ Player.prototype = {
     });
   },
 
-  setRole: function(role) {
-    db.Player.get(this.playerId)
-    .update({role: role})
-    .then(function(doc) {
-      return doc;
-    })
-    .catch(function(err) {
-      console.error(err);
-    });
-  },
-
   getRole: function() {
     return db.Player.get(this.playerId)
     .then(function(doc) {
@@ -67,7 +56,7 @@ Player.prototype = {
   },
 
   changeTurn: function() {
-    db.Player.get(this.playerId)
+    return db.Player.get(this.playerId)
     .then(function(doc) {
       doc.isTurn = !doc.isTurn;
       return doc.save()
@@ -88,6 +77,19 @@ Player.prototype = {
     .then(function(doc) {
       return doc.hand;
     })
+    .catch(function(err) {
+      console.error(err);
+    });
+  },
+
+  updateInfo: function(hand, turn, role) {
+    return db.Player.get(this.playerId)
+    .update({
+      hand: hand,
+      role: role,
+      isTurn: turn
+    })
+    .run()
     .catch(function(err) {
       console.error(err);
     });
