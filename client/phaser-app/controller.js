@@ -37,7 +37,8 @@ function onOut(sprite, pointer) {
 
 function isValidMove(row, col, tile) {
   if (gameData.board.matrix[row][col].tileId) {
-    return gameData.player.isTurn && false;
+    console.log(0)
+    return false;
   }
   var leftTile = col > 0 ? gameData.board.matrix[row][col - 1].right : 0;
   var rightTile = col < 11 ? gameData.board.matrix[row][col + 1].left : 0;
@@ -45,16 +46,20 @@ function isValidMove(row, col, tile) {
   var bottomTile = row < 8 ? gameData.board.matrix[row + 1][col].top : 0;
 
   if (!(leftTile === 0 || tile.left === leftTile)) {
-    return gameData.player.isTurn && false;
+    console.log(1)
+    return false;
   }
   if (!(rightTile === 0 || tile.right === rightTile)) {
-    return gameData.player.isTurn && false;
+    console.log(2)
+    return false;
   }
   if (!(topTile === 0 || tile.top === topTile)) {
-    return gameData.player.isTurn && false;
+    console.log(3)
+    return false;
   }
   if (!(bottomTile === 0 || tile.bottom === bottomTile)) {
-    return gameData.player.isTurn && false;
+    console.log(4)
+    return false;
   }
   return gameData.player.isTurn && true;
 }
