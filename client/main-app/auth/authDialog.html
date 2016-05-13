@@ -71,7 +71,10 @@
               <div layout-gt-sm="row">
                 <md-input-container flex>
                   <label class="normal-text">Confirm</label>
-                  <input type="password" ng-model='cpass'/>
+                  <input name="confirmPassword" type="password" ng-model='cpass' required compare-to="data.user.password"/>
+                  <div ng-messages="signupForm.confirmPassword.$error">
+                    <div ng-message="comparePassword">Must Much the previous entry</div>
+                  </div>
                 </md-input-container>
               </div>
             </form>
