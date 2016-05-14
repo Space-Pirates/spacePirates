@@ -91,6 +91,18 @@ function flip(sprite, pointer){
   sprite.tileData.isFlipped = !sprite.tileData.isFlipped;
 }
 
+function revealPlanet(row, col, sprite) {
+  if (sprite.tileData.type === 'reveal') {
+    sprite.destroy(true);
+    createStaticTile({x: col, y: row + 1, tile: {
+      tileId: gameData.board.matrix[row][col].truePlanet ? 'planet-true-1' : 'planet-false-1'
+    }});
+    return true;
+  }
+
+  return false;
+}
+
 function onDragStart(sprite, pointer) {
   dragPosition.set(sprite.x, sprite.y);
   xInit = dragPosition.x/70;
@@ -104,7 +116,7 @@ function onDragStop(sprite, pointer) {
     var x = sprite.position.x/70;
     var y = sprite.position.y/50;
 
-    if (parseMove(x, y, sprite.tileData)) {
+    if (parseMove(x, y, sprite)) {
       sprite.input.draggable = false;
       console.log(x,y);
       console.log(xInit, yInit);
@@ -117,7 +129,7 @@ function onDragStop(sprite, pointer) {
 
 }
 
-function parseMove(x, y, tile) {
+function parseMove(x, y, sprite) {
   if (!gameData.player.isTurn) {
     return false;
   }
@@ -135,13 +147,13 @@ function parseMove(x, y, tile) {
     return 'unblock';
   } else if (x >= 0 && x <= 11 && y >= 1 && y <= 9) {
     if (x === 9 && y === 3) { // REVEAL 1
-      return 'reveal1';
+      return revealPlanet(y - 1, x, sprite);
     } else if (x === 9 && y === 5) { // REVEAL 2
-      return 'reveal2';
+      return revealPlanet(y - 1, x, sprite);
     } else if (x === 9 && y === 7) { // REAVEAL 3
-      return 'reveal3';
+      return revealPlanet(y - 1, x, sprite);
     } else { // UPDATE
-      return isValidUpdate(y - 1, x, tile);
+      return isValidUpdate(y - 1, x, sprite.tileData);
     }
   }
 }
