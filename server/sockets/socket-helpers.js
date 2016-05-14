@@ -1,3 +1,28 @@
+function endTurn(move, game, player) {
+  return player.discard(move.tile.tileId)
+  .then(function() {
+    return game.deck.dealTile(player.playerId)
+    .then(function(player) {
+      game.rotateTurn()
+      .then(function(nextPlayer) {
+        return {
+          player: player,
+          nextPlayer: nextPlayer
+        }
+      })
+      .catch(function(err) {
+        console.error(err);
+      });
+    })
+    .catch(function(err) {
+      console.error(err);
+    });
+  })
+  .catch(function(err) {
+    console.error(err);
+  }); 
+}
+
 module.exports = {
   parseMove: function(x, y) {
     if (x === 0 && y === 10) {
@@ -26,58 +51,25 @@ module.exports = {
   },
 
   discard: function(move, game, player) {
-    return player.discard(move.tile.tileId)
-    .then(function() {
-      return game.deck.dealTile(player.playerId)
-      .then(function(player) {
-        return game.rotateTurn()
-        .then(function(nextPlayer) {
-          return {
-            player: player,
-            nextPlayer: nextPlayer
-          };
-        })
-        .catch(function(err) {
-          console.error(err);
-        });
-      })
-      .catch(function(err) {
-        console.error(err);
-      });
-    })
-    .catch(function(err) {
-      console.error(err);
-    });
+    return endTurn(move, game, player);
   },
 
   block: function(victim, move, game, player) {},
 
   unblock: function(move, game, player) {},
 
-  reveal: function(planet, move, game, player) {},
+  reveal: function(move, game, player) {},
 
   update: function(move, game, player) {
     return game.board.update(move.yEnd - 1, move.xEnd, move.tile)
     .then(function(board) {
-      return player.discard(move.tile.tileId)
-      .then(function() {
-        return game.deck.dealTile(player.playerId)
-        .then(function(player) {
-          return game.rotateTurn()
-          .then(function(nextPlayer) {
-            return {
-              board: board,
-              player: player,
-              nextPlayer: nextPlayer
-            };
-          })
-          .catch(function(err) {
-            console.error(err);
-          });
-        })
-        .catch(function(err) {
-          console.error(err);
-        });
+      return endTurn(move, game, player)
+      .then(function(data) {
+        return {
+          board: board,
+          player: data.player,
+          nextPlayer: data.nextPlayer
+        }
       })
       .catch(function(err) {
         console.error(err);
