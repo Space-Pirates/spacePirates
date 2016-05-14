@@ -1,4 +1,5 @@
 var db = require('../db/db');
+var MakeBoard = require('./board-matrix');
 
 var Board = function(gameId, cb) {
   this.gameId = gameId;
@@ -95,7 +96,7 @@ Board.prototype = {
 
     new db.Board({
       gameId: this.gameId,
-      matrix: require('./board-matrix')
+      matrix: MakeBoard()
     })
     .save()
     .then(function() {

@@ -14,6 +14,15 @@ function startSocketListeners() {
     var role = game.add.image(770, 500, data.role);
     role.height = 50;
     role.width = 70;
+    // display true planet if pirate
+    if (role === 'pirate') {
+      for (var i = 2; i < 6; i += 2) {
+        if (window.gameData.board.matrix[i][9].truePlanet) {
+          createStaticTile({x: 9, y: i + 1, tile: {tileId: 'planet-true-1'}});
+          break;
+        }
+      }
+    }
     // populate players hand sprites
     createTile({x: 3, y: 10, tile: window.gameData.player.hand[0]});
     createTile({x: 4, y: 10, tile: window.gameData.player.hand[1]});
