@@ -1,12 +1,12 @@
 angular.module('app.auth', [])
-  .controller('AuthController', function($scope, $state, Auth, store, $mdDialog, $mdMedia) {
+  .controller('AuthController', function($scope, $state, Auth, store, $mdDialog, $mdMedia, $mdToast, $document) {
     $scope.user = {};
 
     $scope.showDialog = function(ev) {
       $mdDialog.show({
         controller: DialogController,
         templateUrl: '/main-app/auth/authDialog.html',
-        parent: angular.element(document.body),
+        parent: angular.element($document.body),
         targetEvent: ev,
         clickOutsideToClose:true
       })
@@ -21,6 +21,18 @@ angular.module('app.auth', [])
           });
     };
 
+    $scope.showErrorToast = function() {
+      $mdToast.show({
+        controller: ToastController,
+        templateUrl: '/main-app/auth/authToast.html',
+        parent : $document.body,
+        hideDelay: 3000,
+        position: 'top right',
+        theme: 'error-toast'
+      });
+      $scope.showDialog();
+    };
+
     var signin = function (user) {
       Auth.signin(user)
         .then(function (data) {
@@ -28,6 +40,7 @@ angular.module('app.auth', [])
           $state.go('menu.lobby');
         })
         .catch(function (error) {
+          $scope.showErrorToast();
           console.error(error);
         });
     };
@@ -112,5 +125,11 @@ function DialogController($scope, $mdDialog) {
   };
   $scope.submit = function() {
     $mdDialog.hide($scope.data);
+  };
+}
+
+function ToastController($scope, $mdToast) {
+  $scope.closeToast = function () {
+    $mdToast.hide();
   };
 }
