@@ -37,7 +37,7 @@ function onOut(sprite, pointer) {
 
 function isValidMove(row, col, tile) {
 
-  // reject placement i
+  // reject placement if tile already exists
   if (gameData.board.matrix[row][col].tileId) {
     return false;
   }
@@ -57,7 +57,7 @@ function isValidMove(row, col, tile) {
   var tileDirections = [tile.left, tile.right, tile.top, tile.bottom];
 
   // reject tiles placed in empty space
-  if (!tileDirections.reduce((a, b) => a + b)) {
+  if (!surroundings.reduce((a, b) => a + b)) {
     return false;
   }
 
