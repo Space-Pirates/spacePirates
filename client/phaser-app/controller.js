@@ -7,6 +7,11 @@ function createStaticTile(data){
   tile.height = 50;
   tile.width = 70;
   tile.tileData = data.tile;
+  if(data.tile.isFlipped){
+    sprite.anchor.setTo(0.5, 0.5);
+    tile.angle += 180;
+    sprite.anchor.setTo(1, 1);
+  }
 }
 
 function createTile(data){
@@ -69,6 +74,23 @@ function isValidUpdate(row, col, tile) {
   return true;
 }
 
+function flip(sprite, pointer){
+  sprite.anchor.setTo(0.5, 0.5);
+  sprite.angle += 180;
+  var temp = sprite.tileData.top;
+  sprite.tileData.top = sprite.tileData.bottom;
+  sprite.tileData.bottom = temp;
+  temp = sprite.tileData.right;
+  sprite.tileData.right = sprite.tileData.left;
+  sprite.tileData.left = temp;
+  if(sprite.tileData.isFlipped){
+    sprite.anchor.setTo(0,0);
+  }else{
+    sprite.anchor.setTo(1, 1);
+  }
+  sprite.tileData.isFlipped = !sprite.tileData.isFlipped;
+}
+
 function onDragStart(sprite, pointer) {
   dragPosition.set(sprite.x, sprite.y);
   xInit = dragPosition.x/70;
@@ -76,17 +98,23 @@ function onDragStart(sprite, pointer) {
 }
 
 function onDragStop(sprite, pointer) {
-  var x = sprite.position.x/70;
-  var y = sprite.position.y/50;
+  if(sprite.position.x === dragPosition.x && sprite.position.y === dragPosition.y && sprite.tileData.hasOwnProperty('isFlipped')){
+    flip(sprite, pointer);
+  }else{
+    var x = sprite.position.x/70;
+    var y = sprite.position.y/50;
 
-  if (parseMove(x, y, sprite.tileData)) {
-    sprite.input.draggable = false;
-    console.log(x,y);
-    console.log(xInit, yInit);
-    emitMove(xInit, yInit, x, y, sprite.tileData);
-  } else {
-    game.add.tween(sprite).to({x: dragPosition.x, y: dragPosition.y}, 500, 'Back.easeOut', true);
+    if (parseMove(x, y, sprite.tileData)) {
+      sprite.input.draggable = false;
+      console.log(x,y);
+      console.log(xInit, yInit);
+      emitMove(xInit, yInit, x, y, sprite.tileData);
+    } else {
+      game.add.tween(sprite).to({x: dragPosition.x, y: dragPosition.y}, 500, 'Back.easeOut', true);
+    }
+    sprite.was_dragged = false;
   }
+
 }
 
 function parseMove(x, y, tile) {

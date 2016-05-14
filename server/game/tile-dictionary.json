@@ -43,73 +43,82 @@
     "tileId": "route-right-turn-1",
     "top": 2,
     "bottom": 1,
-    "left": 2,
-    "right": 1,
-    "type": "route"
+    "left": 1,
+    "right": 2,
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "route-right-turn-2",
     "top": 2,
     "bottom": 1,
-    "left": 2,
-    "right": 1,
-    "type": "route"
+    "left": 1,
+    "right": 2,
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "route-right-turn-3",
     "top": 2,
     "bottom": 1,
-    "left": 2,
-    "right": 1,
-    "type": "route"
+    "left": 1,
+    "right": 2,
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "route-right-turn-4",
     "top": 2,
     "bottom": 1,
-    "left": 2,
-    "right": 1,
-    "type": "route"
+    "left": 1,
+    "right": 2,
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "route-right-turn-5",
     "top": 2,
     "bottom": 1,
-    "left": 2,
-    "right": 1,
-    "type": "route"
+    "left": 1,
+    "right": 2,
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "route-left-turn-1",
-    "top": 2,
-    "bottom": 1,
+    "top": 1,
+    "bottom": 2,
     "left": 1,
     "right": 2,
-    "type": "route"
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "route-left-turn-2",
-    "top": 2,
-    "bottom": 1,
+    "top": 1,
+    "bottom": 2,
     "left": 1,
     "right": 2,
-    "type": "route"
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "route-left-turn-3",
-    "top": 2,
-    "bottom": 1,
+    "top": 1,
+    "bottom": 2,
     "left": 1,
     "right": 2,
-    "type": "route"
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "route-left-turn-4",
-    "top": 2,
-    "bottom": 1,
+    "top": 1,
+    "bottom": 2,
     "left": 1,
     "right": 2,
-    "type": "route"
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "route-horizontal-1",
@@ -173,7 +182,8 @@
     "bottom": 1,
     "left": 1,
     "right": 2,
-    "type": "route"
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "route-horizontal-T-2",
@@ -181,7 +191,8 @@
     "bottom": 1,
     "left": 1,
     "right": 2,
-    "type": "route"
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "route-horizontal-T-3",
@@ -189,7 +200,8 @@
     "bottom": 1,
     "left": 1,
     "right": 2,
-    "type": "route"
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "route-horizontal-T-4",
@@ -197,7 +209,8 @@
     "bottom": 1,
     "left": 1,
     "right": 2,
-    "type": "route"
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "route-horizontal-T-5",
@@ -205,7 +218,8 @@
     "bottom": 1,
     "left": 1,
     "right": 2,
-    "type": "route"
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "route-vertical-T-1",
@@ -213,7 +227,8 @@
     "bottom": 1,
     "left": 1,
     "right": 1,
-    "type": "route"
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "route-vertical-T-2",
@@ -221,7 +236,8 @@
     "bottom": 1,
     "left": 1,
     "right": 1,
-    "type": "route"
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "route-vertical-T-3",
@@ -229,7 +245,8 @@
     "bottom": 1,
     "left": 1,
     "right": 1,
-    "type": "route"
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "route-vertical-T-4",
@@ -237,7 +254,8 @@
     "bottom": 1,
     "left": 1,
     "right": 1,
-    "type": "route"
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "route-vertical-T-5",
@@ -245,7 +263,8 @@
     "bottom": 1,
     "left": 1,
     "right": 1,
-    "type": "route"
+    "type": "route",
+    "isFlipped": false
   },
   {
     "tileId": "dead-end-intersection-1",
@@ -261,18 +280,20 @@
     "isDead": true,
     "top": 2,
     "bottom": 1,
-    "left": 2,
-    "right": 1,
-    "type": "dead end"
+    "left": 1,
+    "right": 2,
+    "type": "dead end",
+    "isFlipped": false
   },
   {
     "tileId": "dead-end-left-turn-1",
     "isDead": true,
-    "top": 2,
-    "bottom": 1,
+    "top": 1,
+    "bottom": 2,
     "left": 1,
     "right": 2,
-    "type": "dead end"
+    "type": "dead end",
+    "isFlipped": false
   },
   {
     "tileId": "dead-end-horizontal-1",
@@ -299,7 +320,8 @@
     "bottom": 2,
     "left": 1,
     "right": 2,
-    "type": "dead end"
+    "type": "dead end",
+    "isFlipped": false
   },
   {
     "tileId": "dead-end-vertical-half-1",
@@ -308,7 +330,8 @@
     "bottom": 2,
     "left": 2,
     "right": 2,
-    "type": "dead end"
+    "type": "dead end",
+    "isFlipped": false
   },
   {
     "tileId": "dead-end-horizontal-T-1",
@@ -317,7 +340,8 @@
     "bottom": 1,
     "left": 1,
     "right": 2,
-    "type": "dead end"
+    "type": "dead end",
+    "isFlipped": false
   },
   {
     "tileId": "dead-end-vertical-T-1",
@@ -326,7 +350,8 @@
     "bottom": 1,
     "left": 1,
     "right": 1,
-    "type": "dead end"
+    "type": "dead end",
+    "isFlipped": false
   },
   {
     "tileId": "special-reveal-1",
