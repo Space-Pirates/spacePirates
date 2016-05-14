@@ -14,8 +14,7 @@ module.exports.isEnded = function(matrix) {
 
   (function findEnd(row, col) {
     var tile = matrix[row][col];
-
-    if (endCol === 9 && endRows.indexOf(row) >= 0) {
+    if (col === endCol && endRows.indexOf(row) >= 0) {
       ended = true;
     }
 
