@@ -35,12 +35,43 @@ function onOut(sprite, pointer) {
   sprite.tint = 0xffffff;
 }
 
-function isValidMove(row, col) {
-  if (!gameData.player.isTurn) {
+function isValidMove(row, col, tile) {
+
+  // reject placement if tile already exists
+  if (gameData.board.matrix[row][col].tileId) {
     return false;
   }
 
-  return true;
+  // get surrounding tile placement options
+  var surroundings = [
+    col > 0 && gameData.board.matrix[row][col - 1].right
+      ? gameData.board.matrix[row][col - 1].right : 0,
+    col < 11 && gameData.board.matrix[row][col + 1].left
+      ? gameData.board.matrix[row][col + 1].left : 0,
+    row > 0 && gameData.board.matrix[row - 1][col].bottom
+      ? gameData.board.matrix[row - 1][col].bottom : 0,
+    row < 8 && gameData.board.matrix[row + 1][col].top
+      ? gameData.board.matrix[row + 1][col].top : 0
+  ];
+
+  var tileDirections = [tile.left, tile.right, tile.top, tile.bottom];
+
+  // reject tiles placed in empty space
+  if (!surroundings.reduce((a, b) => a + b)) {
+    return false;
+  }
+
+  // check each side and return false if not allowed to place
+  for (var i = 0; i < 4; i++) {
+    var adjacent = surroundings[i];
+    var side = tileDirections[i];
+    if (adjacent && side !== adjacent) {
+      return false;
+    }
+  }
+
+  // if legal move, check if is player's turn
+  return gameData.player.isTurn;
 }
 
 function onDragStart(sprite, pointer) {
@@ -53,11 +84,10 @@ function onDragStop(sprite, pointer) {
   var x = sprite.position.x/70;
   var y = sprite.position.y/50;
 
-  if (isValidMove(y, x)) {
+  if (isValidMove(y - 1, x, sprite.tileData)) {
     sprite.input.draggable = false;
     console.log(x,y);
     console.log(xInit, yInit);
-    //TODO: Write validation called checkPosition(sprite); ...will contain animation back to dragposition
     emitMove(xInit, yInit, x, y, sprite.tileData);
   } else {
     game.add.tween(sprite).to({x: dragPosition.x, y: dragPosition.y}, 500, 'Back.easeOut', true);
