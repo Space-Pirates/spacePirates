@@ -1,12 +1,12 @@
 var db = require('../db/db');
 
-module.exports = function(gameId) {
+module.exports.getGameAndCheckEnded = function(gameId) {
   return db.Game.get(gameId).getJoin({board: true}).then(function(game) {
     return isEnded(game.matrix);
   });
 }
 
-function isEnded(matrix) {
+module.exports.isEnded = function(matrix) {
   var endCol = 9;
   var endRows = [2, 4, 6];
 
