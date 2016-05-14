@@ -8,9 +8,9 @@ function createStaticTile(data){
   tile.width = 70;
   tile.tileData = data.tile;
   if(data.tile.isFlipped){
-    sprite.anchor.setTo(0.5, 0.5);
+    tile.anchor.setTo(0.5, 0.5);
     tile.angle += 180;
-    sprite.anchor.setTo(1, 1);
+    tile.anchor.setTo(1, 1);
   }
 }
 
