@@ -86,7 +86,7 @@ function flip(sprite, pointer){
   if(sprite.tileData.isFlipped){
     sprite.anchor.setTo(0,0);
   }else{
-    sprite.anchor.setTo(1, 1);    
+    sprite.anchor.setTo(1, 1);
   }
   sprite.tileData.isFlipped = !sprite.tileData.isFlipped;
 }
