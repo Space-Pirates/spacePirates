@@ -19,17 +19,12 @@
   </div>
   <div class="side-bar" layout="column" layout-align="center">
     <div layout="row">
-      <md-toolbar layout="column" flex>
+      <md-toolbar layout="column">
           <h1 class="header-text">Space Pirates</h1>
       </md-toolbar>
     </div>
     <div layout="row">
-      <div layout="column" class="orange-border normal-text" flex>
-      
-      </div>
-    </div>
-    <div layout="row">
-        <div layout="column" flex id="feed" class="feed-window orange-border" ng-model="gameFeed">
+        <div layout="column" id="feed" class="feed-window orange-border" ng-model="gameFeed" flex>
           <form ng-submit="chatSubmit(gameChat)">
         <div layout-gt-sm="row">
           <md-input-container flex>
@@ -38,11 +33,11 @@
           </md-input-container>
         </div>
       </form>
-          <p class="feed-posts normal-text" ng-repeat="chat in gameFeed">{{ chat.user }}: {{chat.message}}</p>
+          <p class="feed-posts normal-text" ng-repeat="chat in gameFeed"><span class="username">{{ chat.user }}</span>{{chat.message}}</p>
         </div>
     </div>
-    <div layout="row" class="my-video">
-      <div layout="column" id="myVid" flex></div>
+    <div layout="row">
+      <div class="my-video" layout="column" id="myVid"></div>
     </div>
   </div>
 </div>
