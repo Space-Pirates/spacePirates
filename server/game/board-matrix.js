@@ -15,11 +15,11 @@ var a = planets[0],
 module.exports = [
   [e, e, e, e, e, e, e, e, e, e, e, e],
   [e, e, e, e, e, e, e, e, e, e, e, e],
-  [e, e, e, e, e, e, e, e, e, e, a, e],
+  [e, e, e, e, e, e, e, e, e, a, e, e],
   [e, e, e, e, e, e, e, e, e, e, e, e],
-  [e, e, e, e, e, e, e, e, e, e, b, e],
+  [e, e, e, e, e, e, e, e, e, b, e, e],
   [e, e, e, e, e, e, e, e, e, e, e, e],
-  [e, e, e, e, e, e, e, e, e, e, c, e],
+  [e, e, e, e, e, e, e, e, e, c, e, e],
   [e, e, e, e, e, e, e, e, e, e, e, e],
   [e, e, e, e, e, e, e, e, e, e, e, e]
 ];
