@@ -26,14 +26,6 @@ function startSocketListeners() {
     createTile({x: data.x, y: data.y, tile: data.hand[2]});
   });
 
-  socket.on('startTurn', function() {
-    window.gameData.player.isTurn = true;
-  });
-
-  socket.on('endTurn', function() {
-    window.gameData.player.isTurn = false;
-  });
-
   socket.on('gameOver', function(gameData){
     //change game state to outcomes
   });
