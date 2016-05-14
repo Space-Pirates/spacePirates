@@ -39,11 +39,11 @@ module.exports = {
       return 'unblock';
     } else if (x >= 0 && x <= 11 && y >= 1 && y <= 9) {
       if (x === 9 && y === 3) {
-        return 'reveal1';
+        return 'reveal';
       } else if (x === 9 && y === 5) {
-        return 'reveal2';
+        return 'reveal';
       } else if (x === 9 && y === 7) {
-        return 'reveal3';
+        return 'reveal';
       } else { // UPDATE
         return 'update';
       }
@@ -58,7 +58,9 @@ module.exports = {
 
   unblock: function(move, game, player) {},
 
-  reveal: function(move, game, player) {},
+  reveal: function(move, game, player) {
+    return endTurn(move, game, player);
+  },
 
   update: function(move, game, player) {
     return game.board.update(move.yEnd - 1, move.xEnd, move.tile)

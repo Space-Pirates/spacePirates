@@ -81,14 +81,25 @@ module.exports = function(app) {
         case 'unblock':
           utils.unblock(move, game, player);
           break;
-        case 'reveal1':
-          utils.reveal(1, move, game, player);
-          break;
-        case 'reveal2':
-          utils.reveal(2, move, game, player);
-          break;
-        case 'reveal3':
-          utils.reveal(3, move, game, player);
+        case 'reveal':
+          utils.reveal(move, game, player)
+          .then(function(data) {
+            socket.emit('deal', {
+              hand: data.player.hand,
+              lastPlayed: move.tile,
+              x: move.xStart,
+              y: move.yStart
+            });
+            socket.emit('endTurn', {
+              isTurn: data.player.isTurn
+            });
+            io.to(data.nextPlayer.socketId).emit('startTurn', {
+              isTurn: data.nextPlayer.isTurn
+            });
+          })
+          .catch(function(err) {
+            console.error(err);
+          });
           break;
         case 'update':
           utils.update(move, game, player)
@@ -119,7 +130,6 @@ module.exports = function(app) {
           });
           break;
       }
-      // io.to(gameId).emit('moved', user);
     });
 
     // listen for load state is loaded
