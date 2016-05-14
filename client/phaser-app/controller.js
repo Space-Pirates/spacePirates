@@ -35,13 +35,11 @@ function onOut(sprite, pointer) {
   sprite.tint = 0xffffff;
 }
 
-function isValidMove(row, col, tile) {
-
+function isValidUpdate(row, col, tile) {
   // reject placement if tile already exists
   if (gameData.board.matrix[row][col].tileId) {
     return false;
   }
-
   // get surrounding tile placement options
   var surroundings = [
     col > 0 && gameData.board.matrix[row][col - 1].right
@@ -55,12 +53,10 @@ function isValidMove(row, col, tile) {
   ];
 
   var tileDirections = [tile.left, tile.right, tile.top, tile.bottom];
-
   // reject tiles placed in empty space
-  if (!surroundings.reduce((a, b) => a + b)) {
+  if (!surroundings.reduce(function(a, b) {return a + b})) {
     return false;
   }
-
   // check each side and return false if not allowed to place
   for (var i = 0; i < 4; i++) {
     var adjacent = surroundings[i];
@@ -69,9 +65,8 @@ function isValidMove(row, col, tile) {
       return false;
     }
   }
-
-  // if legal move, check if is player's turn
-  return gameData.player.isTurn;
+  // if legal move, allow
+  return true;
 }
 
 function onDragStart(sprite, pointer) {
@@ -84,12 +79,41 @@ function onDragStop(sprite, pointer) {
   var x = sprite.position.x/70;
   var y = sprite.position.y/50;
 
-  if (isValidMove(y - 1, x, sprite.tileData)) {
+  if (parseMove(x, y, sprite.tileData)) {
     sprite.input.draggable = false;
     console.log(x,y);
     console.log(xInit, yInit);
     emitMove(xInit, yInit, x, y, sprite.tileData);
   } else {
     game.add.tween(sprite).to({x: dragPosition.x, y: dragPosition.y}, 500, 'Back.easeOut', true);
+  }
+}
+
+parseMove = function(x, y, tile) {
+  if (!gameData.player.isTurn) {
+    return false;
+  }
+  if (x === 0 && y === 10) { // DISCARD
+    return true;
+  } else if (y === 0) {
+    if (x >= 0 && x <= 2) { // BLOCK 1
+      return 'block1';
+    } else if (x >= 4 && x <= 6) { // BLOCK 2
+      return 'block2';
+    } else if (x >= 8 && x <= 10) { // BLOCK 3
+      return 'block3';
+    }
+  } else if (x >= 8 && x <= 10 && y === 10) { // UNBLOCK
+    return 'unblock';
+  } else if (x >= 0 && x <= 11 && y >= 1 && y <= 9) {
+    if (x === 9 && y === 3) { // REVEAL 1
+      return 'reveal1';
+    } else if (x === 9 && y === 5) { // REVEAL 2
+      return 'reveal2';
+    } else if (x === 9 && y === 7) { // REAVEAL 3
+      return 'reveal3';
+    } else { // UPDATE
+      return isValidUpdate(y - 1, x, tile);
+    }
   }
 }
