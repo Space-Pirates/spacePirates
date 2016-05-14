@@ -2,6 +2,7 @@ var db = require('../db/db');
 var games = require('./../controllers/game-control').currentGames;
 var Player = require('./../game/player');
 var utils = require('./socket-helpers');
+var isEnded = require('../game/end_check').isEnded;
 
 module.exports = function(app) {
 
@@ -104,6 +105,7 @@ module.exports = function(app) {
         case 'update':
           utils.update(move, game, player)
           .then(function(data) {
+            console.log(isEnded(data.board[0].matrix));
             socket.to(gameId).emit('update', {
               matrix: data.board[0].matrix,
               lastPlayed: move.tile,
