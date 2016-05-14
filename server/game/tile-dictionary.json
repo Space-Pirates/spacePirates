@@ -4,217 +4,248 @@
     "top": 1,
     "bottom": 1,
     "left": 1,
-    "right": 1
+    "right": 1,
+    "type": "route"
   },
   {
     "tileId": "route-intersection-2",
     "top": 1,
     "bottom": 1,
     "left": 1,
-    "right": 1
+    "right": 1,
+    "type": "route"
   },
   {
     "tileId": "route-intersection-3",
     "top": 1,
     "bottom": 1,
     "left": 1,
-    "right": 1
+    "right": 1,
+    "type": "route"
   },
   {
     "tileId": "route-intersection-4",
     "top": 1,
     "bottom": 1,
     "left": 1,
-    "right": 1
+    "right": 1,
+    "type": "route"
   },
   {
     "tileId": "route-intersection-5",
     "top": 1,
     "bottom": 1,
     "left": 1,
-    "right": 1
+    "right": 1,
+    "type": "route"
   },
   {
     "tileId": "route-right-turn-1",
     "top": 2,
     "bottom": 1,
     "left": 2,
-    "right": 1
+    "right": 1,
+    "type": "route"
   },
   {
     "tileId": "route-right-turn-2",
     "top": 2,
     "bottom": 1,
     "left": 2,
-    "right": 1
+    "right": 1,
+    "type": "route"
   },
   {
     "tileId": "route-right-turn-3",
     "top": 2,
     "bottom": 1,
     "left": 2,
-    "right": 1
+    "right": 1,
+    "type": "route"
   },
   {
     "tileId": "route-right-turn-4",
     "top": 2,
     "bottom": 1,
     "left": 2,
-    "right": 1
+    "right": 1,
+    "type": "route"
   },
   {
     "tileId": "route-right-turn-5",
     "top": 2,
     "bottom": 1,
     "left": 2,
-    "right": 1
+    "right": 1,
+    "type": "route"
   },
   {
     "tileId": "route-left-turn-1",
     "top": 2,
     "bottom": 1,
     "left": 1,
-    "right": 2
+    "right": 2,
+    "type": "route"
   },
   {
     "tileId": "route-left-turn-2",
     "top": 2,
     "bottom": 1,
     "left": 1,
-    "right": 2
+    "right": 2,
+    "type": "route"
   },
   {
     "tileId": "route-left-turn-3",
     "top": 2,
     "bottom": 1,
     "left": 1,
-    "right": 2
+    "right": 2,
+    "type": "route"
   },
   {
     "tileId": "route-left-turn-4",
     "top": 2,
     "bottom": 1,
     "left": 1,
-    "right": 2
+    "right": 2,
+    "type": "route"
   },
   {
     "tileId": "route-horizontal-1",
     "top": 2,
     "bottom": 2,
     "left": 1,
-    "right": 1
+    "right": 1,
+    "type": "route"
   },
   {
     "tileId": "route-horizontal-2",
     "top": 2,
     "bottom": 2,
     "left": 1,
-    "right": 1
+    "right": 1,
+    "type": "route"
   },
   {
     "tileId": "route-horizontal-3",
     "top": 2,
     "bottom": 2,
     "left": 1,
-    "right": 1
+    "right": 1,
+    "type": "route"
   },
   {
     "tileId": "route-vertical-1",
     "top": 1,
     "bottom": 1,
     "left": 2,
-    "right": 2
+    "right": 2,
+    "type": "route"
   },
   {
     "tileId": "route-vertical-2",
     "top": 1,
     "bottom": 1,
     "left": 2,
-    "right": 2
+    "right": 2,
+    "type": "route"
   },
   {
     "tileId": "route-vertical-3",
     "top": 1,
     "bottom": 1,
     "left": 2,
-    "right": 2
+    "right": 2,
+    "type": "route"
   },
   {
     "tileId": "route-vertical-4",
     "top": 1,
     "bottom": 1,
     "left": 2,
-    "right": 2
+    "right": 2,
+    "type": "route"
   },
   {
     "tileId": "route-horizontal-T-1",
     "top": 1,
     "bottom": 1,
     "left": 1,
-    "right": 2
+    "right": 2,
+    "type": "route"
   },
   {
     "tileId": "route-horizontal-T-2",
     "top": 1,
     "bottom": 1,
     "left": 1,
-    "right": 2
+    "right": 2,
+    "type": "route"
   },
   {
     "tileId": "route-horizontal-T-3",
     "top": 1,
     "bottom": 1,
     "left": 1,
-    "right": 2
+    "right": 2,
+    "type": "route"
   },
   {
     "tileId": "route-horizontal-T-4",
     "top": 1,
     "bottom": 1,
     "left": 1,
-    "right": 2
+    "right": 2,
+    "type": "route"
   },
   {
     "tileId": "route-horizontal-T-5",
     "top": 1,
     "bottom": 1,
     "left": 1,
-    "right": 2
+    "right": 2,
+    "type": "route"
   },
   {
     "tileId": "route-vertical-T-1",
     "top": 2,
     "bottom": 1,
     "left": 1,
-    "right": 1
+    "right": 1,
+    "type": "route"
   },
   {
     "tileId": "route-vertical-T-2",
     "top": 2,
     "bottom": 1,
     "left": 1,
-    "right": 1
+    "right": 1,
+    "type": "route"
   },
   {
     "tileId": "route-vertical-T-3",
     "top": 2,
     "bottom": 1,
     "left": 1,
-    "right": 1
+    "right": 1,
+    "type": "route"
   },
   {
     "tileId": "route-vertical-T-4",
     "top": 2,
     "bottom": 1,
     "left": 1,
-    "right": 1
+    "right": 1,
+    "type": "route"
   },
   {
     "tileId": "route-vertical-T-5",
     "top": 2,
     "bottom": 1,
     "left": 1,
-    "right": 1
+    "right": 1,
+    "type": "route"
   },
   {
     "tileId": "dead-end-intersection-1",
@@ -222,7 +253,8 @@
     "top": 1,
     "bottom": 1,
     "left": 1,
-    "right": 1
+    "right": 1,
+    "type": "dead end"
   },
   {
     "tileId": "dead-end-right-turn-1",
@@ -230,7 +262,8 @@
     "top": 2,
     "bottom": 1,
     "left": 2,
-    "right": 1
+    "right": 1,
+    "type": "dead end"
   },
   {
     "tileId": "dead-end-left-turn-1",
@@ -238,7 +271,8 @@
     "top": 2,
     "bottom": 1,
     "left": 1,
-    "right": 2
+    "right": 2,
+    "type": "dead end"
   },
   {
     "tileId": "dead-end-horizontal-1",
@@ -246,7 +280,8 @@
     "top": 2,
     "bottom": 2,
     "left": 1,
-    "right": 1
+    "right": 1,
+    "type": "dead end"
   },
   {
     "tileId": "dead-end-vertical-1",
@@ -254,7 +289,8 @@
     "top": 1,
     "bottom": 1,
     "left": 2,
-    "right": 2
+    "right": 2,
+    "type": "dead end"
   },
   {
     "tileId": "dead-end-horizontal-half-1",
@@ -262,7 +298,8 @@
     "top": 2,
     "bottom": 2,
     "left": 1,
-    "right": 2
+    "right": 2,
+    "type": "dead end"
   },
   {
     "tileId": "dead-end-vertical-half-1",
@@ -270,7 +307,8 @@
     "top": 1,
     "bottom": 2,
     "left": 2,
-    "right": 2
+    "right": 2,
+    "type": "dead end"
   },
   {
     "tileId": "dead-end-horizontal-T-1",
@@ -278,7 +316,8 @@
     "top": 1,
     "bottom": 1,
     "left": 1,
-    "right": 2
+    "right": 2,
+    "type": "dead end"
   },
   {
     "tileId": "dead-end-vertical-T-1",
@@ -286,7 +325,8 @@
     "top": 2,
     "bottom": 1,
     "left": 1,
-    "right": 1
+    "right": 1,
+    "type": "dead end"
   },
   {
     "tileId": "special-reveal-1",

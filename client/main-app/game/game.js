@@ -31,8 +31,8 @@ angular.module('app.game', [])
     window.gameData.board.matrix = data.matrix;
     window.gameData.board.lastPlayed = data.lastPlayed;
     window.gameData.deck.tilesRemaining = data.tilesRemaining;
-    createStaticTile({x: data.x, y: data.y, tile: data.lastPlayed})
-    $scope.$parent.gameFeed.unshift({user: data.player.username, message: data.lastPlayed.tileId});
+    createStaticTile({x: data.x, y: data.y, tile: data.lastPlayed});
+    $scope.$parent.gameFeed.unshift({user: data.player.username, message: ' played a ' + data.lastPlayed.type});
     $scope.$parent.$digest();
   });
 
@@ -41,6 +41,17 @@ angular.module('app.game', [])
       $scope.$parent.$digest();
     });
 
+  socket.on('startTurn', function() {
+    window.gameData.player.isTurn = true;
+    $scope.$parent.gameFeed.unshift({user: 'Your', message: ' Turn'});
+    angular.element(document.querySelector('.my-video')).addClass('orange-border');
+    $scope.$parent.$digest();
+  });
+
+  socket.on('endTurn', function() {
+    window.gameData.player.isTurn = false;
+    angular.element(document.querySelector('.my-video')).removeClass('orange-border');
+  });
 
   startSocketListeners(); // Located in ./socket.js
 

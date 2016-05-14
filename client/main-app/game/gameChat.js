@@ -4,7 +4,7 @@ angular.module('app.gameChat', [])
   var user = JSON.parse(store.get('com.spacePirates'));
 
   $scope.chatSubmit = function(val){
-    var chat = {user:user.username, message: val};
+    var chat = {user:user.username + ': ', message: val};
     $scope.gameFeed.unshift(chat);
     window.socket.emit('chat', chat);
     $scope.gameChat = '';
