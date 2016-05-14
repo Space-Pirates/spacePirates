@@ -89,7 +89,7 @@ function onDragStop(sprite, pointer) {
   }
 }
 
-parseMove = function(x, y, tile) {
+function parseMove(x, y, tile) {
   if (!gameData.player.isTurn) {
     return false;
   }

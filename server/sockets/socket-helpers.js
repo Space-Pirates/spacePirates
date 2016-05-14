@@ -26,9 +26,9 @@ module.exports = {
   },
 
   discard: function(move, game, player) {
-    player.discard(move.tile.tileId)
+    return player.discard(move.tile.tileId)
     .then(function() {
-      game.deck.dealTile(player.playerId)
+      return game.deck.dealTile(player.playerId)
       .then(function(player) {
         return game.rotateTurn()
         .then(function(nextPlayer) {
