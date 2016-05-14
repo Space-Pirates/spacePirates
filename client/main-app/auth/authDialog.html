@@ -8,17 +8,23 @@
         <md-tab label="signin" md-on-select='data.action="signin"'>
           <md-content class="md-padding">
             <!-- SIGN IN FORM -->
-            <form>
+            <form name="signinForm">
               <div layout-gt-sm="row">
                 <md-input-container flex>
                   <label class="normal-text">Username</label>
-                  <input type="text" ng-model='data.user.username'/>
+                  <input name="username" type="text" ng-model='data.user.username' required  />
+                  <div ng-messages="signinForm.username.$error" ng-show="signinForm.username.$dirty">
+                    <div ng-message="required">Username is required</div>
+                  </div>
                 </md-input-container>
               </div>
               <div layout-gt-sm="row">
                 <md-input-container flex>
                   <label class="normal-text">Password</label>
-                  <input type="password" ng-model='data.user.password'/>
+                  <input name="pwd" type="password" ng-model='data.user.password' required />
+                  <div ng-messages="signupForm.pwd.$error" ng-show="signinForm.pwd.$dirty">
+                    <div ng-message="required">Password is required</div>
+                  </div>
                 </md-input-container>
               </div>
             </form>
@@ -71,7 +77,10 @@
               <div layout-gt-sm="row">
                 <md-input-container flex>
                   <label class="normal-text">Confirm</label>
-                  <input type="password" ng-model='cpass'/>
+                  <input name="confirmPassword" type="password" ng-model='cpass' required compare-to="data.user.password"/>
+                  <div ng-messages="signupForm.confirmPassword.$error">
+                    <div ng-message="comparePassword">Must Much the previous entry</div>
+                  </div>
                 </md-input-container>
               </div>
             </form>
@@ -82,7 +91,7 @@
     <!-- BUTTONS -->
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button class="normal-text" ng-click="submit()" ng-disabled="data.action ==='signup' && !signupForm.$valid">
+      <md-button  class="normal-text" ng-click="submit()" ng-disabled="(data.action ==='signup' && !signupForm.$valid) || (data.action==='signin' && !signinForm.$valid) ">
         Submit
       </md-button>
       <md-button class="normal-text" class="cancel-btn" ng-click="cancel()">

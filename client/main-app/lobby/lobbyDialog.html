@@ -1,5 +1,4 @@
 <md-dialog aria-label="Welcome">
-  <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Create A Game</h2>
@@ -12,11 +11,14 @@
     <md-dialog-content class="dialog-box">
           <md-content class="md-padding">
             <!-- FORM HERE -->
-            <form>
+            <form name="gameForm">
               <div layout-gt-sm="row">
                 <md-input-container flex>
                   <label>Game Title</label>
-                  <input type="text" ng-model='data.game.title'/>
+                  <input name="title" type="text" ng-model='data.game.title' required/>
+                  <div ng-messages="gameForm.title.$error">
+                    <div ng-message="required">Game Title is required</div>
+                  </div>
                 </md-input-container>
               </div>
             </form>
@@ -24,12 +26,11 @@
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button ng-click="submit()" >
+      <md-button ng-click="submit()" ng-disabled="gameForm.$invalid">
         Submit
       </md-button>
       <md-button class="cancel-btn" ng-click="cancel()">
         Cancel
       </md-button>
     </md-dialog-actions>
-  </form>
 </md-dialog>

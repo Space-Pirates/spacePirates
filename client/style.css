@@ -19,17 +19,17 @@ body {
   padding-bottom: 0;
 }
 .cancel-btn {
-   margin-right: 20px; 
+   margin-right: 20px;
 }
 
 .games-window {
-  height: 585px; 
+  height: 585px;
   overflow: auto;
 }
 
 .game-icon {
   width: 100px;
-  height: 100px; 
+  height: 100px;
 }
 
 .my-video {
