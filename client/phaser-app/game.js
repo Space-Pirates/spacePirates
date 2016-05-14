@@ -5,6 +5,8 @@ var gameState = {
     game.load.image('board', 'phaser-app/assets/new-game-board.png');
     game.load.image('pirate', 'phaser-app/assets/pirate-icon.png');
     game.load.image('settler', 'phaser-app/assets/settler-icon.png');
+    game.load.image('planet-true', 'phaser-app/assets/planet-true.png');
+    game.load.image('planet-false', 'phaser-app/assets/planet-false.png');
 
     game.load.image('dead-end-horizontal-half', 'phaser-app/assets/dead-end-horizontal-half.png');
     game.load.image('dead-end-horizontal-T', 'phaser-app/assets/dead-end-horizontal-T.png');
