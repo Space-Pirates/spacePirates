@@ -17,13 +17,12 @@ module.exports.isEnded = function(matrix, remainingRoutes) {
   if (remainingRoutes === 0) {
     return false;
   }
-  
+
   (function findEnd(row, col) {
     var tile = matrix[row][col];
 
-    if (col === endCol && endRows.indexOf(row) >= 0) {
-      ended = true;
-      return;
+    if (matrix[row][col].truePlanet) {
+      return ended = true;
     }
     if (!visited[row + ',' + col]) {
       visited[row + ',' + col] = 1;
