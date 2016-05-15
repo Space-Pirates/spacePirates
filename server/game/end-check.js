@@ -1,18 +1,23 @@
 var db = require('../db/db');
+var games = require('./../controllers/game-control').currentGames;
 
 module.exports.getGameAndCheckEnded = function(gameId) {
   return db.Game.get(gameId).getJoin({board: true}).then(function(game) {
-    return isEnded(game.matrix);
+    return isEnded(game.matrix, games[gameId].board.remainingRoutes);
   });
 }
 
-module.exports.isEnded = function(matrix) {
+module.exports.isEnded = function(matrix, remainingRoutes) {
   var endCol = 9;
   var endRows = [2, 4, 6];
 
   var ended = false;
   var visited = {};
 
+  if (remainingRoutes === 0) {
+    return false;
+  }
+  
   (function findEnd(row, col) {
     var tile = matrix[row][col];
 
