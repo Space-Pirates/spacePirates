@@ -2,7 +2,7 @@ var db = require('../db/db');
 var games = require('./../controllers/game-control').currentGames;
 var Player = require('./../game/player');
 var utils = require('./socket-helpers');
-var isEnded = require('../game/end_check').isEnded;
+var isEnded = require('../game/end-check').isEnded;
 
 module.exports = function(app) {
 
