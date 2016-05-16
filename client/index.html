@@ -46,5 +46,13 @@
   <script type="text/javascript" src="main-app/auth/auth.js"></script>
   <script type="text/javascript" src="phaser-app/main.js"></script>
   <script type="text/javascript" src="main-app/app.js"></script>
+
+  <audio src="http://50.7.96.138:8379/low" autoplay></audio>
+  <script>
+    var $audio = $('audio');
+    $audio.prop('volume', 0);
+    $audio.animate({volume: 0.4}, 7000);
+
+  </script>
 </body>
 </html>
