@@ -59,6 +59,11 @@ function isValidUpdate(row, col, sprite) {
     return false;
   }
 
+  // false for all special tiles
+  if (tile.type) {
+    return false;
+  }
+
   // reject tiles placed in empty space
   if (gameData.board.matrix[row][col].top === undefined) {
     return false;
