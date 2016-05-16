@@ -37,11 +37,13 @@ angular.module('app.game', [])
   });
 
   window.socket.on('chat', function(chat){
+      window.sounds['feed'].play();
       $scope.$parent.gameFeed.unshift(chat);
       $scope.$parent.$digest();
     });
 
   socket.on('startTurn', function() {
+    window.sounds['turn'].play();
     window.gameData.player.isTurn = true;
     $scope.$parent.gameFeed.unshift({user: 'Your', message: ' Turn'});
     angular.element(document.querySelector('.my-video')).addClass('orange-border');
