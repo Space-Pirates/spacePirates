@@ -64,19 +64,23 @@ Board.prototype = {
 
     return this.getMatrix()
     .then(function(matrix) {
-      matrix[row][col] = tile;
+      if (tile.type === destroy) {
+        matrix[row][col] = new board.Tile(row, col, matrix);
+      } else {
+        matrix[row][col] = tile;
 
-      if (row > 0) {
-        matrix[row - 1][col] = new board.Tile(row - 1, col, matrix);
-      }
-      if (col > 0) {
-        matrix[row][col - 1] = new board.Tile(row, col - 1, matrix);
-      }
-      if (row < matrix.length - 1) {
-        matrix[row + 1][col] = new board.Tile(row + 1, col, matrix);
-      }
-      if (col < matrix[0].length - 1) {
-        matrix[row][col + 1] = new board.Tile(row, col + 1, matrix);
+        if (row > 0) {
+          matrix[row - 1][col] = new board.Tile(row - 1, col, matrix);
+        }
+        if (col > 0) {
+          matrix[row][col - 1] = new board.Tile(row, col - 1, matrix);
+        }
+        if (row < matrix.length - 1) {
+          matrix[row + 1][col] = new board.Tile(row + 1, col, matrix);
+        }
+        if (col < matrix[0].length - 1) {
+          matrix[row][col + 1] = new board.Tile(row, col + 1, matrix);
+        }
       }
 
       return board.setMatrix(matrix)
