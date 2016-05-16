@@ -35,12 +35,26 @@ var gameState = {
     game.load.image('special-unblock-B', 'phaser-app/assets/special-unblock-B.png');
     game.load.image('special-unblock-BC', 'phaser-app/assets/special-unblock-BC.png');
     game.load.image('special-unblock-C', 'phaser-app/assets/special-unblock-C.png');
+
+    game.load.audio('turn', 'phaser-app/assets/turn_note.ogg');
+    game.load.audio('pickup', 'phaser-app/assets/card_pickup.ogg');
+    game.load.audio('drop', 'phaser-app/assets/card_drop.ogg');
+    game.load.audio('feed', 'phaser-app/assets/feed_note.ogg');
+
   },
 
   create: function() {
     var style = { font: "14px Arial", fill: "#ffffff", align: "center" };
     var board = game.add.image(0, 0, 'board');
     var userId = JSON.parse(JSON.parse(window.localStorage.getItem('com.spacePirates'))).id;
+
+    // add sounds, make them available
+    window.sounds = {
+        turn: game.add.audio('turn'),
+        pickup: game.add.audio('pickup'),
+        drop: game.add.audio('drop'),
+        feed: game.add.audio('feed')
+    }
 
     // player has loaded all game assets and is ready to receive first hand
     socket.emit('readyForHand', {userId: userId});

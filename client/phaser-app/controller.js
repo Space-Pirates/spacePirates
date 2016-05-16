@@ -104,6 +104,7 @@ function revealPlanet(row, col, sprite) {
 }
 
 function onDragStart(sprite, pointer) {
+  window.sounds['pickup'].play();
   dragPosition.set(sprite.x, sprite.y);
   xInit = dragPosition.x/70;
   yInit = dragPosition.y/50;
@@ -117,6 +118,7 @@ function onDragStop(sprite, pointer) {
     var y = sprite.position.y/50;
 
     if (parseMove(x, y, sprite)) {
+      window.sounds['drop'].play();
       sprite.input.draggable = false;
       console.log(x,y);
       console.log(xInit, yInit);
