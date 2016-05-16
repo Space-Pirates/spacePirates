@@ -41,8 +41,11 @@ function onOut(sprite, pointer) {
 }
 
 function isValidUpdate(row, col, tile) {
-  // reject placement if tile already exists
   if (gameData.board.matrix[row][col].tileId) {
+    if (tile.type === 'destroy') {
+      return true;
+    }
+    // false if tile already exists
     return false;
   }
   // get surrounding tile placement options
@@ -154,7 +157,7 @@ function parseMove(x, y, sprite) {
       return revealPlanet(y - 1, x, sprite);
     } else if (x === 9 && y === 7) { // REAVEAL 3
       return revealPlanet(y - 1, x, sprite);
-    } else { // UPDATE
+    } else { // UPDATE / DESTROY
       return isValidUpdate(y - 1, x, sprite.tileData);
     }
   }
