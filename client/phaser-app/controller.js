@@ -4,20 +4,24 @@ var boundsRect = new Phaser.Rectangle(0, 0, 840, 550);
 function createStaticTile(data){
   var name = data.tile.tileId.substring(0, data.tile.tileId.length-2);
   var tile = game.add.image(data.x*70, data.y*50, name);
+
+  window.gameData.board.spriteMatrix[data.y][data.x] = tile;
+
   tile.height = 50;
   tile.width = 70;
   tile.tileData = data.tile;
+
   if(data.tile.isFlipped){
     tile.anchor.setTo(0.5, 0.5);
     tile.angle += 180;
     tile.anchor.setTo(1, 1);
   }
-  window.gameData.board.spriteMatrix[y][x] = tile;
 }
 
 function createTile(data){
   var name = data.tile.tileId.substring(0, data.tile.tileId.length-2);
   var tile = game.add.sprite(data.x*70, data.y*50, name);
+
   tile.height = 50;
   tile.width = 70;
   tile.tileData = data.tile;
@@ -41,14 +45,25 @@ function onOut(sprite, pointer) {
   sprite.tint = 0xffffff;
 }
 
-function isValidUpdate(row, col, tile) {
+function isValidUpdate(row, col, sprite) {
+  var tile = sprite.tileData;
+
   if (gameData.board.matrix[row][col].tileId) {
     if (tile.type === 'destroy') {
+      gameData.board.spriteMatrix[row + 1][col].destroy(true);
+      gameData.board.spriteMatrix[row + 1][col] = 0;
+      sprite.destroy(true);
       return true;
     }
     // false if tile already exists
     return false;
   }
+
+  // reject tiles placed in empty space
+  if (gameData.board.matrix[row][col].top === undefined) {
+    return false;
+  }
+
   // get surrounding tile placement options
   var surroundings = [
     col > 0 && gameData.board.matrix[row][col - 1].right
@@ -62,10 +77,6 @@ function isValidUpdate(row, col, tile) {
   ];
 
   var tileDirections = [tile.left, tile.right, tile.top, tile.bottom];
-  // reject tiles placed in empty space
-  if (!surroundings.reduce(function(a, b) {return a + b})) {
-    return false;
-  }
   // check each side and return false if not allowed to place
   for (var i = 0; i < 4; i++) {
     var adjacent = surroundings[i];
@@ -103,7 +114,6 @@ function revealPlanet(row, col, sprite) {
     }});
     return true;
   }
-
   return false;
 }
 
@@ -126,13 +136,13 @@ function onDragStop(sprite, pointer) {
       sprite.input.draggable = false;
       console.log(x,y);
       console.log(xInit, yInit);
+      gameData.board.spriteMatrix[y][x] = sprite;
       emitMove(xInit, yInit, x, y, sprite.tileData);
     } else {
       game.add.tween(sprite).to({x: dragPosition.x, y: dragPosition.y}, 500, 'Back.easeOut', true);
     }
     sprite.was_dragged = false;
   }
-
 }
 
 function parseMove(x, y, sprite) {
@@ -159,7 +169,7 @@ function parseMove(x, y, sprite) {
     } else if (x === 9 && y === 7) { // REAVEAL 3
       return revealPlanet(y - 1, x, sprite);
     } else { // UPDATE / DESTROY
-      return isValidUpdate(y - 1, x, sprite.tileData);
+      return isValidUpdate(y - 1, x, sprite);
     }
   }
 }
