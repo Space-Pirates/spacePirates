@@ -12,6 +12,7 @@ function createStaticTile(data){
     tile.angle += 180;
     tile.anchor.setTo(1, 1);
   }
+  window.gameData.board.spriteMatrix[y][x] = tile;
 }
 
 function createTile(data){
