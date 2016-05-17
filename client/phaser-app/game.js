@@ -40,7 +40,8 @@ var gameState = {
     game.load.audio('pickup', 'phaser-app/assets/card_pickup.ogg');
     game.load.audio('drop', 'phaser-app/assets/card_drop.ogg');
     game.load.audio('feed', 'phaser-app/assets/feed_note.ogg');
-
+    game.load.audio('settlers', 'phaser-app/assets/end_settlers.ogg');
+    game.load.audio('pirates', 'phaser-app/assets/end_pirates.ogg');
   },
 
   create: function() {
@@ -53,7 +54,9 @@ var gameState = {
         turn: game.add.audio('turn'),
         pickup: game.add.audio('pickup'),
         drop: game.add.audio('drop'),
-        feed: game.add.audio('feed')
+        feed: game.add.audio('feed'),
+        settlers: game.add.audio('settlers'),
+        pirates: game.add.audio('pirates')
     }
 
     // player has loaded all game assets and is ready to receive first hand

@@ -35,9 +35,11 @@ function startSocketListeners() {
   socket.on('gameOver', function(data){
     window.gameData.player.isTurn = false;
     if (data.tilesRemaining) {
-      window.gameData.winner = 'settlers';
+      window.sounds['settlers'].play();
+      window.gameData.winners = 'settlers';
     } else {
-      window.gameData.winner = 'pirate';
+      window.sounds['pirates'].play();
+      window.gameData.winners = 'pirates';
     }
   });
 }
