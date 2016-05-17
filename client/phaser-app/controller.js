@@ -173,7 +173,9 @@ function onDragStop(sprite, pointer) {
       console.log(x,y);
       console.log(xInit, yInit);
       gameData.board.spriteMatrix[y][x] = sprite;
-      revealPlanetIfNear(y - 1, x);
+      if (sprite.tileData.type === 'route') {
+        revealPlanetIfNear(y - 1, x);
+      }
       emitMove(xInit, yInit, x, y, sprite.tileData);
     } else {
       game.add.tween(sprite).to({x: dragPosition.x, y: dragPosition.y}, 500, 'Back.easeOut', true);
