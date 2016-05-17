@@ -106,26 +106,32 @@ module.exports = function(app) {
           utils.update(move, game, player)
           .then(function(data) {
             console.log(isEnded(data.board[0].matrix));
-            socket.to(gameId).emit('update', {
-              matrix: data.board[0].matrix,
-              lastPlayed: move.tile,
-              x: move.xEnd,
-              y: move.yEnd,
-              tilesRemaining: game.deck.tilesRemaining,
-              player: player
-            });
-            socket.emit('deal', {
-              hand: data.player.hand,
-              lastPlayed: move.tile,
-              x: move.xStart,
-              y: move.yStart
-            });
-            socket.emit('endTurn', {
-              isTurn: data.player.isTurn
-            });
-            io.to(data.nextPlayer.socketId).emit('startTurn', {
-              isTurn: data.nextPlayer.isTurn
-            });
+            if (isEnded(data.board[0].matrix)) {
+              io.to(gameId).emit('gameEnded', {
+                tilesRemaining: game.deck.tilesRemaining
+              });
+            } else {
+              socket.to(gameId).emit('update', {
+                matrix: data.board[0].matrix,
+                lastPlayed: move.tile,
+                x: move.xEnd,
+                y: move.yEnd,
+                tilesRemaining: game.deck.tilesRemaining,
+                player: player
+              });
+              socket.emit('deal', {
+                hand: data.player.hand,
+                lastPlayed: move.tile,
+                x: move.xStart,
+                y: move.yStart
+              });
+              socket.emit('endTurn', {
+                isTurn: data.player.isTurn
+              });
+              io.to(data.nextPlayer.socketId).emit('startTurn', {
+                isTurn: data.nextPlayer.isTurn
+              });
+            }
           })
           .catch(function(err) {
             console.error(err);
