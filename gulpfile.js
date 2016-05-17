@@ -43,7 +43,7 @@ gulp.task('test-game', function() {
 
 gulp.task('test-db', function() {
   return gulp.src(testPath.db, {read: false})
-    .pipe(mocha({reporter: 'nyan'}))
+    .pipe(mocha({reporter: 'spec'}))
     .pipe(exit());
 });
 
