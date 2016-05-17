@@ -14,19 +14,31 @@ angular.module('app.gameChat', [])
   $scope.mute = function () {
     $scope.audioStatus = window.ctrl.toggleAudio();
     console.log($scope.audioStatus);
-    // if( !audio) $('#mute').html('Unmute');
-    // else $('#mute').html('Mute');
   };
 
   $scope.pause =  function() {
     $scope.videoStatus = window.ctrl.toggleVideo();
     console.log($scope.videoStatus);
-    // if(!video) $('#pause').html('Unpause');
-    // else $('#puase').html('Pause');
   };
 
   $rootScope.$on("$stateChangeStart", function (){
     console.log(window.phone.number());
     window.ctrl.hangup();
   });
-}]);
+}])
+.directive('showonhoverparent',function() {
+  return {
+    restrict: 'A',
+    link : function(scope, element, attrs) {
+    console.log(element);
+      element.parent().bind('mouseenter', function() {
+        console.log(element);
+        element.css('display', 'inline');
+          // element.show();
+      });
+      element.parent().bind('mouseleave', function() {
+        element.css('display', 'none')
+      });
+    }
+  };
+});
