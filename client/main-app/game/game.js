@@ -147,7 +147,7 @@ angular.module('app.game', [])
   };
 }]);
 
-function gameOverController($scope, $mdDialog) {
+function gameOverController($scope, $mdDialog, $state) {
   if (window.gameData.winners === 'pirates') {
     $scope.content = 'The lone pirate amongst you has succeeded! \
     Your poor group of settlers has been robbed and left for dead \
@@ -159,5 +159,9 @@ function gameOverController($scope, $mdDialog) {
     and is sent back to the capitol to receive his punishment!'
   }
 
+  $scope.done = function () {
+    $state.go('menu.lobby');
+    $mdDialog.hide($scope.data);
+  }
 
 }

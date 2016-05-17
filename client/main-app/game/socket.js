@@ -33,19 +33,21 @@ function startSocketListeners($scope) {
   });
 
   socket.on('gameOver', function(data){
-    $scope.$parent.gameFeed.unshift({user: 'Game', message: 'Over'});
+    $scope.$parent.gameFeed.unshift({user: 'Game ', message: 'Over'});
     $scope.$parent.$digest();
     window.gameData.player.isTurn = false;
     if (data.tilesRemaining) {
-      $scope.$parent.gameFeed.unshift({user: 'Settlers', message: 'Won'});
+      $scope.$parent.gameFeed.unshift({user: 'Settlers ', message: 'Won'});
       window.sounds['settlers'].play();
       window.gameData.winners = 'settlers';
     } else {
-      $scope.$parent.gameFeed.unshift({user: 'Pirates', message: 'Won'});
+      $scope.$parent.gameFeed.unshift({user: 'Pirates ', message: 'Won'});
       window.sounds['pirates'].play();
       window.gameData.winners = 'pirates';
     }
-    $scope.showGameOver();
+    setTimeout(function() {
+      $scope.showGameOver();
+    }, 3000);
   });
 }
 
