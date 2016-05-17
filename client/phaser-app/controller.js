@@ -60,7 +60,7 @@ function isValidUpdate(row, col, sprite) {
   }
 
   // false for all special tiles
-  if (tile.type) {
+  if (tile.type !== 'route' && tile.type !== 'dead end') {
     return false;
   }
 
