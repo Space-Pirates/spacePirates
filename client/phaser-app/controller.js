@@ -115,13 +115,42 @@ function flip(sprite, pointer){
 
 function revealPlanet(row, col, sprite) {
   if (sprite.tileData.type === 'reveal') {
-    sprite.destroy(true);
+    if (!sprite.fakeSprite) {
+      sprite.destroy(true);
+    }
     createStaticTile({x: col, y: row + 1, tile: {
       tileId: gameData.board.matrix[row][col].truePlanet ? 'planet-true-1' : 'planet-false-1'
     }});
     return true;
   }
   return false;
+}
+
+function revealPlanetIfNear(row, col) {
+  var sprite = {
+    fakeSprite: true,
+    tileData: {
+      type: 'reveal'
+    }
+  };
+
+  if (col === 8 || col == 10) {
+    if (row === 2 || row === 4 || row === 6) {
+      revealPlanet(row, 9, sprite);
+    }
+  } else if (col === 9) {
+    if (row === 1) {
+      revealPlanet(2, 9, sprite);
+    } else if (row === 3) {
+      revealPlanet(2, 9, sprite);
+      revealPlanet(4, 9, sprite);
+    } else if (row === 5) {
+      revealPlanet(4, 9, sprite);
+      revealPlanet(6, 9, sprite);
+    } else if (row === 7) {
+      revealPlanet(6, 9, sprite);
+    }
+  }
 }
 
 function onDragStart(sprite, pointer) {
@@ -144,6 +173,9 @@ function onDragStop(sprite, pointer) {
       console.log(x,y);
       console.log(xInit, yInit);
       gameData.board.spriteMatrix[y][x] = sprite;
+      if (sprite.tileData.type === 'route') {
+        revealPlanetIfNear(y - 1, x);
+      }
       emitMove(xInit, yInit, x, y, sprite.tileData);
     } else {
       game.add.tween(sprite).to({x: dragPosition.x, y: dragPosition.y}, 500, 'Back.easeOut', true);
