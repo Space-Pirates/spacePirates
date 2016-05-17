@@ -1,5 +1,5 @@
 angular.module('app.game', [])
-.controller('GameController', ['$scope', 'store', '$stateParams', function($scope, store, $stateParams) {
+.controller('GameController', ['$scope', 'store', '$stateParams', '$mdDialog', function($scope, store, $stateParams, $mdDialog) {
   window.gameData = {
     players: {
       p1: {},
@@ -136,3 +136,18 @@ angular.module('app.game', [])
     link: linkFn
   };
 }]);
+
+function gameOverController($scope, $mdDialog) {
+  if (window.gameData.winners === 'pirates') {
+    $scope.content = 'The lone pirate amongst you has succeeded! \
+    Your poor group of settlers has been robbed and left for dead \
+    on the outskirts of the galaxy.'
+  } else if (window.gameData.winners === 'settlers') {
+    $scope.content = 'The settlers\' shrewd planning abilities have \
+    led them to the promised land! Upon arrival, the settlers discover \
+    that there is a traitor among them. The pirate is quickly subdued \
+    and is sent back to the capitol to receive his punishment!'
+  }
+
+
+}
