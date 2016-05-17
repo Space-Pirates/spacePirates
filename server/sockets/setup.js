@@ -126,6 +126,11 @@ module.exports = function(app) {
             io.to(data.nextPlayer.socketId).emit('startTurn', {
               isTurn: data.nextPlayer.isTurn
             });
+            if (isEnded(data.board[0].matrix)) {
+              io.to(gameId).emit('gameOver', {
+                tilesRemaining: game.deck.tilesRemaining
+              });
+            }
           })
           .catch(function(err) {
             console.error(err);

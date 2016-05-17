@@ -23,7 +23,7 @@ function endTurn(move, game, player) {
   })
   .catch(function(err) {
     console.error(err);
-  }); 
+  });
 }
 
 module.exports = {

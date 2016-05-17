@@ -1,5 +1,14 @@
 angular.module('app.auth', [])
-  .controller('AuthController', function($scope, $state, Auth, store, $mdDialog, $mdMedia, $mdToast, $document) {
+  .controller('AuthController',[
+    '$scope',
+    '$state',
+    'Auth',
+    'store',
+    '$mdDialog',
+    '$mdMedia',
+    '$mdToast',
+    '$document',
+    function($scope, $state, Auth, store, $mdDialog, $mdMedia, $mdToast, $document) {
     $scope.user = {};
 
     $scope.showDialog = function(ev) {
@@ -55,7 +64,7 @@ angular.module('app.auth', [])
           console.error(error);
         });
     };
-  })
+  }])
   .directive('comparePassword', function () {
     return {
       require: 'ngModel',
@@ -72,7 +81,8 @@ angular.module('app.auth', [])
       }
     };
   })
-  .factory('Auth', function ($http, $state, store) {
+  .factory('Auth', ['$http', '$state', 'store',
+   function ($http, $state, store) {
     var signin = function (user) {
       return $http({
         method: 'POST',
@@ -113,7 +123,7 @@ angular.module('app.auth', [])
       isAuth: isAuth,
       signout: signout
     };
-  });
+  }]);
 
 function DialogController($scope, $mdDialog) {
   $scope.data = {};
