@@ -1,5 +1,5 @@
 angular.module('app.game', [])
-.controller('GameController', ['$scope', 'store', '$stateParams', '$mdDialog', function($scope, store, $stateParams, $mdDialog) {
+.controller('GameController', ['$scope', 'store', '$stateParams', '$mdDialog', '$document', function($scope, store, $stateParams, $mdDialog, $document) {
   window.gameData = {
     players: {
       p1: {},
@@ -85,6 +85,16 @@ angular.module('app.game', [])
   });
 
   startSocketListeners($scope); // Located in ./socket.js
+
+  $scope.showGameOver = function(ev) {
+    $mdDialog.show({
+      controller: gameOverController,
+      templateUrl: '/main-app/game/game-over.html',
+      parent: angular.element($document.body),
+      targetEvent: ev,
+      clickOutsideToClose:true
+    });
+  }
 
   window.phone = PHONE({
     number: user.username,

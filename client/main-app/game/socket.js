@@ -45,6 +45,7 @@ function startSocketListeners($scope) {
       window.sounds['pirates'].play();
       window.gameData.winners = 'pirates';
     }
+    $scope.showGameOver();
   });
 }
 
