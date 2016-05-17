@@ -13,8 +13,9 @@ function createStaticTile(data){
 
   if(data.tile.isFlipped){
     tile.anchor.setTo(0.5, 0.5);
-    tile.angle += 180;
-    tile.anchor.setTo(1, 1);
+    tile.scale.x *= -1;
+    tile.scale.y *= -1;
+    sprite.anchor.setTo(1, 1);
   }
 }
 
@@ -96,7 +97,8 @@ function isValidUpdate(row, col, sprite) {
 
 function flip(sprite, pointer){
   sprite.anchor.setTo(0.5, 0.5);
-  sprite.angle += 180;
+  sprite.scale.x *= -1;
+  sprite.scale.y *= -1;
   var temp = sprite.tileData.top;
   sprite.tileData.top = sprite.tileData.bottom;
   sprite.tileData.bottom = temp;
