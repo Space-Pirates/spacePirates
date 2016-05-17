@@ -59,6 +59,7 @@ angular.module('app.game', [])
       }
     } else {
       createStaticTile({x: data.x, y: data.y, tile: data.lastPlayed});
+      revealPlanetIfNear(data.y - 1, data.x);
     }
     $scope.$parent.gameFeed.unshift({user: data.player.username, message: ' played a ' + data.lastPlayed.type});
     $scope.$parent.$digest();
