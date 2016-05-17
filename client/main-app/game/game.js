@@ -84,7 +84,7 @@ angular.module('app.game', [])
     angular.element(document.querySelector('.my-video')).removeClass('orange-border');
   });
 
-  startSocketListeners(); // Located in ./socket.js
+  startSocketListeners($scope); // Located in ./socket.js
 
   window.phone = PHONE({
     number: user.username,
