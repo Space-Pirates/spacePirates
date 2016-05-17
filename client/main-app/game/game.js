@@ -1,5 +1,6 @@
 angular.module('app.game', [])
 .controller('GameController', ['$scope', 'store', '$stateParams', '$mdDialog', '$document', function($scope, store, $stateParams, $mdDialog, $document) {
+
   window.gameData = {
     players: {
       p1: {},
@@ -116,18 +117,22 @@ angular.module('app.game', [])
     ssl: true
   });
 
-  window.sessions = {};
-  phone.ready(function(){
-    $('#myVid').append(phone.video);
+  var ctrl = window.ctrl = CONTROLLER(phone);
+
+  $scope.sessions = [];
+  ctrl.ready(function(){
+    //$('#myVid').append(phone.video);
+    ctrl.addLocalStream(document.getElementById('myVid'));
+    ctrl.stream();
     socket.on('joined', function(user) {
       console.log(user.username);
-      window.sessions[user.username] = phone.dial(user.username);
+      $scope.sessions.push(phone.dial(user.username));
     });
   });
 
   var player = 2;
 
-  phone.receive(function(session){
+  ctrl.receive(function(session){
     session.connected(function(session){
       if(session.number !== phone.number()){
         $('#player' + player).append(session.video);
@@ -135,6 +140,13 @@ angular.module('app.game', [])
       }
     });
     session.ended(function(session){    player--;  });
+  });
+
+  window.ctrl.videoToggled(function(session, isEnabled){
+      window.ctrl.getVideoElement(session.number).parent().find('.vid-pause').css('display', isEnabled ? 'none' : 'inline');
+  });
+  window.ctrl.audioToggled(function(session, isEnabled){
+      window.ctrl.getVideoElement(session.number).parent().find('.vid-mute').css('display', isEnabled ? 'none' : 'inline');
   });
 }])
 .directive('gameCanvas', ['$injector', function($injector) {
