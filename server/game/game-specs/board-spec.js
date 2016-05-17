@@ -2,7 +2,8 @@ var chai = require('chai');
 var Board = require('../board');
 var db = require('../../db/db');
 var expect = chai.expect;
-var testMatrix = require('../board-matrix.js');
+var testMatrix = require('../board-matrix.js')();
+
 var testTile = {
   top: 0,
   left: 1,
@@ -278,12 +279,12 @@ module.exports = function() {
         var truePlanetCount = 0;
         var falsePlanetCount = 0;
 
-        expect(doc.matrix[2][10]).to.have.all.keys(['top', 'left', 'bottom', 'right', 'truePlanet']);
-        planetArray.push(doc.matrix[2][10]);
-        expect(doc.matrix[4][10]).to.have.all.keys(['top', 'left', 'bottom', 'right', 'truePlanet']);
-        planetArray.push(doc.matrix[4][10]);
-        expect(doc.matrix[6][10]).to.have.all.keys(['top', 'left', 'bottom', 'right', 'truePlanet']);
-        planetArray.push(doc.matrix[6][10]);
+        expect(doc.matrix[2][9]).to.have.all.keys(['top', 'left', 'bottom', 'right', 'truePlanet', 'tileId']);
+        planetArray.push(doc.matrix[2][9]);
+        expect(doc.matrix[4][9]).to.have.all.keys(['top', 'left', 'bottom', 'right', 'truePlanet', 'tileId']);
+        planetArray.push(doc.matrix[4][9]);
+        expect(doc.matrix[6][9]).to.have.all.keys(['top', 'left', 'bottom', 'right', 'truePlanet', 'tileId']);
+        planetArray.push(doc.matrix[6][9]);
 
         for (var i = 0; i < planetArray.length; i++) {
           if (planetArray[i].truePlanet) {
