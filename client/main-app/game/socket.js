@@ -32,8 +32,13 @@ function startSocketListeners() {
     createTile({x: data.x, y: data.y, tile: data.hand[2]});
   });
 
-  socket.on('gameOver', function(gameData){
-    //change game state to outcomes
+  socket.on('gameOver', function(data){
+    window.gameData.player.isTurn = false;
+    if (data.tilesRemaining) {
+      window.gameData.winner = 'settlers';
+    } else {
+      window.gameData.winner = 'pirate';
+    }
   });
 }
 
