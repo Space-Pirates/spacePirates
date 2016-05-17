@@ -9,6 +9,19 @@ angular.module('app.game', [])
     },
     board: {
       matrix: [],
+      spriteMatrix: [
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      ],
       lastPlayed: {}
     },
     deck: {
@@ -31,7 +44,22 @@ angular.module('app.game', [])
     window.gameData.board.matrix = data.matrix;
     window.gameData.board.lastPlayed = data.lastPlayed;
     window.gameData.deck.tilesRemaining = data.tilesRemaining;
-    createStaticTile({x: data.x, y: data.y, tile: data.lastPlayed});
+
+    if (data.lastPlayed.type === 'destroy') {
+      for (var i = 0; i < data.matrix.length; i++) {
+        var row = data.matrix[i];
+        var spriteRow = window.gameData.board.spriteMatrix[i + 1];
+
+        for (var j = 0; j < row.length; j++) {
+          if (spriteRow[j] && !row[j].tileId) {
+            spriteRow[j].destroy(true);
+            spriteRow[j] = 0;
+          }
+        }
+      }
+    } else {
+      createStaticTile({x: data.x, y: data.y, tile: data.lastPlayed});
+    }
     $scope.$parent.gameFeed.unshift({user: data.player.username, message: ' played a ' + data.lastPlayed.type});
     $scope.$parent.$digest();
   });

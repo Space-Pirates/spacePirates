@@ -6,7 +6,7 @@ function endTurn(move, game, player) {
   .then(function() {
     return game.deck.dealTile(player.playerId)
     .then(function(player) {
-      game.rotateTurn()
+      return game.rotateTurn()
       .then(function(nextPlayer) {
         return {
           player: player,

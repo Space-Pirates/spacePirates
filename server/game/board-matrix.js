@@ -1,6 +1,7 @@
 var _ = require('underscore');
 var Planet = function(isTrue) {
     this.truePlanet = isTrue;
+    this.tileId = 'planet-neutral-#';
     this.top = 1;
     this.left = 1;
     this.bottom = 1;
