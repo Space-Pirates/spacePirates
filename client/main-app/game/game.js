@@ -124,7 +124,7 @@ angular.module('app.game', [])
     ctrl.addLocalStream(document.getElementById('myVid'));
     ctrl.stream();
     socket.on('joined', function(user) {
-      console.log(user.username);
+      console.log('calling', user.username);
       window.sessions[user.username] = phone.dial(user.username);
     });
   });
@@ -134,6 +134,7 @@ angular.module('app.game', [])
   ctrl.receive(function(session){
     session.connected(function(session){
       if(session.number !== phone.number()){
+        console.log('player', player, 'joined');
         $('#player' + player).append(session.video);
         player++;
       }

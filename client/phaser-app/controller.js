@@ -170,8 +170,6 @@ function onDragStop(sprite, pointer) {
     if (parseMove(x, y, sprite)) {
       window.sounds['drop'].play();
       sprite.input.draggable = false;
-      console.log(x,y);
-      console.log(xInit, yInit);
       gameData.board.spriteMatrix[y][x] = sprite;
       if (sprite.tileData.type === 'route') {
         revealPlanetIfNear(y - 1, x);

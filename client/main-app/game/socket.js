@@ -77,23 +77,29 @@ function emitMove(xStart, yStart, xEnd, yEnd, tile) {
 
 function reorderVids(){
   var user = JSON.parse(JSON.parse(window.localStorage.getItem('com.spacePirates'))).id;
+  console.log(user);
   var curPlayer = window.gameData.players[user].playerId;
 
   var curPlayerIdx = window.gameData.turnOrder.indexOf(curPlayer);
   var idx = curPlayerIdx+1;
   //remove videos
-  $('#player2').html('');
-  $('#player3').html('');
-  $('#player4').html('');
+  var $player2 = $('#player2 video').clone();
+  var $player3 = $('#player3 video').clone();
+  var $player4 = $('#player4 video').clone();
+
+  var videos = {};
+  videos[$player2.attr('data-number')] = $player2;
+  videos[$player3.attr('data-number')] = $player3;
+  videos[$player4.attr('data-number')] = $player4;
+
   //loop through and append in order
   var loc = 2
   while(idx !== curPlayerIdx){
     if(idx < 4){
-      console.log(sessions);
       var username = window.gameData.players[window.gameData.turnOrder[idx]].username;
-      console.log(username);
-      var vid = window.sessions[username].video;
-      $('#player'+ loc).append(vid);
+      var $vid = videos[username];
+      $('#player'+ loc + ' video').remove();
+      $('#player'+ loc).append($vid);
       idx++;
       loc++;
     }else{
