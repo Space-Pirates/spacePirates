@@ -18,6 +18,13 @@ function startSocketListeners($scope) {
             tileId: 'discard-1'
           }
         });
+    // display remaining routes bar
+    createStaticTile({x: 0,
+          y: 0,
+          tile: {
+            tileId: 'remaining-routes-bar-1'
+          }
+        });
     // display role
     var role = game.add.image(770, 500, data.role);
     role.height = 50;
