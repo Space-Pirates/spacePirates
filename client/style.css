@@ -35,6 +35,7 @@ body {
 .my-video {
   height: 200px;
   width: 100%;
+  position: relative;
 }
 
 .my-video video{
@@ -48,10 +49,15 @@ body {
   height: 200px;
 }
 
-.player-videos video{
-  width:280px;
+.player {
+  width: 280px;
   height: 200px;
-  vertical-align: center;
+  position: relative;
+}
+
+.player-videos video{
+  width:100%;
+  height: 100%;
 }
 
 .side-bar {
@@ -95,3 +101,38 @@ body {
   color: black;
 }
 
+.md-button.mute-container, .md-button.pause-container {
+  background: rgba(0, 0, 0, 0.8);
+  border: 1px solid rgba(255, 165, 0, 0.4);
+  width: 50px;
+  height: 50px;
+  line-height: 20px;
+  justify-content: center;
+  border-radius: 100%;
+  cursor: pointer;
+}
+.md-button.mute-container:not([disabled]):hover, .md-button.pause-container:not([disabled]):hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+.md-button.turned-off, .md-button.turned-off:not([disabled]):hover {
+  background: rgba(255, 152, 0, 0.7);
+}
+.myvid-mute, .vid-mute {
+  top: 75px;
+  right: 75px;
+  position: absolute;
+}
+
+.myvid-pause, .vid-pause {
+  top: 75px;
+  right: 150px;
+  position: absolute;
+}
+svg {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
