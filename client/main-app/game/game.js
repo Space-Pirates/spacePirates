@@ -118,15 +118,14 @@ angular.module('app.game', [])
   });
 
   var ctrl = window.ctrl = CONTROLLER(phone);
-
-  $scope.sessions = [];
+  window.sessions = {};
   ctrl.ready(function(){
     //$('#myVid').append(phone.video);
     ctrl.addLocalStream(document.getElementById('myVid'));
     ctrl.stream();
     socket.on('joined', function(user) {
       console.log(user.username);
-      $scope.sessions.push(phone.dial(user.username));
+      window.sessions[user.username] = phone.dial(user.username);
     });
   });
 
