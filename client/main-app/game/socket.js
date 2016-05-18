@@ -17,7 +17,12 @@ function startSocketListeners($scope) {
     // display true planet if pirate
     if (window.gameData.player.role === 'pirate') {
       for (var i = 2; i < 7; i += 2) {
-        gameData.board.matrix[i][9].truePlanet ? 'planet-true-1' : 'planet-false-1'
+        createStaticTile({x: 9,
+          y: i + 1,
+          tile: {
+            tileId: gameData.board.matrix[i][9].truePlanet ? 'planet-true-1' : 'planet-false-1'
+          }
+        });
       }
     }
     // populate players hand sprites
