@@ -7,6 +7,7 @@ var gameState = {
     game.load.image('settler', 'phaser-app/assets/settler-icon.png');
     game.load.image('planet-true', 'phaser-app/assets/planet-true.png');
     game.load.image('planet-false', 'phaser-app/assets/planet-false.png');
+    game.load.image('discard', 'phaser-app/assets/discard-icon.png');
 
     game.load.image('dead-end-horizontal-half', 'phaser-app/assets/dead-end-horizontal-half.png');
     game.load.image('dead-end-horizontal-T', 'phaser-app/assets/dead-end-horizontal-T.png');

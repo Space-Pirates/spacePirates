@@ -10,6 +10,13 @@ function startSocketListeners($scope) {
     window.gameData.player.role = data.role;
     window.gameData.player.hand = data.hand;
     window.gameData.player.isTurn = data.isTurn;
+    // display discard
+    createStaticTile({x: 0,
+          y: 10,
+          tile: {
+            tileId: 'discard-1'
+          }
+        });
     // display role
     var role = game.add.image(770, 500, data.role);
     role.height = 50;
