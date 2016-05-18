@@ -13,6 +13,8 @@ Player.prototype = {
   constructor: Player,
 
   discard: function (tileId) {
+    var player = this;
+
     return db.Player.get(this.playerId)
     .run()
     .then(function (doc) {
@@ -23,8 +25,15 @@ Player.prototype = {
         }
       }
       return doc.save()
-      .then(function (player) {
-        return player;
+      .then(function () {
+        return db.Board.filter({gameId: player.gameId})
+        .run()
+        .then(function(data) {
+          return data[0];
+        })
+        .catch(function(err) {
+          console.error(err);
+        });
       })
       .catch(function (err) {
         console.error(err);

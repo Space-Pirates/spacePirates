@@ -4,7 +4,7 @@ var tileDictionary = require('./tile-dictionary.json');
 
 var Deck = function(gameId) {
   this.gameId = gameId;
-  this.lastDiscard = '';
+  this.lastDiscard = {};
   this.tilesRemaining = 54;
   this.initialize();
 };
