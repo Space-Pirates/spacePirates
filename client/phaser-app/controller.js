@@ -189,6 +189,7 @@ function parseMove(x, y, sprite) {
     return false;
   }
   if (x === 0 && y === 10) { // DISCARD
+    gameData.board.spriteMatrix[y][x].destroy(true);
     return true;
   } else if (y === 0) {
     if (x >= 0 && x <= 2) { // BLOCK 1
