@@ -96,26 +96,32 @@ body {
   color: black;
 }
 
-#mute-container, #pause-container {
-  background: rgba(255, 165, 0, 0.4);
+.md-button.mute-container, .md-button.pause-container {
+  background: rgba(0, 0, 0, 0.8);
   border: 1px solid rgba(255, 165, 0, 0.4);
   width: 50px;
   height: 50px;
-  position: absolute;
   line-height: 20px;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: 100%;
   cursor: pointer;
 }
-
-#mute-container {
+.md-button.mute-container:not([disabled]):hover, .md-button.pause-container:not([disabled]):hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+.md-button.turned-off, .md-button.turned-off:not([disabled]):hover {
+  background: rgba(255, 152, 0, 0.7);
+}
+.myvid-mute {
   top: 75px;
   right: 75px;
+  position: absolute;
 }
 
-#pause-container {
+.myvid-pause {
   top: 75px;
   right: 150px;
+  position: absolute;
 }
 
 svg {
