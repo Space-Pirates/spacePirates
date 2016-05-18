@@ -145,9 +145,11 @@ angular.module('app.game', [])
   window.ctrl.videoToggled(function(session, isEnabled){
       window.ctrl.getVideoElement(session.number).parent().find('.vid-pause').css('display', isEnabled ? 'none' : 'inline');
   });
+
   window.ctrl.audioToggled(function(session, isEnabled){
       window.ctrl.getVideoElement(session.number).parent().find('.vid-mute').css('display', isEnabled ? 'none' : 'inline');
   });
+
 }])
 .directive('gameCanvas', ['$injector', function($injector) {
   var linkFn = function(scope, ele, injector) {
