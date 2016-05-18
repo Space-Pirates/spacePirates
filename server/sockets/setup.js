@@ -59,6 +59,15 @@ module.exports = function(app) {
               x: move.xStart,
               y: move.yStart
             });
+            console.log('sending update!');
+            socket.to(gameId).emit('update', {
+              matrix: data.board.matrix,
+              lastPlayed: move.tile,
+              x: move.xEnd,
+              y: move.yEnd,
+              tilesRemaining: game.deck.tilesRemaining,
+              player: player
+            })
             socket.emit('endTurn', {
               isTurn: data.player.isTurn
             });
@@ -105,9 +114,9 @@ module.exports = function(app) {
         case 'update':
           utils.update(move, game, player)
           .then(function(data) {
-            console.log(isEnded(data.board[0].matrix));
+            console.log(isEnded(data.board.matrix));
             socket.to(gameId).emit('update', {
-              matrix: data.board[0].matrix,
+              matrix: data.board.matrix,
               lastPlayed: move.tile,
               x: move.xEnd,
               y: move.yEnd,
@@ -126,7 +135,7 @@ module.exports = function(app) {
             io.to(data.nextPlayer.socketId).emit('startTurn', {
               isTurn: data.nextPlayer.isTurn
             });
-            if (isEnded(data.board[0].matrix)) {
+            if (isEnded(data.board.matrix)) {
               io.to(gameId).emit('gameOver', {
                 tilesRemaining: game.deck.tilesRemaining
               });

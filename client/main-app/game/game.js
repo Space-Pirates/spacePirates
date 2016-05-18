@@ -45,7 +45,7 @@ angular.module('app.game', [])
     window.gameData.board.lastPlayed = data.lastPlayed;
     window.gameData.deck.tilesRemaining = data.tilesRemaining;
 
-    if (data.lastPlayed.type === 'destroy') {
+    if (data.lastPlayed.type === 'destroy' && !(data.x === 0 && data.y === 10)) {
       for (var i = 0; i < data.matrix.length; i++) {
         var row = data.matrix[i];
         var spriteRow = window.gameData.board.spriteMatrix[i + 1];
@@ -58,6 +58,9 @@ angular.module('app.game', [])
         }
       }
     } else {
+      if (data.x === 0 && data.y === 10) {
+        gameData.board.spriteMatrix[10][0].destroy(true);
+      }
       createStaticTile({x: data.x, y: data.y, tile: data.lastPlayed});
       if (data.lastPlayed.type === 'route') {
         revealPlanetIfNear(data.y - 1, data.x);
