@@ -177,7 +177,9 @@ module.exports = function(app) {
               // send initial game data
               io.to(gameId).emit('startGame', {
                 matrix: matrix,
-                tilesRemaining: 54
+                tilesRemaining: 54,
+                players: game.players,
+                turnOrder: game.turnOrder
               });
               // tell game to start (load game state)
               io.to(gameId).emit('4players');
