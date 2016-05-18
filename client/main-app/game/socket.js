@@ -2,8 +2,9 @@ function startSocketListeners($scope) {
   socket.on('startGame', function(data) {
     window.gameData.board.matrix = data.matrix;
     window.gameData.deck.tilesRemaining = data.tilesRemaining;
-
-    //TODO: show current turn
+    window.gameData.players = data.players;
+    window.gameData.turnOrder = data.turnOrder;
+    reorderVids();
   });
 
   socket.on('hand', function(data) {
@@ -72,4 +73,31 @@ function emitMove(xStart, yStart, xEnd, yEnd, tile) {
     yEnd: yEnd,
     tile: tile
   });
+}
+
+function reorderVids(){
+  var user = JSON.parse(JSON.parse(window.localStorage.getItem('com.spacePirates'))).id;
+  var curPlayer = window.gameData.players[user].playerId;
+
+  var curPlayerIdx = window.gameData.turnOrder.indexOf(curPlayer);
+  var idx = curPlayerIdx+1;
+  //remove videos
+  $('#player2').html('');
+  $('#player3').html('');
+  $('#player4').html('');
+  //loop through and append in order
+  var loc = 2
+  while(idx !== curPlayerIdx){
+    if(idx < 4){
+      console.log(sessions);
+      var username = window.gameData.players[window.gameData.turnOrder[idx]].username;
+      console.log(username);
+      var vid = window.sessions[username].video;
+      $('#player'+ loc).append(vid);
+      idx++;
+      loc++;
+    }else{
+      idx = 0;
+    }
+  }
 }

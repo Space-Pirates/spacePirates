@@ -116,12 +116,12 @@ angular.module('app.game', [])
     ssl: true
   });
 
-  $scope.sessions = [];
+  window.sessions = {};
   phone.ready(function(){
     $('#myVid').append(phone.video);
     socket.on('joined', function(user) {
       console.log(user.username);
-      $scope.sessions.push(phone.dial(user.username));
+      window.sessions[user.username] = phone.dial(user.username);
     });
   });
 
