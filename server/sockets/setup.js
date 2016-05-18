@@ -100,6 +100,14 @@ module.exports = function(app) {
               x: move.xStart,
               y: move.yStart
             });
+            socket.to(gameId).emit('update', {
+              matrix: data.board.matrix,
+              lastPlayed: move.tile,
+              x: move.xEnd,
+              y: move.yEnd,
+              tilesRemaining: game.deck.tilesRemaining,
+              player: player
+            });
             socket.emit('endTurn', {
               isTurn: data.player.isTurn
             });
