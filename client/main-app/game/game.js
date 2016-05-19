@@ -44,6 +44,9 @@ angular.module('app.game', [])
     // data has matrix, lastPlayed, x, y, tilesRemaining
     window.gameData.board.matrix = data.matrix;
     window.gameData.board.lastPlayed = data.lastPlayed;
+    if (window.gameData.deck.tilesRemaining > data.tilesRemaining) {
+      window.gameData.board.spriteMatrix[0][0].width -= 27;
+    }
     window.gameData.deck.tilesRemaining = data.tilesRemaining;
 
     if (data.lastPlayed.type === 'destroy' && !(data.x === 0 && data.y === 10)) {
@@ -182,5 +185,4 @@ function gameOverController($scope, $mdDialog, $state) {
     $state.go('menu.lobby');
     $mdDialog.hide($scope.data);
   }
-
 }
