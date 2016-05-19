@@ -116,10 +116,14 @@ angular.module('app.game', [])
     subscribe_key: 'sub-c-17b7db8a-3915-11e4-9868-02ee2ddab7fe',
     media: {
       audio: true,
-      video:
-      {
-        height:200,
-        width:280
+      video: {
+        mandatory:
+        {
+          maxHeight: 200,
+          maxWidth: 280,
+          maxAspectRatio:4/3,
+          maxFrameRate: 10
+        }
       }
     },
     ssl: true
