@@ -59,13 +59,12 @@ module.exports = function(app) {
               x: move.xStart,
               y: move.yStart
             });
-            console.log('sending update!');
             socket.to(gameId).emit('update', {
               matrix: data.board.matrix,
               lastPlayed: move.tile,
               x: move.xEnd,
               y: move.yEnd,
-              tilesRemaining: game.deck.tilesRemaining,
+              routesRemaining: game.deck.routesRemaining,
               player: player
             })
             socket.emit('endTurn', {
@@ -105,7 +104,7 @@ module.exports = function(app) {
               lastPlayed: move.tile,
               x: move.xEnd,
               y: move.yEnd,
-              tilesRemaining: game.deck.tilesRemaining,
+              routesRemaining: game.deck.routesRemaining,
               player: player
             });
             socket.emit('endTurn', {
@@ -128,7 +127,7 @@ module.exports = function(app) {
               lastPlayed: move.tile,
               x: move.xEnd,
               y: move.yEnd,
-              tilesRemaining: game.deck.tilesRemaining,
+              routesRemaining: game.deck.routesRemaining,
               player: player
             });
             socket.emit('deal', {
@@ -145,7 +144,7 @@ module.exports = function(app) {
             });
             if (isEnded(data.board.matrix)) {
               io.to(gameId).emit('gameOver', {
-                tilesRemaining: game.deck.tilesRemaining
+                routesRemaining: game.deck.routesRemaining
               });
             }
           })
@@ -177,7 +176,7 @@ module.exports = function(app) {
               // send initial game data
               io.to(gameId).emit('startGame', {
                 matrix: matrix,
-                tilesRemaining: 54,
+                routesRemaining: 31,
                 players: game.players,
                 turnOrder: game.turnOrder
               });

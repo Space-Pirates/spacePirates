@@ -3,7 +3,7 @@ var loadState = {
   },
   create: function(){
 
-    var loadingLabel = game.add.text(0, 0, 'Waiting for players...', {font:'30px Arial', fill:'#ffffff', boundsAlignH: "center", boundsAlignV: "middle"});
+    var loadingLabel = game.add.text(0, 0, 'Waiting for players...', {font:'60px Pirate Font', fill:'#ff9000', boundsAlignH: "center", boundsAlignV: "middle"});
     loadingLabel.setTextBounds(0,0,840,550);
 
     // load game state once four players are 'ready'

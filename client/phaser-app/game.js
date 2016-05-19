@@ -8,6 +8,7 @@ var gameState = {
     game.load.image('planet-true', 'phaser-app/assets/planet-true.png');
     game.load.image('planet-false', 'phaser-app/assets/planet-false.png');
     game.load.image('discard', 'phaser-app/assets/discard-icon.png');
+    game.load.image('remaining-routes-bar', 'phaser-app/assets/remaining-routes-bar.png');
 
     game.load.image('dead-end-horizontal-half', 'phaser-app/assets/dead-end-horizontal-half.png');
     game.load.image('dead-end-horizontal-T', 'phaser-app/assets/dead-end-horizontal-T.png');
@@ -46,7 +47,7 @@ var gameState = {
   },
 
   create: function() {
-    var style = { font: "14px Arial", fill: "#ffffff", align: "center" };
+    var style = { font: "14px Pirate Font", fill: "#ffffff", align: "center" };
     var board = game.add.image(0, 0, 'board');
     var userId = JSON.parse(JSON.parse(window.localStorage.getItem('com.spacePirates'))).id;
 

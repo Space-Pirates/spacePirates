@@ -5,6 +5,12 @@ function startSocketListeners($scope) {
     window.gameData.players = data.players;
     window.gameData.turnOrder = data.turnOrder;
     reorderVids();
+
+    $scope.$watch(function() {return gameData.deck.routesRemaining},
+    function(val) {
+      $scope.routesRemaining = 'Routes Remaining: ' + val;
+    });
+    $scope.$digest();
   });
 
   socket.on('hand', function(data) {
@@ -16,6 +22,13 @@ function startSocketListeners($scope) {
           y: 10,
           tile: {
             tileId: 'discard-1'
+          }
+        });
+    // display remaining routes bar
+    createStaticTile({x: 0,
+          y: 0,
+          tile: {
+            tileId: 'remaining-routes-bar-1'
           }
         });
     // display role

@@ -8,7 +8,11 @@ function createStaticTile(data){
   window.gameData.board.spriteMatrix[data.y][data.x] = tile;
 
   tile.height = 50;
-  tile.width = 70;
+  if (name === 'remaining-routes-bar') {
+    tile.width = 840;
+  } else {
+    tile.width = 70;
+  }
   tile.tileData = data.tile;
 
   if(data.tile.isFlipped){
@@ -173,6 +177,8 @@ function onDragStop(sprite, pointer) {
       gameData.board.spriteMatrix[y][x] = sprite;
       if (sprite.tileData.type === 'route') {
         revealPlanetIfNear(y - 1, x);
+        gameData.board.spriteMatrix[0][0].width -= 27;
+        gameData.deck.routesRemaining--;
       }
       emitMove(xInit, yInit, x, y, sprite.tileData);
     } else {
