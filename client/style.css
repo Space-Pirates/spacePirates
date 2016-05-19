@@ -9,6 +9,75 @@ body {
   font-family: "Pirate Font";
 }
 
+.landing-banner{
+  background-color: orange;
+  height:180px;
+  width: 100%;
+  opacity: 0.5;
+  margin-top: 150px;
+  text-align: center;
+  font-size: 80px;
+}
+
+.btn-login{
+  font-size: 40px;
+}
+
+.center-text{
+  text-align: center;
+}
+
+.landing-img{
+  height: 50px;
+  width: 70px;
+}
+
+.scrolling-text {
+  color: orange;
+  font-size: 100px;
+}
+
+#titles
+{
+  position: absolute;
+  width: 18em;
+  height: 50em;
+  bottom: 0;
+  left: 50%;
+  margin-left: -9em;
+  font-size: 700%;
+  font-weight: bold;
+  text-align: justify;
+  overflow: hidden;
+  transform-origin: 50% 100%;
+  transform: perspective(300px) rotateX(25deg);
+}
+
+#titles:after
+{
+  position: absolute;
+  content: ' ';
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 60%;
+  background-image: linear-gradient(top, rgba(0,0,0,1) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+#titlecontent
+{
+  padding: 3em;
+  position: absolute;
+  top: 100%;
+  animation: scroll 150s linear 0s infinite;
+}
+
+@keyframes scroll {
+  0% { top: 100%; }
+  100% { top: -70%; }
+}
+
 .dialog-box {
   max-width: 800px;
   max-height: 810px;
