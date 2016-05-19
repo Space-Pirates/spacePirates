@@ -47,7 +47,7 @@ var gameState = {
   },
 
   create: function() {
-    var style = { font: "14px Arial", fill: "#ffffff", align: "center" };
+    var style = { font: "14px Pirate Font", fill: "#ffffff", align: "center" };
     var board = game.add.image(0, 0, 'board');
     var userId = JSON.parse(JSON.parse(window.localStorage.getItem('com.spacePirates'))).id;
 
