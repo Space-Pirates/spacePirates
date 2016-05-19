@@ -5,6 +5,12 @@ function startSocketListeners($scope) {
     window.gameData.players = data.players;
     window.gameData.turnOrder = data.turnOrder;
     reorderVids();
+
+    $scope.$watch(function() {return gameData.deck.routesRemaining},
+    function(val) {
+      $scope.routesRemaining = 'Routes Remaining: ' + val;
+    });
+    $scope.$digest();
   });
 
   socket.on('hand', function(data) {

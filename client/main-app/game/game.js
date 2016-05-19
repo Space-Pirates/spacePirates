@@ -36,12 +36,7 @@ angular.module('app.game', [])
     }
   };
 
-  $scope.routesRemaining = 31;
-
-  $scope.$watch(function() {return gameData.deck.routesRemaining},
-    function(val) {
-      $scope.routesRemaining = val;
-    });
+  $scope.routesRemaining = '';
 
   var user = JSON.parse(store.get('com.spacePirates'));
   var gameId = $stateParams.gameId;
@@ -99,7 +94,7 @@ angular.module('app.game', [])
   socket.on('endTurn', function() {
     window.gameData.player.isTurn = false;
     angular.element(document.querySelector('.my-video')).removeClass('orange-border');
-    $scope.routesRemaining = gameData.deck.routesRemaining;
+    $scope.routesRemaining = 'Routes Remaining: ' + gameData.deck.routesRemaining;
     $scope.$digest();
   });
 

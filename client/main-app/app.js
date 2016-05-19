@@ -61,7 +61,7 @@ angular.module('spacePirates', [
       url: '/:gameId',
       controller: 'GameController',
       template: '<div class="orange-border"> \
-                   <p class="route-countdown"> Routes Remaining: {{ routesRemaining }} </p> \
+                   <p class="route-countdown"> {{ routesRemaining }} </p> \
                    <game-canvas></game-canvas> \
                  </div>',
       authenticate: true
