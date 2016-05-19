@@ -32,14 +32,6 @@
     "type": "route"
   },
   {
-    "tileId": "route-intersection-5",
-    "top": 1,
-    "bottom": 1,
-    "left": 1,
-    "right": 1,
-    "type": "route"
-  },
-  {
     "tileId": "route-right-turn-1",
     "top": 2,
     "bottom": 1,
@@ -76,15 +68,6 @@
     "isFlipped": false
   },
   {
-    "tileId": "route-right-turn-5",
-    "top": 2,
-    "bottom": 1,
-    "left": 1,
-    "right": 2,
-    "type": "route",
-    "isFlipped": false
-  },
-  {
     "tileId": "route-left-turn-1",
     "top": 1,
     "bottom": 2,
@@ -112,15 +95,6 @@
     "isFlipped": false
   },
   {
-    "tileId": "route-left-turn-4",
-    "top": 1,
-    "bottom": 2,
-    "left": 1,
-    "right": 2,
-    "type": "route",
-    "isFlipped": false
-  },
-  {
     "tileId": "route-horizontal-1",
     "top": 2,
     "bottom": 2,
@@ -130,14 +104,6 @@
   },
   {
     "tileId": "route-horizontal-2",
-    "top": 2,
-    "bottom": 2,
-    "left": 1,
-    "right": 1,
-    "type": "route"
-  },
-  {
-    "tileId": "route-horizontal-3",
     "top": 2,
     "bottom": 2,
     "left": 1,
@@ -162,14 +128,6 @@
   },
   {
     "tileId": "route-vertical-3",
-    "top": 1,
-    "bottom": 1,
-    "left": 2,
-    "right": 2,
-    "type": "route"
-  },
-  {
-    "tileId": "route-vertical-4",
     "top": 1,
     "bottom": 1,
     "left": 2,
@@ -213,15 +171,6 @@
     "isFlipped": false
   },
   {
-    "tileId": "route-horizontal-T-5",
-    "top": 1,
-    "bottom": 1,
-    "left": 1,
-    "right": 2,
-    "type": "route",
-    "isFlipped": false
-  },
-  {
     "tileId": "route-vertical-T-1",
     "top": 2,
     "bottom": 1,
@@ -250,15 +199,6 @@
   },
   {
     "tileId": "route-vertical-T-4",
-    "top": 2,
-    "bottom": 1,
-    "left": 1,
-    "right": 1,
-    "type": "route",
-    "isFlipped": false
-  },
-  {
-    "tileId": "route-vertical-T-5",
     "top": 2,
     "bottom": 1,
     "left": 1,
@@ -354,6 +294,93 @@
     "isFlipped": false
   },
   {
+    "tileId": "dead-end-intersection-2",
+    "isDead": true,
+    "top": 1,
+    "bottom": 1,
+    "left": 1,
+    "right": 1,
+    "type": "dead end"
+  },
+  {
+    "tileId": "dead-end-right-turn-2",
+    "isDead": true,
+    "top": 2,
+    "bottom": 1,
+    "left": 1,
+    "right": 2,
+    "type": "dead end",
+    "isFlipped": false
+  },
+  {
+    "tileId": "dead-end-left-turn-2",
+    "isDead": true,
+    "top": 1,
+    "bottom": 2,
+    "left": 1,
+    "right": 2,
+    "type": "dead end",
+    "isFlipped": false
+  },
+  {
+    "tileId": "dead-end-horizontal-2",
+    "isDead": true,
+    "top": 2,
+    "bottom": 2,
+    "left": 1,
+    "right": 1,
+    "type": "dead end"
+  },
+  {
+    "tileId": "dead-end-vertical-2",
+    "isDead": true,
+    "top": 1,
+    "bottom": 1,
+    "left": 2,
+    "right": 2,
+    "type": "dead end"
+  },
+  {
+    "tileId": "dead-end-horizontal-half-2",
+    "isDead": true,
+    "top": 2,
+    "bottom": 2,
+    "left": 1,
+    "right": 2,
+    "type": "dead end",
+    "isFlipped": false
+  },
+  {
+    "tileId": "dead-end-vertical-half-2",
+    "isDead": true,
+    "top": 1,
+    "bottom": 2,
+    "left": 2,
+    "right": 2,
+    "type": "dead end",
+    "isFlipped": false
+  },
+  {
+    "tileId": "dead-end-horizontal-T-2",
+    "isDead": true,
+    "top": 1,
+    "bottom": 1,
+    "left": 1,
+    "right": 2,
+    "type": "dead end",
+    "isFlipped": false
+  },
+  {
+    "tileId": "dead-end-vertical-T-2",
+    "isDead": true,
+    "top": 2,
+    "bottom": 1,
+    "left": 1,
+    "right": 1,
+    "type": "dead end",
+    "isFlipped": false
+  },
+  {
     "tileId": "special-reveal-1",
     "isSpecial": true,
     "type": "reveal"
@@ -369,16 +396,6 @@
     "type": "reveal"
   },
   {
-    "tileId": "special-reveal-4",
-    "isSpecial": true,
-    "type": "reveal"
-  },
-  {
-    "tileId": "special-reveal-5",
-    "isSpecial": true,
-    "type": "reveal"
-  },
-  {
     "tileId": "special-destroy-1",
     "isSpecial": true,
     "type": "destroy"
@@ -390,6 +407,16 @@
   },
   {
     "tileId": "special-destroy-3",
+    "isSpecial": true,
+    "type": "destroy"
+  },
+  {
+    "tileId": "special-destroy-4",
+    "isSpecial": true,
+    "type": "destroy"
+  },
+  {
+    "tileId": "special-destroy-5",
     "isSpecial": true,
     "type": "destroy"
   }
