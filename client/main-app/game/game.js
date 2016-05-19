@@ -27,7 +27,7 @@ angular.module('app.game', [])
     },
     deck: {
       lastDiscard: {},
-      tilesRemaining: 54
+      routesRemaining: 31
     },
     player: {
       role: '',
@@ -41,13 +41,13 @@ angular.module('app.game', [])
   window.socket = io.connect({query: 'gameId=' + gameId + '&user='+user.username});
 
   socket.on('update', function(data) {
-    // data has matrix, lastPlayed, x, y, tilesRemaining
+    // data has matrix, lastPlayed, x, y, routesRemaining
     window.gameData.board.matrix = data.matrix;
     window.gameData.board.lastPlayed = data.lastPlayed;
-    if (window.gameData.deck.tilesRemaining > data.tilesRemaining) {
+    if (window.gameData.deck.routesRemaining > data.routesRemaining) {
       window.gameData.board.spriteMatrix[0][0].width -= 27;
     }
-    window.gameData.deck.tilesRemaining = data.tilesRemaining;
+    window.gameData.deck.routesRemaining = data.routesRemaining;
 
     if (data.lastPlayed.type === 'destroy' && !(data.x === 0 && data.y === 10)) {
       for (var i = 0; i < data.matrix.length; i++) {

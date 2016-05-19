@@ -3,7 +3,6 @@ var MakeBoard = require('./board-matrix');
 
 var Board = function(gameId, cb) {
   this.gameId = gameId;
-  this.remainingRoutes = 31;
   this.initialize(cb);
 };
 

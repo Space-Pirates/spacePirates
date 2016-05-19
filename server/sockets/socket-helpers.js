@@ -1,6 +1,6 @@
 function endTurn(move, game, player) {
-  if (move.tile.tileId.substring(0, 5) === 'route') {
-    game.board.remainingRoutes--;
+  if (move.tile.type === 'route') {
+    game.deck.routesRemaining--;
   }
   return player.discard(move.tile.tileId)
   .then(function(board) {
