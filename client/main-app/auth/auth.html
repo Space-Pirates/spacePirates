@@ -1,8 +1,30 @@
-<div layout="column">
-  <md-toolbar>
-    <h1 class="header-text">Space Pirates</h1>
-  </md-toolbar>
+<div class="landing-banner">
+  <h1>Space Pirates</h1>
+</div>
+<div id="titles">
+  <div id="titlecontent">
+    <p class="scrolling-text center-text">The Story So Far...</p>
+
+    <p class="scrolling-text">Your space colony is quickly running out of resources and must find a new world that can sustain life. There is rumor of a newly discovered habitable world in the Corealus nebula and colony leadership has narrowed it down to three possible planets. With limited fuel, you must plot a course to the colony's only hope of survival, but...</p>
+    <p class="scrolling-text center-text">A TRAITOR IS IN YOUR MIDST!</p>
+    <p class="scrolling-text">A space pirate has infiltrated the leadership council. They will do everything in their power to lure you away from the new world, leaving the colony weak, exposed, and ripe for pilfering. Will you be able to lead your people to saftey, or will the space pirates succeed in their diaboical plot?</p>
+  </div>
+</div>
+
+<div layout="row">
+  <div layout="column" layout-align="center center" flex="30">
+    <div>
+      <img class="landing-img" src="assets/pirate-icon.png">
+    </div>
+  </div>
+  <div layout="column" layout-align="center center" flex="40">
   <md-card>
-    <md-button class="normal-text" ng-controller="AuthController" ng-click="showDialog()">Let's Play!</md-button>
+      <md-button class="normal-text btn-login" ng-controller="AuthController" ng-click="showDialog()">Let's Play!</md-button>
   </md-card>
+</div>
+  <div layout="column" layout-align="center center" flex="30">
+    <div>
+      <img class="landing-img" src="assets/settler-icon.png">
+    </div>
+  </div>
 </div>
