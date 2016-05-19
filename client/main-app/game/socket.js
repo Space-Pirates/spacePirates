@@ -62,7 +62,7 @@ function startSocketListeners($scope) {
     $scope.$parent.gameFeed.unshift({user: 'Game ', message: 'Over'});
     $scope.$parent.$digest();
     window.gameData.player.isTurn = false;
-    if (data.tilesRemaining) {
+    if (data.routesRemaining) {
       $scope.$parent.gameFeed.unshift({user: 'Settlers ', message: 'Won'});
       window.sounds['settlers'].play();
       window.gameData.winners = 'settlers';

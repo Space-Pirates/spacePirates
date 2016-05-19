@@ -3,7 +3,7 @@ var games = require('./../controllers/game-control').currentGames;
 
 module.exports.getGameAndCheckEnded = function(gameId) {
   return db.Game.get(gameId).getJoin({board: true}).then(function(game) {
-    return isEnded(game.matrix, games[gameId].board.remainingRoutes);
+    return isEnded(game.matrix, games[gameId].deck.routesRemaining);
   });
 }
 
