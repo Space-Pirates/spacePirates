@@ -43,62 +43,68 @@ var createConnections = function() {
 describe('Socket connection', function () {
 
   before(function(done) {
-    Promise.all([
-      request({
-        method: 'POST',
-        url: 'http://localhost:5000/signup',
-        form: {
-            name: 'TEST1',
-            email: 'TEST_EMAIL1',
-            username: 'TEST_USERNAME1',
-            password: 'TEST'
-        }
-      }),
-      request({
-        method: 'POST',
-        url: 'http://localhost:5000/signup',
-        form: {
-            name: 'TEST2',
-            email: 'TEST_EMAIL2',
-            username: 'TEST_USERNAME2',
-            password: 'TEST'
-        }
-      }),
-      request({
-        method: 'POST',
-        url: 'http://localhost:5000/signup',
-        form: {
-            name: 'TEST3',
-            email: 'TEST_EMAIL3',
-            username: 'TEST_USERNAME3',
-            password: 'TEST'
-        }
-      }),
-      request({
-        method: 'POST',
-        url: 'http://localhost:5000/signup',
-        form: {
-            name: 'TEST4',
-            email: 'TEST_EMAIL4',
-            username: 'TEST_USERNAME4',
-            password: 'TEST'
-        }
-      })
-    ]).then(function(data){
-      data = data.map(user => JSON.parse(user));
-      USER_1 = data[0];
-      USER_2 = data[1];
-      USER_3 = data[2];
-      USER_4 = data[3];
-      request({
-        headers: {
-          'x-access-token': USER_1.token
-        },
-        method: 'POST',
-        url: 'http://0.0.0.0:5000/game'
-      }).then(function(res) {
-        var GAME_ID = res.data;
-        done();
+    db.User.filter(function(doc){
+      return doc('username').match("^TEST");
+    }).delete().then(function() {
+      Promise.all([
+        request({
+          method: 'POST',
+          url: 'http://localhost:5000/signup',
+          form: {
+              name: 'TEST1',
+              email: 'TEST_EMAIL1',
+              username: 'TEST_USERNAME1',
+              password: 'TEST'
+          }
+        }),
+        request({
+          method: 'POST',
+          url: 'http://localhost:5000/signup',
+          form: {
+              name: 'TEST2',
+              email: 'TEST_EMAIL2',
+              username: 'TEST_USERNAME2',
+              password: 'TEST'
+          }
+        }),
+        request({
+          method: 'POST',
+          url: 'http://localhost:5000/signup',
+          form: {
+              name: 'TEST3',
+              email: 'TEST_EMAIL3',
+              username: 'TEST_USERNAME3',
+              password: 'TEST'
+          }
+        }),
+        request({
+          method: 'POST',
+          url: 'http://localhost:5000/signup',
+          form: {
+              name: 'TEST4',
+              email: 'TEST_EMAIL4',
+              username: 'TEST_USERNAME4',
+              password: 'TEST'
+          }
+        })
+      ]).then(function(data){
+        data = data.map(user => JSON.parse(user));
+        USER_1 = data[0];
+        USER_2 = data[1];
+        USER_3 = data[2];
+        USER_4 = data[3];
+        request({
+          headers: {
+            'x-access-token': USER_1.token
+          },
+          method: 'POST',
+          url: 'http://0.0.0.0:5000/game'
+        }).then(function(res) {
+          var GAME_ID = res.data;
+          done();
+        });
+      }).catch(function(error) {
+        console.log(error);
       });
     });
   });
@@ -118,44 +124,5 @@ describe('Socket connection', function () {
       closeConnections();
       done();
     };
-
-  });
-
-  it('should fire a "4players" when joined by 4 players', function (done) {
-    createConnections();
-
-    CLIENT_1.on('4players', function(data) {
-      expect(data).to.be.equal(GAME_ID);
-      closeConnections();
-      done()
-    });
-
-    CLIENT_1.emit('ready', {id: USER_1.id});
-    CLIENT_2.emit('ready', {id: USER_2.id});
-    CLIENT_3.emit('ready', {id: USER_3.id});
-    CLIENT_4.emit('ready', {id: USER_4.id});
-  });
-
-  it('should fire a "" event when joined by 4 players', function(done) {
-    createConnections()
-    CLIENT_1.on('startGame', function(data) {
-      expect(data).to.exist;
-      expect(data['matrix']).to.exist;
-      expect(data['tilesRemaining']).to.be.equal(54);
-      closeConnections();
-      done();
-    });
-
-    CLIENT_1.emit('ready', {id: USER_1.id});
-    CLIENT_2.emit('ready', {id: USER_2.id});
-    CLIENT_3.emit('ready', {id: USER_3.id});
-    CLIENT_4.emit('ready', {id: USER_4.id});
-  });
-
-  it('should fire a "hand" event in response to "readyForHand" with hand and role info', function (done) {
-    CLIENT_3.on('hand', function(hand){
-      done();
-    });
-    CLIENT_3.emit('readyForHand', {userId: 'TEST_USER_ID3'});
   });
 });

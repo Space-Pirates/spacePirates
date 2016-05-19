@@ -36,7 +36,7 @@ describe('RethinkDB', function() {
     });
 
     it('should be able to save and retrieve a user', function(done) {
-      db.User.run().then(function(users) {
+      db.User.filter(TEST_USER).run().then(function(users) {
         expect(users[0].name).to.be.equal('test');
         expect(users[0].age).to.be.equal(80);
         expect(users[0].email).to.be.equal('test@example.com');
@@ -51,10 +51,13 @@ describe('RethinkDB', function() {
 
     var TEST_PLAYER = {
       socketId: 'socketId',
+      gameId: 'gameId',
       role: 'owner',
       isTurn: false,
       hand: ['test', 'hand'],
-      debuffs: ['test', 'debuffs']
+      debuffs: ['test', 'debuffs'],
+      userId: 'userId',
+      username: 'TEST'
     }
 
     beforeEach(function(done){
@@ -76,7 +79,7 @@ describe('RethinkDB', function() {
     });
 
     it('should be able to save and retrieve a user', function(done) {
-      db.Player.run().then(function(players) {
+      db.Player.filter(TEST_PLAYER).run().then(function(players) {
         expect(players[0].socketId).to.be.equal('socketId');
         expect(players[0].role).to.be.equal('owner');
         expect(players[0].isTurn).to.be.equal(false);
