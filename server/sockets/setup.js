@@ -175,7 +175,7 @@ module.exports = function(app) {
               // send initial game data
               io.to(gameId).emit('startGame', {
                 matrix: matrix,
-                routesRemaining: 31,
+                routesRemaining: 24,
                 players: game.players,
                 turnOrder: game.turnOrder
               });

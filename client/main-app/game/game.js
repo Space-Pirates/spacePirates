@@ -27,7 +27,7 @@ angular.module('app.game', [])
     },
     deck: {
       lastDiscard: {},
-      routesRemaining: 31
+      routesRemaining: 24
     },
     player: {
       role: '',
