@@ -61,7 +61,7 @@ angular.module('app.game', [])
           }
         }
       }
-    } else {
+    } else if (data.lastPlayed.type !== 'reveal') {
       if (data.x === 0 && data.y === 10) {
         gameData.board.spriteMatrix[10][0].destroy(true);
       }
