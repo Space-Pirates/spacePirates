@@ -28,19 +28,19 @@ module.exports.isEnded = function(matrix, remainingRoutes) {
       visited[row + ',' + col] = 1;
       if (tile.tileId) {
         if (tile.right === 1 && matrix[row][col + 1]
-          && matrix[row][col + 1].left === 1) {
+          && matrix[row][col + 1].left === 1 && !matrix[row][col + 1].isDead) {
           findEnd(row, col + 1);
         }
         if (tile.left === 1 && matrix[row][col - 1]
-          && matrix[row][col - 1].right === 1) {
+          && matrix[row][col - 1].right === 1 && !matrix[row][col - 1].isDead) {
           findEnd(row, col - 1);
         }
         if (tile.top === 1 && matrix[row - 1]
-          && matrix[row - 1][col].bottom === 1) {
+          && matrix[row - 1][col].bottom === 1 && !matrix[row - 1][col].isDead) {
           findEnd(row - 1, col);
         }
         if (tile.bottom === 1 && matrix[row + 1]
-          && matrix[row + 1][col].top === 1) {
+          && matrix[row + 1][col].top === 1 && !matrix[row + 1][col].isDead) {
           findEnd(row + 1, col);
         }
       }

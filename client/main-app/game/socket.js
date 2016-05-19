@@ -4,7 +4,7 @@ function startSocketListeners($scope) {
     window.gameData.deck.tilesRemaining = data.tilesRemaining;
     window.gameData.players = data.players;
     window.gameData.turnOrder = data.turnOrder;
-    reorderVids();
+    // reorderVids();
 
     $scope.$watch(function() {return gameData.deck.routesRemaining},
     function(val) {
