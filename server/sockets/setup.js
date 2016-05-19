@@ -121,7 +121,6 @@ module.exports = function(app) {
         case 'update':
           utils.update(move, game, player)
           .then(function(data) {
-            console.log(isEnded(data.board.matrix));
             socket.to(gameId).emit('update', {
               matrix: data.board.matrix,
               lastPlayed: move.tile,
@@ -142,7 +141,7 @@ module.exports = function(app) {
             io.to(data.nextPlayer.socketId).emit('startTurn', {
               isTurn: data.nextPlayer.isTurn
             });
-            if (isEnded(data.board.matrix)) {
+            if (isEnded(data.board.matrix, game.deck.routesRemaining)) {
               io.to(gameId).emit('gameOver', {
                 routesRemaining: game.deck.routesRemaining
               });
