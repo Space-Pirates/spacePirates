@@ -5,7 +5,7 @@ var tileDictionary = require('./tile-dictionary.json');
 var Deck = function(gameId) {
   this.gameId = gameId;
   this.lastDiscard = {};
-  this.routesRemaining = 31;
+  this.routesRemaining = 24;
   this.initialize();
 };
 
