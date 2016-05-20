@@ -48,7 +48,7 @@ angular.module('app.game', [])
     window.gameData.board.matrix = data.matrix;
     window.gameData.board.lastPlayed = data.lastPlayed;
     if (window.gameData.deck.routesRemaining > data.routesRemaining) {
-      window.gameData.board.spriteMatrix[0][0].width -= 27;
+      window.gameData.board.spriteMatrix[0][0].width -= 35;
     }
     window.gameData.deck.routesRemaining = data.routesRemaining;
 

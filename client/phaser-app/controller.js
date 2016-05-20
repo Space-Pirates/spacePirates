@@ -180,7 +180,7 @@ function onDragStop(sprite, pointer) {
       gameData.board.spriteMatrix[y][x] = sprite;
       if (sprite.tileData.type === 'route') {
         revealPlanetIfNear(y - 1, x);
-        gameData.board.spriteMatrix[0][0].width -= 27;
+        gameData.board.spriteMatrix[0][0].width -= 35;
         gameData.deck.routesRemaining--;
       }
       emitMove(xInit, yInit, x, y, sprite.tileData);

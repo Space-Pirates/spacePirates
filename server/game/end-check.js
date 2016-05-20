@@ -43,6 +43,6 @@ module.exports.isEnded = function(matrix, remainingRoutes) {
       visited[row + ',' + col] = 0;
     }
   })(4, 1);
-
-  return ended || !routesRemaining;
+  console.log(remainingRoutes);
+  return ended || !remainingRoutes;
 }
