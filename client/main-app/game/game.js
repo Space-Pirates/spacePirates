@@ -162,6 +162,11 @@ angular.module('app.game', [])
       window.ctrl.getVideoElement(session.number).parent().find('.vid-mute').css('display', isEnabled ? 'none' : 'inline');
   });
 
+  $scope.$on('$stateChangeStart', function() {
+    window.phone.disconnect();
+    window.socket.disconnect();
+  });
+
 }])
 .directive('gameCanvas', ['$injector', function($injector) {
   var linkFn = function(scope, ele, injector) {
