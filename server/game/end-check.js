@@ -14,10 +14,6 @@ module.exports.isEnded = function(matrix, remainingRoutes) {
   var ended = false;
   var visited = {};
 
-  if (remainingRoutes === 0) {
-    return false;
-  }
-
   (function findEnd(row, col) {
     var tile = matrix[row][col];
 
@@ -48,5 +44,5 @@ module.exports.isEnded = function(matrix, remainingRoutes) {
     }
   })(4, 1);
 
-  return ended;
+  return ended || !routesRemaining;
 }
