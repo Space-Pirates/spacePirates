@@ -40,13 +40,12 @@ Deck.prototype = {
 
     return this.getTiles()
     .then(function(tiles) {
-      var tile = tiles.pop();
+      var tile = tiles.pop() || {};
 
       deck.setTiles(tiles)
       .catch(function(err) {
         console.error(err);
       });
-
       return db.Player.get(playerId)
       .run()
       .then(function(player) {
