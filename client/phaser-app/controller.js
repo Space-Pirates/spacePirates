@@ -24,6 +24,9 @@ function createStaticTile(data){
 }
 
 function createTile(data){
+  if (!data.tile.tileId) {
+    return;
+  }
   var name = data.tile.tileId.substring(0, data.tile.tileId.length-2);
   var tile = game.add.sprite(data.x*70, data.y*50, name);
 
@@ -177,7 +180,7 @@ function onDragStop(sprite, pointer) {
       gameData.board.spriteMatrix[y][x] = sprite;
       if (sprite.tileData.type === 'route') {
         revealPlanetIfNear(y - 1, x);
-        gameData.board.spriteMatrix[0][0].width -= 27;
+        gameData.board.spriteMatrix[0][0].width -= 35;
         gameData.deck.routesRemaining--;
       }
       emitMove(xInit, yInit, x, y, sprite.tileData);

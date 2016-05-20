@@ -48,7 +48,7 @@ angular.module('app.game', [])
     window.gameData.board.matrix = data.matrix;
     window.gameData.board.lastPlayed = data.lastPlayed;
     if (window.gameData.deck.routesRemaining > data.routesRemaining) {
-      window.gameData.board.spriteMatrix[0][0].width -= 27;
+      window.gameData.board.spriteMatrix[0][0].width -= 35;
     }
     window.gameData.deck.routesRemaining = data.routesRemaining;
 
@@ -160,6 +160,11 @@ angular.module('app.game', [])
 
   window.ctrl.audioToggled(function(session, isEnabled){
       window.ctrl.getVideoElement(session.number).parent().find('.vid-mute').css('display', isEnabled ? 'none' : 'inline');
+  });
+
+  $scope.$on('$stateChangeStart', function() {
+    window.phone.disconnect();
+    window.socket.disconnect();
   });
 
 }])
