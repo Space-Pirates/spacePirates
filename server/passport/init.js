@@ -17,7 +17,7 @@ module.exports = function (passport) {
         done(err, null);
       });
   });
-  
+
   signin(passport);
   signup(passport);
   jwt(passport);

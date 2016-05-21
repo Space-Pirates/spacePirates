@@ -132,7 +132,6 @@ angular.module('app.game', [])
   var ctrl = window.ctrl = CONTROLLER(phone);
   window.sessions = {};
   ctrl.ready(function(){
-    //$('#myVid').append(phone.video);
     ctrl.addLocalStream(document.getElementById('myVid'));
     ctrl.stream();
     socket.on('joined', function(user) {
